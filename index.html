@@ -511,6 +511,13 @@
                 </div>
             </div>
 
+            <div class="icon-item" onclick="openModal('manual')">
+                <div class="icon-content">
+                    <div class="icon">📖</div>
+                    <div class="icon-label">Villa Instructions</div>
+                </div>
+            </div>
+
             <div class="icon-item" onclick="openModal('directions')">
                 <div class="icon-content">
                     <div class="icon">📍</div>
@@ -683,11 +690,12 @@
                     
                     <h3>Check-in Process</h3>
                     <ul>
-                        <li>We'll meet you at the villa entrance</li>
-                        <li>Quick tour of the property and amenities</li>
-                        <li>Keys handover and alarm explanation</li>
-                        <li>Review of important information</li>
-                        <li>Local tips and recommendations</li>
+                        <li>🍽️ We will meet you at La Moressa restaurant</li>
+                        <li>📞 Please advise at least 1 hour before your arrival</li>
+                        <li>🔑 Key collection</li>
+                        <li>🏡 Short tour of the property and amenities</li>
+                        <li>📋 Review of important information</li>
+                        <li>💡 Local tips and recommendations</li>
                     </ul>
                     
                     <h3>Check-out Time</h3>
@@ -698,11 +706,11 @@
                     
                     <h3>Check-out Process</h3>
                     <ul>
-                        <li>Leave keys on the kitchen counter</li>
-                        <li>Close all windows and doors</li>
-                        <li>Turn off air conditioning units</li>
-                        <li>Check for personal belongings</li>
-                        <li>Let us know when you've left</li>
+                        <li>🔐 Leave the keys in the masterlock when you leave</li>
+                        <li>🪟 Close all windows and doors</li>
+                        <li>❄️ Turn off the air conditioners</li>
+                        <li>🎒 Check your belongings</li>
+                        <li>📱 Let us know when you have left</li>
                     </ul>
                 `
             },
@@ -1030,16 +1038,6 @@
                         <li><strong>Electrician:</strong> Mario +39 XXX XXX XXXX</li>
                         <li><strong>Gas emergency:</strong> 800 900 999</li>
                     </ul>
-                    
-                    <div class="info-box">
-                        <p><strong>What to do in case of emergency:</strong></p>
-                        <ul style="margin-top: 10px;">
-                            <li>Stay calm and call appropriate number</li>
-                            <li>Address: Via Roma 123, Praiano</li>
-                            <li>Notify us immediately after</li>
-                            <li>First aid kit in bathroom cabinet</li>
-                        </ul>
-                    </div>
                 `
             },
             faq: {
@@ -1071,6 +1069,71 @@
                     
                     <h3>Can I request late check-out?</h3>
                     <p>Contact us the day before. If no one is checking in, we can usually accommodate for a small fee.</p>
+                `
+            },
+            manual: {
+                title: "Villa Instructions",
+                content: `
+                    <p style="text-align: center; margin-bottom: 20px;">Watch our helpful video tutorials for using the villa's amenities</p>
+                    
+                    <h3>🗺️ How to Get to the Villa</h3>
+                    <div class="info-box">
+                        <p><a href="https://youtu.be/ExDjy_wZ0UQ" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
+                    </div>
+                    
+                    <h3>💧 Drinking Water</h3>
+                    <div class="info-box">
+                        <p><a href="https://youtube.com/shorts/zKp5Ryl3EFY" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
+                    </div>
+                    
+                    <h3>🔥 Hob Instructions</h3>
+                    <div class="info-box">
+                        <p><a href="https://youtube.com/shorts/ZTGUvR-1CJo" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
+                    </div>
+                    
+                    <h3>🛁 How to Activate Jacuzzi Pool</h3>
+                    <div class="info-box">
+                        <p><a href="https://youtu.be/g3QkeIY4SRw" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
+                    </div>
+                    
+                    <h3>⚡ How to Turn on the Electricity</h3>
+                    <div class="info-box">
+                        <p><a href="https://youtube.com/shorts/g3QkeIY4SRw" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
+                    </div>
+                    
+                    <h3>🔐 How to Use the Safe</h3>
+                    <div class="info-box">
+                        <p>Instructions coming soon</p>
+                    </div>
+                    
+                    <h3>🛴 How to Rent Electric Scooters</h3>
+                    <div class="info-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left-color: #2196F3;">
+                        <p><strong>Price: €20 per scooter for your entire stay!</strong></p>
+                        <ol style="margin-top: 15px; padding-left: 20px;">
+                            <li style="margin-bottom: 10px;">Pay via PayPal or cash<br>
+                            <a href="https://paypal.me/villacristinapraiano?country.x=IT&locale.x=it_IT" target="_blank" style="color: #2196F3; font-weight: 600;">💳 Pay with PayPal here</a><br>
+                            <span style="font-size: 14px;">(Choose "Friends & Family" as payment method)</span></li>
+                            
+                            <li style="margin-bottom: 10px;">Unlock the FirePow lock with code: <strong>08099</strong></li>
+                            
+                            <li style="margin-bottom: 10px;">Charge the scooter after use - chargers are in the box near the monopattino, socket available above the villa</li>
+                            
+                            <li style="margin-bottom: 10px;">Max speed: 45km/h | Range: 35-45km</li>
+                            
+                            <li>Bring the padlock if you want to lock the scooter around town</li>
+                        </ol>
+                    </div>
+                    
+                    <h3>🛴 Electric Monopattino Manual</h3>
+                    <div class="info-box">
+                        <p>Full instructions available at the villa</p>
+                    </div>
+                    
+                    <h3>🛏️ How to Open and Close Bunk Bed</h3>
+                    <div class="info-box">
+                        <p><a href="https://youtube.com/shorts/PK8nAYvR1UI" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
+                        <p style="margin-top: 10px; color: #d32f2f;"><strong>⚠️ Attention:</strong> To close the bunk bed, raise the lateral safety handles as shown in the video!</p>
+                    </div>
                 `
             }
         };
