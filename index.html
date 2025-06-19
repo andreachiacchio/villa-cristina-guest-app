@@ -198,6 +198,42 @@
             align-items: center;
             justify-content: center;
             gap: 5px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .villa-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-icon {
+            font-size: 24px;
+            opacity: 0.9;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* Welcome Card */
@@ -448,6 +484,160 @@
             border-radius: 3px;
         }
 
+        /* Awards Section */
+        .awards-section {
+            padding: 20px;
+            margin-top: -10px;
+        }
+
+        .awards-badge {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid var(--gold);
+        }
+
+        .award-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .awards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .award-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .award-score {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FF006E 0%, #8338EC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .award-platform {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .reviews-count {
+            font-size: 16px;
+            color: var(--gold);
+            font-weight: 600;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 0 20px 20px;
+        }
+
+        .features-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .feature-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .feature-desc {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            padding: 0 20px 30px;
+        }
+
+        .action-button {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            width: 100%;
+        }
+
+        .action-button:active {
+            transform: scale(0.98);
+        }
+
+        .whatsapp-main {
+            background: #25D366;
+            color: white;
+            border: none;
+        }
+
+        .whatsapp-main:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+        }
+
+        .action-icon {
+            font-size: 36px;
+        }
+
+        .action-text {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .action-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
         /* Footer */
         .footer {
             padding: 30px 20px;
@@ -497,9 +687,80 @@
                 <div class="greeting">Welcome to</div>
                 <h1 class="villa-name">Villa Cristina</h1>
                 <p class="location">
-                    <span>Praiano • Amalfi Coast</span>
+                    <span>NO STEPS • AMALFI COAST VIEWS</span>
                 </p>
+                <div class="villa-stats">
+                    <div class="stat">
+                        <span class="stat-icon">🛏️</span>
+                        <span class="stat-value">4</span>
+                        <span class="stat-label">Bedrooms</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-icon">🚿</span>
+                        <span class="stat-value">3</span>
+                        <span class="stat-label">Bathrooms</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-icon">👥</span>
+                        <span class="stat-value">8</span>
+                        <span class="stat-label">Sleeps</span>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <!-- Awards Badge -->
+        <div class="awards-section">
+            <div class="awards-badge">
+                <div class="award-title">Villa Awarded</div>
+                <div class="awards-grid">
+                    <div class="award-item">
+                        <div class="award-score">9.5/10</div>
+                        <div class="award-platform">Booking.com</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-score">4.86/5</div>
+                        <div class="award-platform">Airbnb</div>
+                    </div>
+                </div>
+                <div class="reviews-count">132+ Reviews</div>
+            </div>
+        </div>
+
+        <!-- Premium Features -->
+        <div class="features-section">
+            <h3 class="features-title">Premium Facilities</h3>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🛁</div>
+                    <div class="feature-name">Heated Jacuzzi</div>
+                    <div class="feature-desc">With panoramic views</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">👨‍🍳</div>
+                    <div class="feature-name">Personal Concierge</div>
+                    <div class="feature-desc">24/7 assistance</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌅</div>
+                    <div class="feature-name">3 Terraces</div>
+                    <div class="feature-desc">Stunning sunsets</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🚗</div>
+                    <div class="feature-name">Private Parking</div>
+                    <div class="feature-desc">NO STEPS access!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <a href="https://wa.me/393921394070" target="_blank" class="action-button whatsapp-main">
+                <span class="action-icon">💬</span>
+                <span class="action-text">WhatsApp Us</span>
+                <span class="action-subtitle">Quick Response 24/7</span>
+            </a>
         </div>
 
         <!-- Icon Grid -->
@@ -648,7 +909,7 @@
                             <li>Peaceful location but close to everything</li>
                             <li>Traditional architecture preserved with modern amenities</li>
                             <li>Private, gated property for complete privacy</li>
-                            <li>Rated 9.8/10 on Booking.com!</li>
+                            <li>Rated 9.5/10 on Booking.com!</li>
                         </ul>
                     </div>
                     
