@@ -282,25 +282,25 @@
 
         .icon-item {
             background: white;
-            border-radius: 10px;
-            padding: 20px 10px;
+            border-radius: 16px;
+            padding: 16px 8px 14px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
             position: relative;
             overflow: hidden;
-            border: 1px solid #f0f0f0;
         }
 
         .icon-item:active {
-            transform: scale(0.98);
+            transform: scale(0.96);
         }
 
         .icon-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border-color: transparent;
         }
 
         .icon-content {
@@ -319,11 +319,12 @@
         }
 
         .icon-label {
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--primary);
+            font-size: 10px;
+            font-weight: 600;
+            color: #555;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            line-height: 1.3;
         }
 
         /* Modal */
@@ -495,25 +496,24 @@
         /* Awards Section */
         .awards-section {
             padding: 20px;
-            margin-top: -10px;
         }
 
         .awards-badge {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #1B2B4B 0%, #0D1F3C 100%);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 8px 30px rgba(13,31,60,0.2);
             text-align: center;
-            border: 2px solid var(--gold);
+            border: 1px solid rgba(212,175,55,0.35);
         }
 
         .award-title {
-            font-size: 18px;
+            font-size: 11px;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 15px;
+            color: rgba(255,255,255,0.55);
+            margin-bottom: 16px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .awards-grid {
@@ -530,25 +530,24 @@
         }
 
         .award-score {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 800;
-            background: linear-gradient(135deg, #FF006E 0%, #8338EC 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--gold);
         }
 
         .award-platform {
-            font-size: 14px;
-            color: #666;
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
             font-weight: 500;
         }
 
         .reviews-count {
-            font-size: 16px;
-            color: var(--gold);
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
             font-weight: 600;
-            padding-top: 10px;
-            border-top: 1px solid #eee;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            letter-spacing: 0.5px;
         }
 
         /* Features Section */
@@ -572,11 +571,18 @@
         }
 
         .feature-item {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px;
+            background: white;
+            border-radius: 16px;
             padding: 20px;
             text-align: center;
-            border: 1px solid #e0e0e0;
+            border: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            transition: all 0.25s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
         .feature-icon {
@@ -585,15 +591,15 @@
         }
 
         .feature-name {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: 700;
             color: var(--primary);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .feature-desc {
-            font-size: 12px;
-            color: #666;
+            font-size: 11px;
+            color: #888;
         }
 
         /* Quick Actions */
@@ -648,10 +654,12 @@
 
         /* Footer */
         .footer {
-            padding: 30px 20px;
+            padding: 40px 20px 80px;
             text-align: center;
-            color: #999;
-            font-size: 14px;
+            color: #bbb;
+            font-size: 13px;
+            background: #fafafa;
+            border-top: 1px solid #f0f0f0;
         }
 
         /* Responsive */
@@ -664,6 +672,129 @@
                 font-size: 30px;
             }
         }
+
+        /* === HERO PHOTO STRIP === */
+        .hero-strip {
+            position: relative;
+            width: 100%;
+            height: 230px;
+            overflow: hidden;
+        }
+
+        .hero-strip img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-strip-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%);
+        }
+
+        .hero-strip-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 6px 14px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-strip-text {
+            position: absolute;
+            bottom: 18px;
+            left: 20px;
+            right: 20px;
+            color: white;
+        }
+
+        .hero-strip-text h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .hero-strip-text p {
+            font-size: 13px;
+            opacity: 0.9;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+            font-weight: 400;
+        }
+
+        /* === FLOATING WHATSAPP BUTTON === */
+        .fab-whatsapp {
+            position: fixed;
+            bottom: 28px;
+            right: 20px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+            z-index: 998;
+            transition: all 0.25s ease;
+        }
+
+        .fab-whatsapp:active {
+            transform: scale(0.9);
+        }
+
+        /* === GRID SECTION LABELS === */
+        .grid-section-label {
+            grid-column: 1 / -1;
+            font-size: 11px;
+            font-weight: 700;
+            color: #bbb;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 12px 2px 4px;
+        }
+
+        /* === ICON EMOJI BACKGROUNDS (iOS-style) === */
+        .icon-emoji-bg {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 26px;
+            transition: transform 0.25s ease;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        .icon-item:hover .icon-emoji-bg,
+        .icon-item:active .icon-emoji-bg {
+            transform: scale(1.08);
+        }
+
+        .ib-navy   { background: linear-gradient(145deg, #2C3E6B, #1a2a4a); }
+        .ib-gold   { background: linear-gradient(145deg, #F7971E, #e8a000); }
+        .ib-teal   { background: linear-gradient(145deg, #0f7b6c, #1abc9c); }
+        .ib-blue   { background: linear-gradient(145deg, #2980b9, #5dade2); }
+        .ib-purple { background: linear-gradient(145deg, #8338EC, #a855f7); }
+        .ib-coral  { background: linear-gradient(145deg, #e05c34, #f0936a); }
+        .ib-green  { background: linear-gradient(145deg, #27ae60, #52d68a); }
+        .ib-red    { background: linear-gradient(145deg, #c0392b, #e74c3c); }
 
         /* Loading animation */
         .loading {
@@ -904,6 +1035,17 @@
             </div>
         </div>
 
+        <!-- Hero Photo Strip -->
+        <div class="hero-strip">
+            <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80" alt="Amalfi Coast" loading="lazy">
+            <div class="hero-strip-overlay"></div>
+            <div class="hero-strip-badge">⭐ 9.5 / 10</div>
+            <div class="hero-strip-text">
+                <h2>Praiano · Amalfi Coast</h2>
+                <p>NO STEPS · 180° sea views · Private parking</p>
+            </div>
+        </div>
+
         <!-- Awards Badge -->
         <div class="awards-section">
             <div class="awards-badge">
@@ -949,118 +1091,133 @@
             </div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="quick-actions">
-            <a href="https://wa.me/393921394070" target="_blank" class="action-button whatsapp-main">
-                <span class="action-icon">💬</span>
-                <span class="action-text">WhatsApp Us</span>
-                <span class="action-subtitle">Quick Response 24/7</span>
-            </a>
-        </div>
-
         <!-- Icon Grid -->
         <div class="icon-grid">
+
+            <!-- Your Villa -->
+            <div class="grid-section-label">Your Villa</div>
+
             <div class="icon-item" onclick="openModal('welcome')">
                 <div class="icon-content">
-                    <div class="icon">🏡</div>
+                    <div class="icon-emoji-bg ib-navy">🏡</div>
                     <div class="icon-label">Welcome</div>
                 </div>
             </div>
 
             <div class="icon-item" onclick="openModal('manual')">
                 <div class="icon-content">
-                    <div class="icon">📖</div>
+                    <div class="icon-emoji-bg ib-navy">📖</div>
                     <div class="icon-label">Villa Instructions</div>
                 </div>
             </div>
 
-            <div class="icon-item" onclick="openModal('transfer')" style="border-color: #0f3460; background: linear-gradient(135deg, #1a1a2e08, #0f346010);">
+            <div style="visibility:hidden;"></div>
+
+            <!-- Book & Extras -->
+            <div class="grid-section-label">Book & Extras</div>
+
+            <div class="icon-item" onclick="openModal('transfer')">
                 <div class="icon-content">
-                    <div class="icon">🚗</div>
+                    <div class="icon-emoji-bg ib-gold">🚗</div>
                     <div class="icon-label">Private Transfer</div>
                 </div>
             </div>
 
-            <div class="icon-item" onclick="openModal('extras')" style="border-color: var(--gold); background: linear-gradient(135deg, #fff9e620, #fff3cd40);">
+            <div class="icon-item" onclick="openModal('extras')">
                 <div class="icon-content">
-                    <div class="icon">✨</div>
+                    <div class="icon-emoji-bg ib-gold">✨</div>
                     <div class="icon-label">Extras & Experiences</div>
                 </div>
             </div>
 
+            <div style="visibility:hidden;"></div>
+
+            <!-- Essential Info -->
+            <div class="grid-section-label">Essential Info</div>
+
             <div class="icon-item" onclick="openModal('directions')">
                 <div class="icon-content">
-                    <div class="icon">📍</div>
+                    <div class="icon-emoji-bg ib-teal">📍</div>
                     <div class="icon-label">Directions</div>
                 </div>
             </div>
 
             <div class="icon-item" onclick="openModal('checkin')">
                 <div class="icon-content">
-                    <div class="icon">🔑</div>
+                    <div class="icon-emoji-bg ib-teal">🔑</div>
                     <div class="icon-label">Check-in/out</div>
                 </div>
             </div>
 
             <div class="icon-item" onclick="openModal('wifi')">
                 <div class="icon-content">
-                    <div class="icon">📶</div>
+                    <div class="icon-emoji-bg ib-blue">📶</div>
                     <div class="icon-label">WiFi</div>
                 </div>
             </div>
 
             <div class="icon-item" onclick="openModal('rules')">
                 <div class="icon-content">
-                    <div class="icon">📋</div>
+                    <div class="icon-emoji-bg ib-blue">📋</div>
                     <div class="icon-label">House Rules</div>
                 </div>
             </div>
 
             <div class="icon-item" onclick="openModal('faq')">
                 <div class="icon-content">
-                    <div class="icon">💬</div>
+                    <div class="icon-emoji-bg ib-blue">💬</div>
                     <div class="icon-label">FAQ</div>
                 </div>
             </div>
 
+            <div style="visibility:hidden;"></div>
+
+            <!-- Explore Amalfi -->
+            <div class="grid-section-label">Explore Amalfi</div>
+
             <div class="icon-item" onclick="openModal('shopping')">
                 <div class="icon-content">
-                    <div class="icon">🛒</div>
+                    <div class="icon-emoji-bg ib-purple">🛒</div>
                     <div class="icon-label">Shopping</div>
                 </div>
             </div>
 
             <div class="icon-item" onclick="openModal('restaurants')">
                 <div class="icon-content">
-                    <div class="icon">🍕</div>
+                    <div class="icon-emoji-bg ib-coral">🍕</div>
                     <div class="icon-label">Restaurants</div>
                 </div>
             </div>
 
             <div class="icon-item" onclick="openModal('places')">
                 <div class="icon-content">
-                    <div class="icon">🏖️</div>
+                    <div class="icon-emoji-bg ib-coral">🏖️</div>
                     <div class="icon-label">Places</div>
                 </div>
             </div>
 
             <div class="icon-item" onclick="openModal('activities')">
                 <div class="icon-content">
-                    <div class="icon">🚢</div>
+                    <div class="icon-emoji-bg ib-purple">🚢</div>
                     <div class="icon-label">Activities</div>
                 </div>
             </div>
 
             <div class="icon-item" onclick="openModal('transport')">
                 <div class="icon-content">
-                    <div class="icon">🚌</div>
+                    <div class="icon-emoji-bg ib-teal">🚌</div>
                     <div class="icon-label">Transport</div>
                 </div>
             </div>
 
+            <div style="visibility:hidden;"></div>
+
+            <!-- Safety -->
+            <div class="grid-section-label">Safety</div>
+
             <div class="icon-item" onclick="openModal('emergency')">
                 <div class="icon-content">
-                    <div class="icon">🆘</div>
+                    <div class="icon-emoji-bg ib-red">🆘</div>
                     <div class="icon-label">Emergency</div>
                 </div>
             </div>
@@ -1075,6 +1232,11 @@
             <span style="font-size: 12px; color: #999;">© 2024 Villa Cristina - All rights reserved</span>
         </div>
     </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/393921394070" target="_blank" class="fab-whatsapp" title="WhatsApp Us">
+        💬
+    </a>
 
     <!-- Modal -->
     <div id="modal" class="modal" onclick="closeModal(event)">
