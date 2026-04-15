@@ -679,6 +679,192 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* ===== EXPERIENCE BOOKING CARDS ===== */
+        .exp-card {
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #f0f0f0;
+        }
+
+        .exp-card-img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .exp-card-body {
+            padding: 14px;
+            background: white;
+        }
+
+        .exp-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .exp-card-desc {
+            font-size: 12px;
+            color: #777;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .exp-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .exp-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--secondary);
+            line-height: 1;
+        }
+
+        .exp-price-note {
+            font-size: 10px;
+            color: #999;
+            display: block;
+            margin-top: 3px;
+        }
+
+        .book-wa-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            text-decoration: none;
+            padding: 9px 16px;
+            border-radius: 22px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .book-wa-btn:active {
+            transform: scale(0.97);
+        }
+
+        .book-pp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #003087;
+            color: white;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 22px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        /* ===== TRANSFER / NCC CARDS ===== */
+        .transfer-hero {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 20px;
+        }
+
+        .route-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            color: white;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .route-info .route-from-label {
+            font-size: 10px;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .route-info .route-place {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .route-info .route-sub {
+            font-size: 11px;
+            opacity: 0.5;
+            margin-top: 3px;
+        }
+
+        .route-arrow {
+            font-size: 20px;
+            opacity: 0.5;
+            flex-shrink: 0;
+        }
+
+        .route-price-box {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .route-price {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffd700;
+            line-height: 1;
+        }
+
+        .route-price-dest {
+            font-size: 10px;
+            opacity: 0.6;
+            margin-top: 3px;
+        }
+
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 14px;
+            padding: 18px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+
+        .vehicle-feat {
+            text-align: center;
+        }
+
+        .vehicle-feat-icon {
+            font-size: 26px;
+        }
+
+        .vehicle-feat-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+
+        .vehicle-feat-sub {
+            font-size: 10px;
+            color: #888;
+            margin-top: 2px;
+        }
     </style>
 </head>
 <body>
@@ -862,6 +1048,20 @@
                 <div class="icon-content">
                     <div class="icon">🆘</div>
                     <div class="icon-label">Emergency</div>
+                </div>
+            </div>
+
+            <div class="icon-item" onclick="openModal('transfer')" style="border-color: #0f3460; background: linear-gradient(135deg, #1a1a2e08, #0f346010);">
+                <div class="icon-content">
+                    <div class="icon">🚗</div>
+                    <div class="icon-label">Transfer NCC</div>
+                </div>
+            </div>
+
+            <div class="icon-item" onclick="openModal('extras')" style="border-color: var(--gold); background: linear-gradient(135deg, #fff9e620, #fff3cd40);">
+                <div class="icon-content">
+                    <div class="icon">✨</div>
+                    <div class="icon-label">Extra & Esperienze</div>
                 </div>
             </div>
         </div>
@@ -1345,6 +1545,287 @@
                             <strong>💬 More questions?</strong><br>
                             <span style="font-size: 14px;">WhatsApp us anytime - we're here to help!</span>
                         </p>
+                    </div>
+                `
+            },
+            transfer: {
+                title: "🚗 Transfer Privato NCC",
+                content: `
+                    <img src="https://images.unsplash.com/photo-1544620347460-35ea508edb70?w=800&q=80" alt="Luxury Transfer" class="transfer-hero">
+
+                    <p style="color: #666; font-size: 14px; margin-bottom: 20px; line-height: 1.6;">
+                        Arrivi o parti in totale comfort. Il nostro NCC privato ti porta da e verso Praiano con un veicolo a 6 posti, spazioso per bagagli, famiglie e gruppi. Nessuno stress, solo relax.
+                    </p>
+
+                    <h3>🛣️ Tratte Principali</h3>
+
+                    <div class="route-card">
+                        <div class="route-info">
+                            <div class="route-from-label">Da</div>
+                            <div class="route-place">✈️ Aeroporto di Napoli</div>
+                            <div class="route-sub">Napoli Capodichino (NAP)</div>
+                        </div>
+                        <div class="route-arrow">→</div>
+                        <div class="route-price-box">
+                            <div class="route-price">€250</div>
+                            <div class="route-price-dest">→ PRAIANO</div>
+                        </div>
+                    </div>
+
+                    <div class="route-card">
+                        <div class="route-info">
+                            <div class="route-from-label">Da</div>
+                            <div class="route-place">🚉 Stazione di Napoli</div>
+                            <div class="route-sub">Napoli Centrale / Garibaldi</div>
+                        </div>
+                        <div class="route-arrow">→</div>
+                        <div class="route-price-box">
+                            <div class="route-price">€250</div>
+                            <div class="route-price-dest">→ PRAIANO</div>
+                        </div>
+                    </div>
+
+                    <div class="route-card">
+                        <div class="route-info">
+                            <div class="route-from-label">Da</div>
+                            <div class="route-place">🌊 Sorrento</div>
+                            <div class="route-sub">Centro / Stazione Sorrento</div>
+                        </div>
+                        <div class="route-arrow">→</div>
+                        <div class="route-price-box">
+                            <div class="route-price">€250</div>
+                            <div class="route-price-dest">→ PRAIANO</div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <p style="font-weight: 600; margin-bottom: 8px;">🔄 Disponibile anche al contrario</p>
+                        <p style="font-size: 14px; color: #666;">Tutte le tratte sono disponibili in entrambe le direzioni (Praiano → destinazione).</p>
+                        <p style="font-size: 14px; color: #666; margin-top: 8px;">Per tratte personalizzate (Roma, Salerno, Pompei, Bari…) contattaci per un preventivo!</p>
+                    </div>
+
+                    <h3>🚐 Il Nostro Veicolo</h3>
+                    <div class="vehicle-grid">
+                        <div class="vehicle-feat">
+                            <div class="vehicle-feat-icon">👥</div>
+                            <div class="vehicle-feat-label">6 Posti</div>
+                            <div class="vehicle-feat-sub">Spazioso e comodo</div>
+                        </div>
+                        <div class="vehicle-feat">
+                            <div class="vehicle-feat-icon">🧳</div>
+                            <div class="vehicle-feat-label">Bagagliaio Grande</div>
+                            <div class="vehicle-feat-sub">Tanti bagagli? Nessun problema</div>
+                        </div>
+                        <div class="vehicle-feat">
+                            <div class="vehicle-feat-icon">❄️</div>
+                            <div class="vehicle-feat-label">Aria Condizionata</div>
+                            <div class="vehicle-feat-sub">Viaggio fresco e rilassante</div>
+                        </div>
+                        <div class="vehicle-feat">
+                            <div class="vehicle-feat-icon">📍</div>
+                            <div class="vehicle-feat-label">Porta a Porta</div>
+                            <div class="vehicle-feat-sub">Ritiro e consegna precisi</div>
+                        </div>
+                    </div>
+
+                    <h3>💡 Perché Sceglierlo</h3>
+                    <ul>
+                        <li>Prezzo fisso per il veicolo (non a persona)</li>
+                        <li>Nessun cambio, nessuna coda, nessun bus</li>
+                        <li>Autista puntuale e di fiducia</li>
+                        <li>Ideale con bambini, anziani o tanti bagagli</li>
+                        <li>Monitoraggio del volo in caso di ritardi</li>
+                    </ul>
+
+                    <h3>💳 Come Prenotare</h3>
+                    <ul>
+                        <li>Contattaci via WhatsApp con data, orario e punto di partenza</li>
+                        <li>Confermiamo disponibilità in pochi minuti</li>
+                        <li>Pagamento in contanti alla partenza o caparra PayPal</li>
+                    </ul>
+
+                    <a href="https://wa.me/393921394070?text=Ciao!%20Vorrei%20prenotare%20un%20transfer%20NCC%20privato.%20Data%3A%20%20Partenza%3A%20%20Destinazione%3A%20Praiano"
+                       target="_blank"
+                       class="book-wa-btn" style="width: 100%; justify-content: center; padding: 16px; font-size: 16px; border-radius: 14px; margin-top: 20px;">
+                        💬 Prenota su WhatsApp
+                    </a>
+
+                    <div style="text-align: center; margin-top: 12px;">
+                        <a href="https://paypal.me/villacristinapraiano?country.x=IT&locale.x=it_IT" target="_blank" class="book-pp-btn" style="padding: 10px 24px;">
+                            💳 Paga caparra con PayPal
+                        </a>
+                    </div>
+                `
+            },
+            extras: {
+                title: "✨ Extra & Esperienze",
+                content: `
+                    <p style="color: #666; font-size: 14px; margin-bottom: 22px; line-height: 1.6;">
+                        Rendi il tuo soggiorno indimenticabile! Prenota i nostri servizi esclusivi direttamente su WhatsApp — siamo qui per ogni desiderio. ✨
+                    </p>
+
+                    <!-- Chef Privato -->
+                    <div class="exp-card">
+                        <img src="https://images.unsplash.com/photo-1556909114-44e3e9a4e895?w=800&q=80" alt="Chef Privato" class="exp-card-img">
+                        <div class="exp-card-body">
+                            <div class="exp-card-title">👨‍🍳 Cena con Chef Privato</div>
+                            <div class="exp-card-desc">Un vero chef cucina per te sul terrazzo panoramico con vista mare. Menu di 4 portate con vini campani selezionati. Un'esperienza gastronomica unica sull'Amalfi Coast!</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">€85</div>
+                                    <span class="exp-price-note">a persona • min. 2 • 48h preavviso</span>
+                                </div>
+                                <a href="https://wa.me/393921394070?text=Ciao!%20Vorrei%20prenotare%20la%20cena%20con%20chef%20privato" target="_blank" class="book-wa-btn">💬 Prenota</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Massaggio -->
+                    <div class="exp-card">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80" alt="Massaggio in Villa" class="exp-card-img">
+                        <div class="exp-card-body">
+                            <div class="exp-card-title">💆 Massaggio in Villa</div>
+                            <div class="exp-card-desc">Una massaggiatrice professionista viene direttamente in villa. Rilassati sul terrazzo con il suono delle onde. Massaggio rilassante, decontratturante o sportivo a scelta.</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">€90</div>
+                                    <span class="exp-price-note">a persona • 60 min • 24h preavviso</span>
+                                </div>
+                                <a href="https://wa.me/393921394070?text=Ciao!%20Vorrei%20prenotare%20un%20massaggio%20in%20villa" target="_blank" class="book-wa-btn">💬 Prenota</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gita in Barca -->
+                    <div class="exp-card">
+                        <img src="https://images.unsplash.com/photo-1468581264429-2548ef9eb732?w=800&q=80" alt="Gita in Barca" class="exp-card-img">
+                        <div class="exp-card-body">
+                            <div class="exp-card-title">⛵ Gita Privata in Barca</div>
+                            <div class="exp-card-desc">Esplora Capri, le grotte e le calette nascoste con il Capitano Antonio. Include soste per nuotare, prosecco e snorkeling. Sconto esclusivo del 10% per gli ospiti di Villa Cristina!</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">€400</div>
+                                    <span class="exp-price-note">mezza giornata • sconto 10% incluso!</span>
+                                </div>
+                                <a href="https://wa.me/393921394070?text=Ciao!%20Vorrei%20prenotare%20la%20gita%20privata%20in%20barca" target="_blank" class="book-wa-btn">💬 Prenota</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sessione Fotografica -->
+                    <div class="exp-card">
+                        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80" alt="Sessione Fotografica" class="exp-card-img">
+                        <div class="exp-card-body">
+                            <div class="exp-card-title">📸 Sessione Fotografica</div>
+                            <div class="exp-card-desc">Un fotografo professionista ti immortala sui terrazzi della villa, a Positano o lungo la costiera. Ricevi 30+ foto ritoccate digitalmente. Il ricordo più bello della tua vacanza!</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">€150</div>
+                                    <span class="exp-price-note">1 ora • 30+ foto • 48h preavviso</span>
+                                </div>
+                                <a href="https://wa.me/393921394070?text=Ciao!%20Vorrei%20prenotare%20una%20sessione%20fotografica" target="_blank" class="book-wa-btn">💬 Prenota</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Degustazione -->
+                    <div class="exp-card">
+                        <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" alt="Degustazione Vini" class="exp-card-img">
+                        <div class="exp-card-body">
+                            <div class="exp-card-title">🍷 Degustazione Vini & Limoncello</div>
+                            <div class="exp-card-desc">Un sommelier locale porta i migliori vini campani e il limoncello artigianale direttamente in villa. Degustazione guidata con tagliere di prodotti tipici sul terrazzo panoramico.</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">€50</div>
+                                    <span class="exp-price-note">a persona • min. 2 • 24h preavviso</span>
+                                </div>
+                                <a href="https://wa.me/393921394070?text=Ciao!%20Vorrei%20prenotare%20la%20degustazione%20vini%20e%20limoncello" target="_blank" class="book-wa-btn">💬 Prenota</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yoga -->
+                    <div class="exp-card">
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80" alt="Yoga sul Terrazzo" class="exp-card-img">
+                        <div class="exp-card-body">
+                            <div class="exp-card-title">🧘 Yoga sul Terrazzo</div>
+                            <div class="exp-card-desc">Inizia la giornata con una sessione di yoga privata sul terrazzo con vista sul Mar Tirreno. Istruttore certificato, adatto a tutti i livelli. Disponibile all'alba o al tramonto.</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">€50</div>
+                                    <span class="exp-price-note">a persona • 60 min • 24h preavviso</span>
+                                </div>
+                                <a href="https://wa.me/393921394070?text=Ciao!%20Vorrei%20prenotare%20una%20sessione%20yoga%20in%20villa" target="_blank" class="book-wa-btn">💬 Prenota</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- E-Scooter -->
+                    <div class="exp-card" style="border-color: #2196F3;">
+                        <div class="exp-card-body" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
+                            <div class="exp-card-title">🛴 Noleggio E-Scooter</div>
+                            <div class="exp-card-desc">Esplora la costiera in totale libertà con i nostri monopattini elettrici. Veloci fino a 45 km/h, autonomia 35-45 km. Il prezzo è per l'intero soggiorno, non al giorno!</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">€20</div>
+                                    <span class="exp-price-note">per scooter • intero soggiorno</span>
+                                </div>
+                                <a href="https://paypal.me/villacristinapraiano?country.x=IT&locale.x=it_IT" target="_blank" class="book-pp-btn">💳 Paga ora</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Welcome Basket -->
+                    <div class="exp-card" style="border-color: #f59e0b;">
+                        <div class="exp-card-body" style="background: linear-gradient(135deg, #fff8e1, #fff3cd);">
+                            <div class="exp-card-title">🧺 Welcome Basket</div>
+                            <div class="exp-card-desc">Arriva e trova già in villa un cesto con i migliori prodotti locali: limoncello artigianale, mozzarella fresca, pane locale, pomodori del Vesuvio, olio EVO e formaggi tipici.</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">€45</div>
+                                    <span class="exp-price-note">per cesto • ordine entro check-in</span>
+                                </div>
+                                <a href="https://wa.me/393921394070?text=Ciao!%20Vorrei%20ordinare%20il%20Welcome%20Basket%20per%20il%20mio%20arrivo" target="_blank" class="book-wa-btn">💬 Ordina</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Spesa Pre-Arrivo -->
+                    <div class="exp-card" style="border-color: #4CAF50;">
+                        <div class="exp-card-body" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
+                            <div class="exp-card-title">🛒 Spesa Pre-Arrivo</div>
+                            <div class="exp-card-desc">Mandaci la tua lista della spesa e troverai tutto già nel frigo al tuo arrivo! Risparmia tempo prezioso e inizia subito a goderti la vacanza senza pensieri.</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">€20</div>
+                                    <span class="exp-price-note">fee servizio + costo della spesa</span>
+                                </div>
+                                <a href="https://wa.me/393921394070?text=Ciao!%20Vorrei%20il%20servizio%20spesa%20pre-arrivo.%20Ecco%20la%20mia%20lista%3A%20" target="_blank" class="book-wa-btn">💬 Richiedi</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kit Bambini -->
+                    <div class="exp-card" style="border-color: #e91e63;">
+                        <div class="exp-card-body" style="background: linear-gradient(135deg, #fce4ec, #f8bbd0);">
+                            <div class="exp-card-title">👶 Kit Bambini & Neonati</div>
+                            <div class="exp-card-desc">Lettino da campeggio, seggiolone, vasca per neonati, ombrellone e accessori spiaggia per bambini. Tutto già in villa al tuo arrivo — viaggia leggero!</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">€15</div>
+                                    <span class="exp-price-note">al giorno • da concordare in anticipo</span>
+                                </div>
+                                <a href="https://wa.me/393921394070?text=Ciao!%20Vorrei%20informazioni%20sul%20kit%20bambini%20e%20neonati" target="_blank" class="book-wa-btn">💬 Richiedi</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 25px; padding: 20px; background: linear-gradient(135deg, rgba(255,0,110,0.08), rgba(131,56,236,0.08)); border-radius: 14px; border: 1px solid rgba(131,56,236,0.15);">
+                        <p style="font-size: 14px; color: #888; margin-bottom: 6px;">Hai un'idea speciale o un desiderio diverso?</p>
+                        <p style="font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 14px;">Siamo qui per rendere il tuo soggiorno perfetto ✨</p>
+                        <a href="https://wa.me/393921394070" target="_blank" class="book-wa-btn" style="padding: 13px 28px; font-size: 15px; border-radius: 12px;">
+                            💬 Scrivici su WhatsApp
+                        </a>
                     </div>
                 `
             },
