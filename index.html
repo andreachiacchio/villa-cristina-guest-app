@@ -249,6 +249,44 @@
             padding: 0 20px 30px;
         }
 
+        .grid-section-label {
+            grid-column: 1 / -1;
+            font-size: 14px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            padding-left: 5px;
+        }
+
+        /* Book & Extras Section - Separated */
+        .book-extras-section {
+            padding: 0 20px 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 20px;
+            margin: 0 20px 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .book-extras-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 20px 20px 15px;
+            text-align: center;
+        }
+
+        .book-extras-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 0 20px 20px;
+        }
+
         .icon-item {
             background: white;
             border-radius: 16px;
@@ -460,6 +498,18 @@
         .modal-content::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #FF006E 0%, #8338EC 100%);
             border-radius: 3px;
+        }
+
+        /* Fix scroll behavior on mobile */
+        .modal-content {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Prevent body scroll when modal is open */
+        body.modal-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
         }
 
         /* Awards Section */
@@ -988,26 +1038,30 @@
 
             <div style="visibility:hidden;"></div>
 
-            <!-- Book & Extras -->
-            <div class="grid-section-label">Book & Extras</div>
+            <!-- Book & Extras - Separated Section -->
+        </div>
 
-            <div class="icon-item" onclick="openModal('transfer')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-gold">🚗</div>
-                    <div class="icon-label">Private Transfer</div>
+        <div class="book-extras-section">
+            <div class="book-extras-title">Book & Extras</div>
+            <div class="book-extras-grid">
+                <div class="icon-item" onclick="openModal('transfer')">
+                    <div class="icon-content">
+                        <div class="icon-emoji-bg ib-gold">🚗</div>
+                        <div class="icon-label">Private Transfer</div>
+                    </div>
+                </div>
+
+                <div class="icon-item" onclick="openModal('extras')">
+                    <div class="icon-content">
+                        <div class="icon-emoji-bg ib-gold">✨</div>
+                        <div class="icon-label">Extras & Experiences</div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="icon-item" onclick="openModal('extras')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-gold">✨</div>
-                    <div class="icon-label">Extras & Experiences</div>
-                </div>
-            </div>
-
-            <div style="visibility:hidden;"></div>
-
-            <!-- Essential Info -->
+        <!-- Icon Grid continues -->
+        <div class="icon-grid">
             <div class="grid-section-label">Essential Info</div>
 
             <div class="icon-item" onclick="openModal('directions')">
@@ -1736,7 +1790,26 @@
 
                     <!-- Boat Tour - Captain Antonio -->
                     <div class="exp-card" style="border-color: #1a6fa8;">
-                        <img src="https://images.unsplash.com/photo-1468581264429-2548ef9eb732?w=800&q=80" alt="Private Boat Tour Amalfi Coast" class="exp-card-img" style="height:160px;">
+                        <!-- Carousel Container -->
+                        <div style="position:relative; width:100%; height:160px; overflow:hidden; border-radius:10px 10px 0 0;">
+                            <div id="boatCarousel" style="display:flex; width:600%; height:100%; transition:transform 0.4s ease-in-out;">
+                                <img src="https://i.ibb.co/jkRLKsp9/23b21ee0-0bb3-4e80-9f66-6cf07e586f43.jpg" alt="Boat Tour 1" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
+                                <img src="https://i.ibb.co/KpyRLjBc/b9372a59-ecea-4ffc-b9fb-3e0d131358d4.jpg" alt="Boat Tour 2" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
+                                <img src="https://i.ibb.co/F4pjsP75/Whats-App-Image-2026-04-23-at-13-25-36-1.jpg" alt="Boat Tour 3" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
+                                <img src="https://i.ibb.co/kNwzvKm/Whats-App-Image-2026-04-23-at-13-25-36-2.jpg" alt="Boat Tour 4" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
+                                <img src="https://i.ibb.co/1Yw8DXx3/Whats-App-Image-2026-04-23-at-13-25-36.jpg" alt="Boat Tour 5" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
+                                <img src="https://i.ibb.co/xSNBVLLP/Whats-App-Image-2026-04-23-at-13-25-35-1.jpg" alt="Boat Tour 6" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
+                            </div>
+                            <!-- Carousel Indicators -->
+                            <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:6px;">
+                                <span class="carousel-dot active" data-slide="0" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.9); cursor:pointer;"></span>
+                                <span class="carousel-dot" data-slide="1" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer;"></span>
+                                <span class="carousel-dot" data-slide="2" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer;"></span>
+                                <span class="carousel-dot" data-slide="3" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer;"></span>
+                                <span class="carousel-dot" data-slide="4" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer;"></span>
+                                <span class="carousel-dot" data-slide="5" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer;"></span>
+                            </div>
+                        </div>
                         <div class="exp-card-body">
                             <div class="exp-card-title">⛵ Private Boat Tour — Amalfi Coast</div>
                             <div class="exp-card-desc" style="margin-bottom:10px;">Your own private boat with local skipper. Explore Capri, hidden coves and sea caves. Fully exclusive — just your group!</div>
@@ -1985,7 +2058,7 @@
             modalBody.innerHTML = modalData[type].content;
             
             modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
             
             // Trigger animation
             setTimeout(() => {
@@ -2000,7 +2073,7 @@
                 
                 setTimeout(() => {
                     modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
+                    document.body.classList.remove('modal-open');
                 }, 300);
             }
         }
@@ -2039,6 +2112,75 @@
         setTimeout(() => {
             document.querySelector('.splash-screen').style.display = 'none';
         }, 2500);
+
+        // Boat Carousel - Touch & Click Navigation
+        const boatCarousel = document.getElementById('boatCarousel');
+        const carouselDots = document.querySelectorAll('.carousel-dot');
+        let currentSlide = 0;
+        const totalSlides = 6;
+        let startX = 0;
+        let isDragging = false;
+        let translateX = 0;
+
+        function updateCarousel(slideIndex) {
+            currentSlide = slideIndex;
+            translateX = -(slideIndex * (100 / totalSlides));
+            boatCarousel.style.transform = `translateX(${translateX}%)`;
+            
+            // Update dots
+            carouselDots.forEach((dot, idx) => {
+                dot.style.background = idx === slideIndex ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.5)';
+            });
+        }
+
+        // Click on dots
+        carouselDots.forEach((dot, idx) => {
+            dot.addEventListener('click', () => updateCarousel(idx));
+        });
+
+        // Touch events for swipe
+        boatCarousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            boatCarousel.style.transition = 'none';
+        }, { passive: true });
+
+        boatCarousel.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const currentX = e.touches[0].clientX;
+            const diff = currentX - startX;
+            const slideWidth = 100 / totalSlides;
+            const newTranslateX = translateX + (diff / boatCarousel.offsetWidth * 100);
+            boatCarousel.style.transform = `translateX(${newTranslateX}%)`;
+        }, { passive: true });
+
+        boatCarousel.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            boatCarousel.style.transition = 'transform 0.4s ease-in-out';
+            
+            const endX = e.changedTouches[0].clientX;
+            const diff = endX - startX;
+            const slideWidth = 100 / totalSlides;
+            
+            if (Math.abs(diff) > slideWidth * 0.3) {
+                if (diff > 0 && currentSlide > 0) {
+                    updateCarousel(currentSlide - 1);
+                } else if (diff < 0 && currentSlide < totalSlides - 1) {
+                    updateCarousel(currentSlide + 1);
+                } else {
+                    updateCarousel(currentSlide);
+                }
+            } else {
+                updateCarousel(currentSlide);
+            }
+        }, { passive: true });
+
+        // Auto-play carousel every 4 seconds
+        setInterval(() => {
+            const nextSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel(nextSlide);
+        }, 4000);
     </script>
 </body>
 </html>
