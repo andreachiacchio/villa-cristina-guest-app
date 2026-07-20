@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#8338EC">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="https://i.ibb.co/WKJKwsR/1.jpg">
@@ -29,6 +30,7 @@
             font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #ffffff;
             min-height: 100vh;
+            min-height: 100dvh;
             color: var(--text);
             overflow-x: hidden;
         }
@@ -38,6 +40,7 @@
             margin: 0 auto;
             background: #FFFFFF;
             min-height: 100vh;
+            min-height: 100dvh;
             position: relative;
             box-shadow: 0 0 30px rgba(0,0,0,0.1);
         }
@@ -304,10 +307,12 @@
             transform: scale(0.96);
         }
 
-        .icon-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-            border-color: transparent;
+        @media (hover: hover) {
+            .icon-item:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+                border-color: transparent;
+            }
         }
 
         .icon-content {
@@ -321,8 +326,10 @@
             transition: all 0.3s ease;
         }
 
-        .icon-item:hover .icon {
-            transform: scale(1.1);
+        @media (hover: hover) {
+            .icon-item:hover .icon {
+                transform: scale(1.1);
+            }
         }
 
         .icon-label {
@@ -360,7 +367,9 @@
             background: white;
             border-radius: 30px 30px 0 0;
             padding: 10px 20px 20px;
+            padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
             max-height: 85vh;
+            max-height: 88dvh;
             overflow-y: auto;
             transform: translateY(100%);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -705,7 +714,7 @@
         /* === FLOATING WHATSAPP BUTTON === */
         .fab-whatsapp {
             position: fixed;
-            bottom: 28px;
+            bottom: calc(24px + env(safe-area-inset-bottom, 4px));
             right: 20px;
             width: 58px;
             height: 58px;
@@ -751,9 +760,14 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.15);
         }
 
-        .icon-item:hover .icon-emoji-bg,
         .icon-item:active .icon-emoji-bg {
             transform: scale(1.08);
+        }
+
+        @media (hover: hover) {
+            .icon-item:hover .icon-emoji-bg {
+                transform: scale(1.08);
+            }
         }
 
         .ib-navy   { background: linear-gradient(145deg, #2C3E6B, #1a2a4a); }
@@ -965,6 +979,120 @@
             color: #888;
             margin-top: 2px;
         }
+
+        /* ===== PHOTO CAROUSEL (native scroll-snap) ===== */
+        .photo-carousel-wrap {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background: #e8edf2;
+        }
+
+        .photo-carousel {
+            display: flex;
+            height: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .photo-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .photo-carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+            display: block;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 2;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .carousel-dot.active {
+            background: rgba(255,255,255,0.95);
+            transform: scale(1.2);
+        }
+
+        .carousel-counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.45);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 2;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== GOZZO BOAT TOUR OPTION CARDS ===== */
+        .boat-option {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            background: white;
+        }
+
+        .boat-option-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .boat-option-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1B2B4B;
+        }
+
+        .boat-option-time {
+            font-size: 11px;
+            color: #888;
+            margin-top: 3px;
+        }
+
+        .boat-option-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--secondary);
+            line-height: 1;
+        }
+
+        .boat-option-per {
+            font-size: 10px;
+            color: #aaa;
+            margin-top: 3px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -1054,7 +1182,7 @@
                 <div class="icon-item" onclick="openModal('boat-tour')">
                     <div class="icon-content">
                         <div class="icon-emoji-bg ib-gold">⛵</div>
-                        <div class="icon-label">Boat Tour</div>
+                        <div class="icon-label">Gozzo Boat Tour</div>
                     </div>
                 </div>
 
@@ -1493,11 +1621,11 @@
                     </ul>
                     
                     <div class="contact-card">
-                        <h4>🚢 Boat Trip Special</h4>
-                        <p>Our friend Captain Antonio offers exclusive boat tours</p>
-                        <p style="margin-top: 10px;">Half day: €400 | Full day: €700</p>
-                        <p style="margin-top: 5px;">Includes: Capri, swimming stops, prosecco</p>
-                        <p style="margin-top: 10px; font-size: 14px;">Mention Villa Cristina for 10% off!</p>
+                        <h4>⛵ Gozzo Boat Experience</h4>
+                        <p>See the coast from the sea on a traditional gozzo with local skipper</p>
+                        <p style="margin-top: 10px;">Sunset: €300 | Half day: €500 | Full day: €850</p>
+                        <p style="margin-top: 5px;">All inclusive: drinks, snacks, snorkelling gear & more</p>
+                        <a onclick="openModal('boat-tour')" style="display:inline-block; margin-top:14px; background:white; color:var(--primary); padding:10px 22px; border-radius:22px; font-size:14px; font-weight:700; cursor:pointer;">📸 View photos & book</a>
                     </div>
                 `
             },
@@ -1550,9 +1678,9 @@
                     
                     <h3>⛵ Boat Experiences</h3>
                     <ul>
+                        <li><strong>Private gozzo tour</strong> - Our all-inclusive experience, from €300 per boat (tap "Gozzo Boat Tour" on the home screen!)</li>
                         <li><strong>Sunset cruise</strong> - With aperitivo (€65 pp)</li>
                         <li><strong>Capri day tour</strong> - All inclusive (€120 pp)</li>
-                        <li><strong>Private boat</strong> - Your own captain (€400/day)</li>
                         <li><strong>Fishing trip</strong> - With local fishermen (€80 pp)</li>
                     </ul>
                     
@@ -1644,6 +1772,133 @@
                             <strong>💬 More questions?</strong><br>
                             <span style="font-size: 14px;">WhatsApp us anytime - we're here to help!</span>
                         </p>
+                    </div>
+                `
+            },
+            'boat-tour': {
+                title: "⛵ Gozzo Boat Experience",
+                content: `
+                    <div class="photo-carousel-wrap" style="height: 220px; border-radius: 14px; margin-bottom: 18px;">
+                        <div class="photo-carousel">
+                            <img src="https://i.ibb.co/jkRLKsp9/23b21ee0-0bb3-4e80-9f66-6cf07e586f43.jpg" alt="Gozzo boat on the Amalfi Coast" loading="lazy">
+                            <img src="https://i.ibb.co/KpyRLjBc/b9372a59-ecea-4ffc-b9fb-3e0d131358d4.jpg" alt="Gozzo boat tour along the coast" loading="lazy">
+                            <img src="https://i.ibb.co/F4pjsP75/Whats-App-Image-2026-04-23-at-13-25-36-1.jpg" alt="Swimming stop from the gozzo" loading="lazy">
+                            <img src="https://i.ibb.co/kNwzvKm/Whats-App-Image-2026-04-23-at-13-25-36-2.jpg" alt="Gozzo boat deck and sea views" loading="lazy">
+                            <img src="https://i.ibb.co/1Yw8DXx3/Whats-App-Image-2026-04-23-at-13-25-36.jpg" alt="Crystal-clear water on the boat tour" loading="lazy">
+                            <img src="https://i.ibb.co/xSNBVLLP/Whats-App-Image-2026-04-23-at-13-25-35-1.jpg" alt="Sunset from the gozzo boat" loading="lazy">
+                        </div>
+                        <div class="carousel-counter">1/6</div>
+                        <div class="carousel-dots"></div>
+                    </div>
+
+                    <p style="color: #555; font-size: 14px; line-height: 1.7; margin-bottom: 20px;">
+                        Live the Amalfi Coast like a local aboard a traditional <strong>gozzo sorrentino</strong> — the iconic wooden boat of this coastline. Your own private boat, your own local skipper: hidden sea caves, secret swimming coves and views of Positano and Capri you can only get from the water. Fully exclusive — just your group!
+                    </p>
+
+                    <h3>🌊 What You'll See</h3>
+                    <ul>
+                        <li><strong>Positano & Praiano</strong> from the sea — the postcard view</li>
+                        <li><strong>Li Galli islands</strong> — the sirens' archipelago</li>
+                        <li><strong>Furore Fjord</strong> & the Emerald Grotto</li>
+                        <li><strong>Hidden caves</strong> and natural arches</li>
+                        <li><strong>Capri & the Faraglioni</strong> (Full Day option)</li>
+                        <li><strong>Swimming & snorkelling stops</strong> in crystal-clear coves</li>
+                    </ul>
+
+                    <h3>✨ Why the Gozzo</h3>
+                    <div class="vehicle-grid">
+                        <div class="vehicle-feat">
+                            <div class="vehicle-feat-icon">🛥️</div>
+                            <div class="vehicle-feat-label">Traditional Gozzo</div>
+                            <div class="vehicle-feat-sub">Authentic wooden boat</div>
+                        </div>
+                        <div class="vehicle-feat">
+                            <div class="vehicle-feat-icon">👨‍✈️</div>
+                            <div class="vehicle-feat-label">Local Skipper</div>
+                            <div class="vehicle-feat-sub">Knows every cove</div>
+                        </div>
+                        <div class="vehicle-feat">
+                            <div class="vehicle-feat-icon">🤿</div>
+                            <div class="vehicle-feat-label">Snorkel Gear</div>
+                            <div class="vehicle-feat-sub">Masks & noodles onboard</div>
+                        </div>
+                        <div class="vehicle-feat">
+                            <div class="vehicle-feat-icon">🥂</div>
+                            <div class="vehicle-feat-label">Drinks & Snacks</div>
+                            <div class="vehicle-feat-sub">Fruit, soft drinks & more</div>
+                        </div>
+                    </div>
+
+                    <div style="background:#f0f8ff; border-radius:10px; padding:12px 14px; margin-bottom:20px; font-size:13px; color:#444; line-height:1.6;">
+                        <strong style="color:#1a6fa8;">✅ All included:</strong> drinks & soft drinks, snacks & fruit, towels, shower, snorkelling gear, diving mask, noodles, fuel, local skipper, all taxes
+                    </div>
+
+                    <h3>🕘 Choose Your Tour</h3>
+
+                    <div class="boat-option">
+                        <div class="boat-option-row">
+                            <div>
+                                <div class="boat-option-name">🌊 Full Day (7h)</div>
+                                <div class="boat-option-time">🕘 9:30–16:30 &nbsp;|&nbsp; 10:00–17:00</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div class="boat-option-price">€850</div>
+                                <div class="boat-option-per">per boat</div>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20to%20book%20the%20Full%20Day%20gozzo%20boat%20tour%20(7h%20-%20%E2%82%AC850)" target="_blank" class="book-wa-btn" style="width:100%; justify-content:center; margin-top:10px; padding:9px;">💬 Book Full Day</a>
+                    </div>
+
+                    <div class="boat-option">
+                        <div class="boat-option-row">
+                            <div>
+                                <div class="boat-option-name">🌤️ Half Day (4h)</div>
+                                <div class="boat-option-time">🕘 9:30–13:30 &nbsp;|&nbsp; 14:00–18:00</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div class="boat-option-price">€500</div>
+                                <div class="boat-option-per">per boat</div>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20to%20book%20the%20Half%20Day%20gozzo%20boat%20tour%20(4h%20-%20%E2%82%AC500)" target="_blank" class="book-wa-btn" style="width:100%; justify-content:center; margin-top:10px; padding:9px;">💬 Book Half Day</a>
+                    </div>
+
+                    <div class="boat-option">
+                        <div class="boat-option-row">
+                            <div>
+                                <div class="boat-option-name">🌅 Sunset Tour (2h)</div>
+                                <div class="boat-option-time">🕘 18:30–20:30</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div class="boat-option-price">€300</div>
+                                <div class="boat-option-per">per boat</div>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20to%20book%20the%20Sunset%20gozzo%20boat%20tour%20(2h%20-%20%E2%82%AC300)" target="_blank" class="book-wa-btn" style="width:100%; justify-content:center; margin-top:10px; padding:9px;">💬 Book Sunset</a>
+                    </div>
+
+                    <h3>💳 How to Book</h3>
+                    <ul>
+                        <li>WhatsApp us with your date and preferred time slot</li>
+                        <li>We confirm availability within minutes</li>
+                        <li>Pay on the day or send a deposit via PayPal</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <p style="font-weight: 600; margin-bottom: 8px;">💡 Good to know</p>
+                        <p style="font-size: 14px; color: #666;">Perfect for couples, families and small groups. Tours depend on sea conditions — if the weather turns, we simply reschedule or refund. Book early in high season!</p>
+                    </div>
+
+                    <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20information%20about%20the%20gozzo%20boat%20experience"
+                       target="_blank"
+                       class="book-wa-btn" style="width: 100%; justify-content: center; padding: 16px; font-size: 16px; border-radius: 14px; margin-top: 20px;">
+                        💬 Ask us on WhatsApp
+                    </a>
+
+                    <div style="text-align: center; margin-top: 12px;">
+                        <a href="https://paypal.me/villacristinapraiano?country.x=IT&locale.x=it_IT" target="_blank" class="book-pp-btn" style="padding: 10px 24px;">
+                            💳 Pay deposit via PayPal
+                        </a>
                     </div>
                 `
             },
@@ -1795,79 +2050,29 @@
                         </div>
                     </div>
 
-                    <!-- Boat Tour - Captain Antonio -->
+                    <!-- Gozzo Boat Experience -->
                     <div class="exp-card" style="border-color: #1a6fa8;">
-                        <!-- Carousel Container -->
-                        <div style="position:relative; width:100%; height:160px; overflow:hidden; border-radius:10px 10px 0 0;">
-                            <div id="boatCarousel" style="display:flex; width:600%; height:100%; transition:transform 0.4s ease-in-out;">
-                                <img src="https://i.ibb.co/jkRLKsp9/23b21ee0-0bb3-4e80-9f66-6cf07e586f43.jpg" alt="Boat Tour 1" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
-                                <img src="https://i.ibb.co/KpyRLjBc/b9372a59-ecea-4ffc-b9fb-3e0d131358d4.jpg" alt="Boat Tour 2" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
-                                <img src="https://i.ibb.co/F4pjsP75/Whats-App-Image-2026-04-23-at-13-25-36-1.jpg" alt="Boat Tour 3" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
-                                <img src="https://i.ibb.co/kNwzvKm/Whats-App-Image-2026-04-23-at-13-25-36-2.jpg" alt="Boat Tour 4" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
-                                <img src="https://i.ibb.co/1Yw8DXx3/Whats-App-Image-2026-04-23-at-13-25-36.jpg" alt="Boat Tour 5" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
-                                <img src="https://i.ibb.co/xSNBVLLP/Whats-App-Image-2026-04-23-at-13-25-35-1.jpg" alt="Boat Tour 6" style="width:16.666%; height:100%; object-fit:cover; flex-shrink:0;">
+                        <div class="photo-carousel-wrap" style="height: 160px;">
+                            <div class="photo-carousel">
+                                <img src="https://i.ibb.co/jkRLKsp9/23b21ee0-0bb3-4e80-9f66-6cf07e586f43.jpg" alt="Gozzo boat on the Amalfi Coast" loading="lazy">
+                                <img src="https://i.ibb.co/KpyRLjBc/b9372a59-ecea-4ffc-b9fb-3e0d131358d4.jpg" alt="Gozzo boat tour along the coast" loading="lazy">
+                                <img src="https://i.ibb.co/F4pjsP75/Whats-App-Image-2026-04-23-at-13-25-36-1.jpg" alt="Swimming stop from the gozzo" loading="lazy">
+                                <img src="https://i.ibb.co/kNwzvKm/Whats-App-Image-2026-04-23-at-13-25-36-2.jpg" alt="Gozzo boat deck and sea views" loading="lazy">
+                                <img src="https://i.ibb.co/1Yw8DXx3/Whats-App-Image-2026-04-23-at-13-25-36.jpg" alt="Crystal-clear water on the boat tour" loading="lazy">
+                                <img src="https://i.ibb.co/xSNBVLLP/Whats-App-Image-2026-04-23-at-13-25-35-1.jpg" alt="Sunset from the gozzo boat" loading="lazy">
                             </div>
-                            <!-- Carousel Indicators -->
-                            <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:6px;">
-                                <span class="carousel-dot active" data-slide="0" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.9); cursor:pointer;"></span>
-                                <span class="carousel-dot" data-slide="1" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer;"></span>
-                                <span class="carousel-dot" data-slide="2" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer;"></span>
-                                <span class="carousel-dot" data-slide="3" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer;"></span>
-                                <span class="carousel-dot" data-slide="4" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer;"></span>
-                                <span class="carousel-dot" data-slide="5" style="width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer;"></span>
-                            </div>
+                            <div class="carousel-counter">1/6</div>
+                            <div class="carousel-dots"></div>
                         </div>
                         <div class="exp-card-body">
-                            <div class="exp-card-title">⛵ Private Boat Tour — Amalfi Coast</div>
-                            <div class="exp-card-desc" style="margin-bottom:10px;">Your own private boat with local skipper. Explore Capri, hidden coves and sea caves. Fully exclusive — just your group!</div>
-
-                            <div style="background:#f0f8ff; border-radius:10px; padding:10px 12px; margin-bottom:14px; font-size:12px; color:#444;">
-                                <strong style="color:#1a6fa8;">✅ All included:</strong> drinks & soft drinks, snacks & fruit, towels, shower, snorkelling gear, diving mask, noodles, fuel, local skipper, all taxes
-                            </div>
-
-                            <!-- Full Day -->
-                            <div style="border:1px solid #e0e0e0; border-radius:10px; padding:12px; margin-bottom:10px;">
-                                <div style="display:flex; justify-content:space-between; align-items:center;">
-                                    <div>
-                                        <div style="font-size:13px; font-weight:700; color:#1B2B4B;">🌊 Full Day (7h)</div>
-                                        <div style="font-size:11px; color:#888; margin-top:2px;">🕘 9:30–16:30 &nbsp;|&nbsp; 10:00–17:00</div>
-                                    </div>
-                                    <div style="text-align:right;">
-                                        <div style="font-size:20px; font-weight:800; color:#e67e22;">€800</div>
-                                        <div style="font-size:10px; color:#aaa;">per boat</div>
-                                    </div>
+                            <div class="exp-card-title">⛵ Gozzo Boat Experience — Amalfi Coast</div>
+                            <div class="exp-card-desc">Private tour on a traditional gozzo sorrentino with local skipper. Capri, hidden caves, swimming stops — all inclusive. Full day, half day or sunset.</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">€300</div>
+                                    <span class="exp-price-note">from • per boat • all inclusive</span>
                                 </div>
-                                <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20to%20book%20the%20Full%20Day%20boat%20tour%20(7h%20-%20%E2%82%AC800)" target="_blank" class="book-wa-btn" style="width:100%; justify-content:center; margin-top:10px; padding:8px;">💬 Book Full Day</a>
-                            </div>
-
-                            <!-- Half Day -->
-                            <div style="border:1px solid #e0e0e0; border-radius:10px; padding:12px; margin-bottom:10px;">
-                                <div style="display:flex; justify-content:space-between; align-items:center;">
-                                    <div>
-                                        <div style="font-size:13px; font-weight:700; color:#1B2B4B;">🌤️ Half Day (4h)</div>
-                                        <div style="font-size:11px; color:#888; margin-top:2px;">🕘 9:30–13:30 &nbsp;|&nbsp; 14:00–18:00</div>
-                                    </div>
-                                    <div style="text-align:right;">
-                                        <div style="font-size:20px; font-weight:800; color:#e67e22;">€450</div>
-                                        <div style="font-size:10px; color:#aaa;">per boat</div>
-                                    </div>
-                                </div>
-                                <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20to%20book%20the%20Half%20Day%20boat%20tour%20(4h%20-%20%E2%82%AC450)" target="_blank" class="book-wa-btn" style="width:100%; justify-content:center; margin-top:10px; padding:8px;">💬 Book Half Day</a>
-                            </div>
-
-                            <!-- Sunset -->
-                            <div style="border:1px solid #e0e0e0; border-radius:10px; padding:12px;">
-                                <div style="display:flex; justify-content:space-between; align-items:center;">
-                                    <div>
-                                        <div style="font-size:13px; font-weight:700; color:#1B2B4B;">🌅 Sunset (2h)</div>
-                                        <div style="font-size:11px; color:#888; margin-top:2px;">🕘 18:30–20:30</div>
-                                    </div>
-                                    <div style="text-align:right;">
-                                        <div style="font-size:20px; font-weight:800; color:#e67e22;">€250</div>
-                                        <div style="font-size:10px; color:#aaa;">per boat</div>
-                                    </div>
-                                </div>
-                                <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20to%20book%20the%20Sunset%20boat%20tour%20(2h%20-%20%E2%82%AC250)" target="_blank" class="book-wa-btn" style="width:100%; justify-content:center; margin-top:10px; padding:8px;">💬 Book Sunset</a>
+                                <a onclick="openModal('boat-tour')" class="book-wa-btn" style="cursor:pointer; background: linear-gradient(135deg, #1a6fa8, #2980b9);">📸 View & Book</a>
                             </div>
                         </div>
                     </div>
@@ -2056,54 +2261,74 @@
             }
         };
 
+        let savedScrollY = 0;
+
         function openModal(type) {
+            const data = modalData[type];
+            if (!data) return;
+
             const modal = document.getElementById('modal');
             const modalTitle = document.getElementById('modalTitle');
             const modalBody = document.getElementById('modalBody');
-            
-            modalTitle.textContent = modalData[type].title;
-            modalBody.innerHTML = modalData[type].content;
-            
-            modal.style.display = 'block';
-            document.body.classList.add('modal-open');
-            
-            // Trigger animation
-            setTimeout(() => {
-                modal.classList.add('show');
-            }, 10);
+            const wasOpen = modal.classList.contains('show');
+
+            modalTitle.textContent = data.title;
+            modalBody.innerHTML = data.content;
+            document.querySelector('.modal-content').scrollTop = 0;
+
+            if (!wasOpen) {
+                savedScrollY = window.scrollY || window.pageYOffset;
+                modal.style.display = 'block';
+                document.body.style.top = `-${savedScrollY}px`;
+                document.body.classList.add('modal-open');
+            }
+
+            initCarousels(modalBody);
+
+            if (!wasOpen) {
+                setTimeout(() => {
+                    modal.classList.add('show');
+                }, 10);
+            }
         }
 
         function closeModal(event) {
             if (!event || event.target.id === 'modal') {
                 const modal = document.getElementById('modal');
                 modal.classList.remove('show');
-                
+                stopCarousels();
+
                 setTimeout(() => {
                     modal.style.display = 'none';
                     document.body.classList.remove('modal-open');
+                    document.body.style.top = '';
+                    window.scrollTo(0, savedScrollY);
                 }, 300);
             }
         }
 
-        // Touch gestures for mobile
+        // Swipe-down-to-close: only when the modal is scrolled to the top,
+        // the gesture is mostly vertical, and it doesn't start on a carousel.
         let touchStartY = 0;
-        let touchEndY = 0;
-        let modalContent = document.querySelector('.modal-content');
+        let touchStartX = 0;
+        let touchStartScrollTop = 0;
+        let touchOnCarousel = false;
+        const modalContent = document.querySelector('.modal-content');
 
         modalContent.addEventListener('touchstart', (e) => {
             touchStartY = e.changedTouches[0].screenY;
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartScrollTop = modalContent.scrollTop;
+            touchOnCarousel = !!e.target.closest('.photo-carousel-wrap');
         }, { passive: true });
 
         modalContent.addEventListener('touchend', (e) => {
-            touchEndY = e.changedTouches[0].screenY;
-            handleSwipe();
-        }, { passive: true });
-
-        function handleSwipe() {
-            if (touchEndY - touchStartY > 100) {
+            const deltaY = e.changedTouches[0].screenY - touchStartY;
+            const deltaX = Math.abs(e.changedTouches[0].screenX - touchStartX);
+            if (!touchOnCarousel && touchStartScrollTop <= 0 && deltaY > 120 && deltaX < 60) {
                 closeModal();
             }
-        }
+        }, { passive: true });
 
         // Add smooth scroll behavior
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2120,74 +2345,74 @@
             document.querySelector('.splash-screen').style.display = 'none';
         }, 2500);
 
-        // Boat Carousel - Touch & Click Navigation
-        const boatCarousel = document.getElementById('boatCarousel');
-        const carouselDots = document.querySelectorAll('.carousel-dot');
-        let currentSlide = 0;
-        const totalSlides = 6;
-        let startX = 0;
-        let isDragging = false;
-        let translateX = 0;
+        // Photo carousels (initialized every time a modal is opened, since
+        // modal content is injected on demand). Native scroll-snap handles the
+        // swiping; JS only manages dots, the counter and autoplay.
+        let carouselTimers = [];
 
-        function updateCarousel(slideIndex) {
-            currentSlide = slideIndex;
-            translateX = -(slideIndex * (100 / totalSlides));
-            boatCarousel.style.transform = `translateX(${translateX}%)`;
-            
-            // Update dots
-            carouselDots.forEach((dot, idx) => {
-                dot.style.background = idx === slideIndex ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.5)';
-            });
+        function stopCarousels() {
+            carouselTimers.forEach(clearInterval);
+            carouselTimers = [];
         }
 
-        // Click on dots
-        carouselDots.forEach((dot, idx) => {
-            dot.addEventListener('click', () => updateCarousel(idx));
-        });
+        function initCarousels(root) {
+            stopCarousels();
 
-        // Touch events for swipe
-        boatCarousel.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            isDragging = true;
-            boatCarousel.style.transition = 'none';
-        }, { passive: true });
+            root.querySelectorAll('.photo-carousel-wrap').forEach((wrap) => {
+                const track = wrap.querySelector('.photo-carousel');
+                if (!track) return;
+                const slides = track.querySelectorAll('img');
+                if (slides.length === 0) return;
 
-        boatCarousel.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const currentX = e.touches[0].clientX;
-            const diff = currentX - startX;
-            const slideWidth = 100 / totalSlides;
-            const newTranslateX = translateX + (diff / boatCarousel.offsetWidth * 100);
-            boatCarousel.style.transform = `translateX(${newTranslateX}%)`;
-        }, { passive: true });
+                const dotsBox = wrap.querySelector('.carousel-dots');
+                const counter = wrap.querySelector('.carousel-counter');
+                let current = 0;
+                let userInteracted = false;
+                const dots = [];
 
-        boatCarousel.addEventListener('touchend', (e) => {
-            if (!isDragging) return;
-            isDragging = false;
-            boatCarousel.style.transition = 'transform 0.4s ease-in-out';
-            
-            const endX = e.changedTouches[0].clientX;
-            const diff = endX - startX;
-            const slideWidth = 100 / totalSlides;
-            
-            if (Math.abs(diff) > slideWidth * 0.3) {
-                if (diff > 0 && currentSlide > 0) {
-                    updateCarousel(currentSlide - 1);
-                } else if (diff < 0 && currentSlide < totalSlides - 1) {
-                    updateCarousel(currentSlide + 1);
-                } else {
-                    updateCarousel(currentSlide);
+                if (dotsBox) {
+                    dotsBox.innerHTML = '';
+                    slides.forEach((_, i) => {
+                        const dot = document.createElement('span');
+                        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                        dot.addEventListener('click', () => {
+                            userInteracted = true;
+                            goTo(i);
+                        });
+                        dotsBox.appendChild(dot);
+                        dots.push(dot);
+                    });
                 }
-            } else {
-                updateCarousel(currentSlide);
-            }
-        }, { passive: true });
 
-        // Auto-play carousel every 4 seconds
-        setInterval(() => {
-            const nextSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel(nextSlide);
-        }, 4000);
+                function setActive(i) {
+                    current = i;
+                    dots.forEach((dot, idx) => dot.classList.toggle('active', idx === i));
+                    if (counter) counter.textContent = (i + 1) + '/' + slides.length;
+                }
+
+                function goTo(i) {
+                    track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+                    setActive(i);
+                }
+
+                setActive(0);
+                track.scrollLeft = 0;
+
+                track.addEventListener('scroll', () => {
+                    const i = Math.round(track.scrollLeft / track.clientWidth);
+                    if (i !== current && i >= 0 && i < slides.length) setActive(i);
+                }, { passive: true });
+
+                track.addEventListener('touchstart', () => {
+                    userInteracted = true;
+                }, { passive: true });
+
+                carouselTimers.push(setInterval(() => {
+                    if (userInteracted || !document.body.contains(track)) return;
+                    goTo((current + 1) % slides.length);
+                }, 4000));
+            });
+        }
     </script>
 </body>
 </html>
