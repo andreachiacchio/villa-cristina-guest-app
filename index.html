@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#8338EC">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#16324f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="https://i.ibb.co/WKJKwsR/1.jpg">
     <title>Villa Cristina - Your Digital Concierge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,701 +20,615 @@
         }
 
         :root {
-            --primary: #2c3e50;
-            --secondary: #e67e22;
-            --accent: #3498db;
-            --light: #ecf0f1;
-            --dark: #34495e;
-            --text: #2c3e50;
-            --gold: #d4af37;
+            --ink: #1d2b3a;
+            --navy: #16324f;
+            --sea: #2e7d9e;
+            --terracotta: #c9704e;
+            --gold: #c9a24b;
+            --sand: #f7f3ec;
+            --card: #ffffff;
+            --muted: #71808f;
+            --line: #e9e3d8;
+            --wa: #25D366;
+            --wa-dark: #128C7E;
+        }
+
+        html {
+            background: #efe9df;
+            overscroll-behavior-y: none;
         }
 
         body {
-            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #ffffff;
+            font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--sand);
             min-height: 100vh;
             min-height: 100dvh;
-            color: var(--text);
+            color: var(--ink);
             overflow-x: hidden;
+            animation: pageIn 0.5s ease both;
+        }
+
+        @keyframes pageIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .serif {
+            font-family: 'Playfair Display', Georgia, serif;
         }
 
         .app-container {
-            max-width: 430px;
+            max-width: 480px;
             margin: 0 auto;
-            background: #FFFFFF;
+            background: var(--sand);
             min-height: 100vh;
             min-height: 100dvh;
             position: relative;
-            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            box-shadow: 0 0 40px rgba(29, 43, 58, 0.18);
         }
 
-        /* Splash Screen */
-        .splash-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            animation: fadeOut 0.5s ease-out 2s forwards;
-        }
-
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-
-        .splash-logo {
-            font-size: 48px;
-            color: white;
-            font-weight: 800;
-            margin-bottom: 10px;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .splash-subtitle {
-            color: rgba(255,255,255,0.9);
-            font-size: 18px;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #FF006E 0%, #8338EC 100%);
-            color: white;
-            padding: 50px 20px 20px;
-            text-align: center;
+        /* ===== HERO ===== */
+        .hero {
             position: relative;
+            height: 66vh;
+            height: 66dvh;
+            min-height: 440px;
+            max-height: 640px;
             overflow: hidden;
-            clip-path: ellipse(100% 100% at 50% 0%);
+            background: var(--navy);
         }
 
-        /* Hero Image */
-        .hero-image {
-            position: relative;
-            width: 100%;
-            height: 280px;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        .hero-image img {
+        .hero img.hero-photo {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .hero-overlay {
+        .hero-shade {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(22, 40, 60, 0.55) 0%, rgba(22, 40, 60, 0.05) 34%, rgba(16, 28, 44, 0.24) 62%, rgba(14, 24, 38, 0.82) 100%);
+        }
+
+        .hero-top {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7) 100%);
-        }
-
-        .hero-text {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            color: white;
-            z-index: 1;
-        }
-
-        .hero-text h2 {
-            font-size: 22px;
-            margin: 0;
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero-text p {
-            font-size: 14px;
-            margin-top: 5px;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            left: -100px;
-            width: 200px;
-            height: 200px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            animation: float 15s ease-in-out infinite;
-        }
-
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: -50px;
-            right: -50px;
-            width: 150px;
-            height: 150px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 50%;
-            animation: float 20s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(100px, -100px) scale(1.1); }
-            66% { transform: translate(-100px, 100px) scale(0.9); }
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .greeting {
-            font-size: 16px;
-            opacity: 0.9;
-            margin-bottom: 10px;
-        }
-
-        .villa-name {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .location {
-            font-size: 18px;
-            opacity: 0.9;
+            right: 0;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            gap: 5px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
+            padding: calc(18px + env(safe-area-inset-top, 0px)) 20px 0;
+            z-index: 2;
         }
 
-        .location-sub {
-            font-size: 16px;
-            opacity: 0.8;
-            font-weight: 400;
-            letter-spacing: 3px;
-        }
-
-
-
-        /* Welcome Card */
-        .welcome-card {
-            background: white;
-            margin: -30px 20px 20px;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .welcome-title {
-            font-size: 24px;
-            font-weight: 400;
-            margin: 20px 0 10px;
-            color: var(--primary);
-            letter-spacing: 1px;
-        }
-
-        .welcome-subtitle {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-            padding: 0 20px 20px;
-            font-weight: 300;
-        }
-
-        /* Icon Grid */
-        .icon-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            padding: 0 20px 30px;
-        }
-
-        .grid-section-label {
-            grid-column: 1 / -1;
-            font-size: 14px;
+        .brand {
+            color: #fff;
+            font-size: 15px;
             font-weight: 700;
-            color: #888;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-top: 10px;
-            margin-bottom: 5px;
-            padding-left: 5px;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.35);
         }
 
-        /* Book & Extras Section - Separated */
-        .book-extras-section {
-            padding: 0 20px 25px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        .rating-chip {
+            background: rgba(255,255,255,0.16);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.28);
             border-radius: 20px;
-            margin: 0 20px 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-
-        .book-extras-title {
-            font-size: 16px;
+            padding: 6px 12px;
+            color: #fff;
+            font-size: 12px;
             font-weight: 700;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            padding: 20px 20px 15px;
-            text-align: center;
+            letter-spacing: 0.4px;
+            white-space: nowrap;
         }
 
-        .book-extras-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            padding: 0 20px 20px;
-        }
-
-        .icon-item {
-            background: white;
-            border-radius: 16px;
-            padding: 16px 8px 14px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .icon-item:active {
-            transform: scale(0.96);
-        }
-
-        @media (hover: hover) {
-            .icon-item:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-                border-color: transparent;
-            }
-        }
-
-        .icon-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .icon {
-            font-size: 32px;
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
-        }
-
-        @media (hover: hover) {
-            .icon-item:hover .icon {
-                transform: scale(1.1);
-            }
-        }
-
-        .icon-label {
-            font-size: 10px;
-            font-weight: 600;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            line-height: 1.3;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            opacity: 1;
-        }
-
-        .modal-content {
+        .hero-bottom {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: white;
-            border-radius: 30px 30px 0 0;
-            padding: 10px 20px 20px;
-            padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-            max-height: 85vh;
-            max-height: 88dvh;
-            overflow-y: auto;
-            transform: translateY(100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 20px 44px;
+            z-index: 2;
+            color: #fff;
         }
 
-        .modal.show .modal-content {
-            transform: translateY(0);
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 10px;
         }
 
-        .modal-handle {
-            width: 50px;
-            height: 5px;
-            background: #DDD;
-            border-radius: 10px;
-            margin: 10px auto 20px;
+        .hero-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 40px;
+            line-height: 1.08;
+            font-weight: 600;
+            margin-bottom: 14px;
+            text-shadow: 0 2px 18px rgba(0,0,0,0.35);
         }
 
-        .modal-header {
+        .hero-title em {
+            font-style: italic;
+            color: #f3d9a4;
+        }
+
+        .hero-chips {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .chip {
+            background: rgba(255,255,255,0.14);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.22);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            display: inline-flex;
             align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            font-weight: 400;
-            color: var(--primary);
-            letter-spacing: 1px;
-        }
-
-        .close-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #f8f8f8;
-            border: 1px solid #e0e0e0;
-            font-size: 20px;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
             cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
+            border: none;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-wa {
+            background: var(--wa);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+        }
+
+        .btn-glass {
+            background: rgba(255,255,255,0.16);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.32);
+            color: #fff;
+        }
+
+        /* ===== CONTENT SHEET ===== */
+        .sheet {
+            position: relative;
+            z-index: 3;
+            margin-top: -26px;
+            background: var(--sand);
+            border-radius: 28px 28px 0 0;
+            padding: 10px 0 30px;
+        }
+
+        .sheet-handle {
+            width: 44px;
+            height: 5px;
+            border-radius: 10px;
+            background: #ddd5c6;
+            margin: 8px auto 4px;
+        }
+
+        .section {
+            padding: 22px 20px 0;
+        }
+
+        .section-head {
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .section-sub {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 3px;
+            font-weight: 500;
+        }
+
+        /* Quick actions */
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .quick-tile {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 14px 6px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 10px rgba(29,43,58,0.05);
+        }
+
+        .quick-tile:active {
+            transform: scale(0.94);
+        }
+
+        .quick-emoji {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
-            color: var(--primary);
+            font-size: 21px;
+            margin: 0 auto 8px;
         }
 
-        .close-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            padding: 10px 0;
-            line-height: 1.8;
-            color: #444;
-            font-size: 16px;
-        }
-
-        .modal-body h3 {
-            color: var(--primary);
-            margin: 25px 0 15px 0;
-            font-size: 18px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .modal-body ul {
-            margin-left: 0;
-            margin-bottom: 20px;
-            list-style: none;
-        }
-
-        .modal-body li {
-            margin-bottom: 12px;
-            padding-left: 25px;
-            position: relative;
-        }
-
-        .modal-body li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--gold);
-            font-weight: bold;
-            font-size: 20px;
-            line-height: 1;
-        }
-
-        .info-box {
-            background: #f8f9fa;
-            border-left: 3px solid var(--gold);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .contact-card {
-            background: var(--primary);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .contact-card h4 {
-            color: white;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .contact-card p {
-            margin: 8px 0;
-            font-size: 16px;
-        }
-
-        .contact-card a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            border-bottom: 2px solid rgba(255,255,255,0.5);
-        }
-
-        /* Beautiful scrollbar */
-        .modal-content::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .modal-content::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        .modal-content::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #FF006E 0%, #8338EC 100%);
-            border-radius: 3px;
-        }
-
-        /* Fix scroll behavior on mobile */
-        .modal-content {
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Prevent body scroll when modal is open */
-        body.modal-open {
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-        }
-
-        /* Awards Section */
-        .awards-section {
-            padding: 20px;
-        }
-
-        .awards-badge {
-            background: linear-gradient(135deg, #1B2B4B 0%, #0D1F3C 100%);
-            border-radius: 18px;
-            padding: 22px;
-            box-shadow: 0 8px 30px rgba(13,31,60,0.2);
-            text-align: center;
-            border: 1px solid rgba(212,175,55,0.35);
-        }
-
-        .award-title {
-            font-size: 11px;
+        .quick-label {
+            font-size: 10.5px;
             font-weight: 700;
-            color: rgba(255,255,255,0.55);
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            color: var(--ink);
+            letter-spacing: 0.2px;
         }
 
-        .awards-grid {
+        /* Tint utilities */
+        .t-sea    { background: #e7f1f6; }
+        .t-sand   { background: #f3ecde; }
+        .t-terra  { background: #f8eae3; }
+        .t-green  { background: #e6f5ec; }
+        .t-gold   { background: #f7efdc; }
+        .t-red    { background: #fbe9e7; }
+        .t-purple { background: #efeaf7; }
+
+        /* Featured gozzo card */
+        .feature-card {
+            position: relative;
+            border-radius: 22px;
+            overflow: hidden;
+            height: 200px;
+            cursor: pointer;
+            box-shadow: 0 12px 30px rgba(22, 50, 79, 0.22);
+            transition: transform 0.15s ease;
+            background: var(--navy);
+        }
+
+        .feature-card:active {
+            transform: scale(0.98);
+        }
+
+        .feature-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .feature-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(14, 26, 40, 0.86) 0%, rgba(14, 26, 40, 0.18) 55%, rgba(14, 26, 40, 0.12) 100%);
+        }
+
+        .feature-tag {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: rgba(255,255,255,0.92);
+            color: var(--navy);
+            font-size: 10.5px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            border-radius: 20px;
+            padding: 6px 12px;
+        }
+
+        .feature-info {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 14px;
+            color: #fff;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .feature-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 21px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .feature-sub {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .feature-btn {
+            flex-shrink: 0;
+            background: #fff;
+            color: var(--navy);
+            border-radius: 14px;
+            padding: 10px 14px;
+            font-size: 12.5px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        /* Split cards */
+        .split-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-top: 12px;
         }
 
-        .award-item {
+        .mini-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 16px 14px;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+            box-shadow: 0 2px 10px rgba(29,43,58,0.05);
+        }
+
+        .mini-card:active {
+            transform: scale(0.96);
+        }
+
+        .mini-emoji {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
             display: flex;
-            flex-direction: column;
-            gap: 5px;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            margin-bottom: 10px;
         }
 
-        .award-score {
-            font-size: 28px;
+        .mini-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 3px;
+        }
+
+        .mini-sub {
+            font-size: 11.5px;
+            color: var(--muted);
+            font-weight: 500;
+            line-height: 1.45;
+        }
+
+        /* Row list cards */
+        .row-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(29,43,58,0.05);
+        }
+
+        .row-item {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .row-item:active {
+            background: #faf7f0;
+        }
+
+        .row-item + .row-item {
+            border-top: 1px solid var(--line);
+        }
+
+        .row-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .row-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .row-title {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .row-sub {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        .row-chev {
+            color: #c3bcae;
+            font-size: 20px;
+            font-weight: 400;
+            flex-shrink: 0;
+        }
+
+        /* Explore tiles */
+        .tile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .tile {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 16px 14px;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+            box-shadow: 0 2px 10px rgba(29,43,58,0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tile:active {
+            transform: scale(0.96);
+        }
+
+        .tile-emoji {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .tile-label {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        .tile-wide {
+            grid-column: 1 / -1;
+        }
+
+        /* Awards band */
+        .awards-band {
+            background: linear-gradient(135deg, #1b2b4b 0%, #10203a 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(201, 162, 75, 0.35);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 8px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(16, 32, 58, 0.25);
+        }
+
+        .award-cell .award-score {
+            font-size: 22px;
             font-weight: 800;
             color: var(--gold);
         }
 
-        .award-platform {
-            font-size: 12px;
-            color: rgba(255,255,255,0.5);
-            font-weight: 500;
-        }
-
-        .reviews-count {
-            font-size: 13px;
-            color: rgba(255,255,255,0.6);
+        .award-cell .award-src {
+            font-size: 10.5px;
+            color: rgba(255,255,255,0.55);
             font-weight: 600;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 3px;
             letter-spacing: 0.5px;
         }
 
-
-
-        /* Quick Actions */
-        .quick-actions {
-            padding: 0 20px 30px;
-        }
-
-        .action-button {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            width: 100%;
-        }
-
-        .action-button:active {
-            transform: scale(0.98);
-        }
-
-        .whatsapp-main {
-            background: #25D366;
-            color: white;
-            border: none;
-        }
-
-        .whatsapp-main:hover {
-            background: #128C7E;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
-        }
-
-        .action-icon {
-            font-size: 36px;
-        }
-
-        .action-text {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .action-subtitle {
-            font-size: 14px;
-            opacity: 0.9;
+        .award-divider {
+            width: 1px;
+            height: 34px;
+            background: rgba(255,255,255,0.12);
         }
 
         /* Footer */
         .footer {
-            padding: 40px 20px 80px;
+            padding: 36px 20px calc(90px + env(safe-area-inset-bottom, 0px));
             text-align: center;
-            color: #bbb;
-            font-size: 13px;
-            background: #fafafa;
-            border-top: 1px solid #f0f0f0;
         }
 
-        /* Responsive */
-        @media (max-width: 380px) {
-            .icon-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .villa-name {
-                font-size: 30px;
-            }
+        .footer-monogram {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 21px;
+            font-style: italic;
+            color: var(--navy);
+            margin-bottom: 8px;
         }
 
-        /* === HERO PHOTO STRIP === */
-        .hero-strip {
-            position: relative;
-            width: 100%;
-            height: 230px;
-            overflow: hidden;
-        }
-
-        .hero-strip img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .hero-strip-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%);
-        }
-
-        .hero-strip-badge {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 20px;
-            padding: 6px 14px;
-            color: white;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .hero-strip-text {
-            position: absolute;
-            bottom: 18px;
-            left: 20px;
-            right: 20px;
-            color: white;
-        }
-
-        .hero-strip-text h2 {
-            font-size: 20px;
+        .footer a {
+            color: var(--sea);
+            text-decoration: none;
             font-weight: 700;
-            margin-bottom: 4px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-            letter-spacing: 0.5px;
-        }
-
-        .hero-strip-text p {
             font-size: 13px;
-            opacity: 0.9;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-            font-weight: 400;
         }
 
-        /* === FLOATING WHATSAPP BUTTON === */
+        .footer-small {
+            font-size: 11.5px;
+            color: #a89f8e;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        /* Reveal on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+            body {
+                animation: none;
+            }
+        }
+
+        /* ===== FLOATING WHATSAPP BUTTON ===== */
         .fab-whatsapp {
             position: fixed;
             bottom: calc(24px + env(safe-area-inset-bottom, 4px));
@@ -726,81 +643,205 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
             z-index: 998;
-            transition: all 0.25s ease;
+            transition: transform 0.2s ease;
         }
 
         .fab-whatsapp:active {
             transform: scale(0.9);
         }
 
-        /* === GRID SECTION LABELS === */
-        .grid-section-label {
-            grid-column: 1 / -1;
-            font-size: 11px;
-            font-weight: 700;
-            color: #bbb;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            padding: 12px 2px 4px;
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 28, 42, 0.55);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        /* === ICON EMOJI BACKGROUNDS (iOS-style) === */
-        .icon-emoji-bg {
-            width: 54px;
-            height: 54px;
-            border-radius: 14px;
+        .modal.show {
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 100%);
+            width: 100%;
+            max-width: 480px;
+            background: #fdfbf7;
+            border-radius: 26px 26px 0 0;
+            padding: 10px 20px 20px;
+            padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+            max-height: 85vh;
+            max-height: 88dvh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-y: contain;
+            transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal.show .modal-content {
+            transform: translate(-50%, 0);
+        }
+
+        .modal-handle {
+            width: 44px;
+            height: 5px;
+            background: #ddd5c6;
+            border-radius: 10px;
+            margin: 8px auto 18px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 25px;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.15;
+        }
+
+        .close-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #f1ece1;
+            border: 1px solid var(--line);
+            font-size: 18px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 10px;
-            font-size: 26px;
-            transition: transform 0.25s ease;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            transition: all 0.25s ease;
+            color: var(--ink);
+            flex-shrink: 0;
         }
 
-        .icon-item:active .icon-emoji-bg {
-            transform: scale(1.08);
+        .close-btn:active {
+            background: var(--navy);
+            color: #fff;
         }
 
-        @media (hover: hover) {
-            .icon-item:hover .icon-emoji-bg {
-                transform: scale(1.08);
-            }
+        .modal-body {
+            padding: 4px 0 10px;
+            line-height: 1.75;
+            color: #45525f;
+            font-size: 15px;
         }
 
-        .ib-navy   { background: linear-gradient(145deg, #2C3E6B, #1a2a4a); }
-        .ib-gold   { background: linear-gradient(145deg, #F7971E, #e8a000); }
-        .ib-teal   { background: linear-gradient(145deg, #0f7b6c, #1abc9c); }
-        .ib-blue   { background: linear-gradient(145deg, #2980b9, #5dade2); }
-        .ib-purple { background: linear-gradient(145deg, #8338EC, #a855f7); }
-        .ib-coral  { background: linear-gradient(145deg, #e05c34, #f0936a); }
-        .ib-green  { background: linear-gradient(145deg, #27ae60, #52d68a); }
-        .ib-red    { background: linear-gradient(145deg, #c0392b, #e74c3c); }
-
-        /* Loading animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
+        .modal-body h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--ink);
+            margin: 26px 0 12px 0;
+            font-size: 19px;
+            font-weight: 600;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .modal-body ul {
+            margin-left: 0;
+            margin-bottom: 18px;
+            list-style: none;
+        }
+
+        .modal-body li {
+            margin-bottom: 11px;
+            padding-left: 22px;
+            position: relative;
+        }
+
+        .modal-body li::before {
+            content: '•';
+            position: absolute;
+            left: 2px;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        .info-box {
+            background: #f5f0e5;
+            border-left: 3px solid var(--gold);
+            padding: 16px 18px;
+            margin: 18px 0;
+            border-radius: 6px 14px 14px 6px;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, #1b2b4b 0%, #10203a 100%);
+            color: white;
+            padding: 24px 20px;
+            border-radius: 18px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 10px 26px rgba(16, 32, 58, 0.28);
+        }
+
+        .contact-card h4 {
+            color: white;
+            margin-bottom: 14px;
+            font-size: 19px;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+        }
+
+        .contact-card p {
+            margin: 7px 0;
+            font-size: 15px;
+        }
+
+        .contact-card a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #d8d0bf;
+            border-radius: 3px;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
         }
 
         /* ===== EXPERIENCE BOOKING CARDS ===== */
         .exp-card {
-            border-radius: 14px;
+            border-radius: 18px;
             overflow: hidden;
             margin-bottom: 18px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 1px solid #f0f0f0;
+            box-shadow: 0 4px 16px rgba(29,43,58,0.08);
+            border: 1px solid var(--line);
+            background: #fff;
         }
 
         .exp-card-img {
@@ -811,21 +852,21 @@
         }
 
         .exp-card-body {
-            padding: 14px;
+            padding: 15px;
             background: white;
         }
 
         .exp-card-title {
             font-size: 15px;
-            font-weight: 700;
-            color: var(--primary);
+            font-weight: 800;
+            color: var(--ink);
             margin-bottom: 6px;
         }
 
         .exp-card-desc {
-            font-size: 12px;
-            color: #777;
-            line-height: 1.5;
+            font-size: 12.5px;
+            color: var(--muted);
+            line-height: 1.55;
             margin-bottom: 14px;
         }
 
@@ -839,15 +880,15 @@
         .exp-price {
             font-size: 22px;
             font-weight: 800;
-            color: var(--secondary);
+            color: var(--terracotta);
             line-height: 1;
         }
 
         .exp-price-note {
             font-size: 10px;
-            color: #999;
+            color: #a5a094;
             display: block;
-            margin-top: 3px;
+            margin-top: 4px;
         }
 
         .book-wa-btn {
@@ -857,12 +898,12 @@
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
             text-decoration: none;
-            padding: 9px 16px;
+            padding: 10px 16px;
             border-radius: 22px;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 12.5px;
+            font-weight: 700;
             white-space: nowrap;
-            transition: all 0.2s ease;
+            transition: transform 0.15s ease;
         }
 
         .book-wa-btn:active {
@@ -876,27 +917,27 @@
             background: #003087;
             color: white;
             text-decoration: none;
-            padding: 8px 14px;
+            padding: 9px 14px;
             border-radius: 22px;
-            font-size: 11px;
-            font-weight: 600;
+            font-size: 11.5px;
+            font-weight: 700;
             white-space: nowrap;
-            transition: all 0.2s ease;
+            transition: transform 0.15s ease;
         }
 
-        /* ===== TRANSFER / NCC CARDS ===== */
+        /* ===== TRANSFER / ROUTE CARDS ===== */
         .transfer-hero {
             width: 100%;
             height: 160px;
             object-fit: cover;
-            border-radius: 14px;
+            border-radius: 16px;
             margin-bottom: 20px;
         }
 
         .route-card {
-            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            background: linear-gradient(135deg, #16324f 0%, #0e2038 100%);
             color: white;
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 18px;
             margin-bottom: 12px;
             display: flex;
@@ -936,9 +977,9 @@
         }
 
         .route-price {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
-            color: #ffd700;
+            color: #f3d9a4;
             line-height: 1;
         }
 
@@ -952,11 +993,11 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 14px;
+            background: #f5f0e5;
+            border-radius: 16px;
             padding: 18px;
             margin: 20px 0;
-            border: 1px solid #ddd;
+            border: 1px solid var(--line);
         }
 
         .vehicle-feat {
@@ -964,19 +1005,19 @@
         }
 
         .vehicle-feat-icon {
-            font-size: 26px;
+            font-size: 25px;
         }
 
         .vehicle-feat-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--primary);
+            font-size: 12.5px;
+            font-weight: 800;
+            color: var(--ink);
             margin-top: 5px;
         }
 
         .vehicle-feat-sub {
-            font-size: 10px;
-            color: #888;
+            font-size: 10.5px;
+            color: var(--muted);
             margin-top: 2px;
         }
 
@@ -985,7 +1026,7 @@
             position: relative;
             width: 100%;
             overflow: hidden;
-            background: #e8edf2;
+            background: #e6e0d3;
         }
 
         .photo-carousel {
@@ -1014,24 +1055,33 @@
 
         .carousel-dots {
             position: absolute;
-            bottom: 10px;
+            bottom: 2px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 6px;
             z-index: 2;
         }
 
+        /* 8px visual dot inside a 26px touch target */
         .carousel-dot {
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .carousel-dot::after {
+            content: '';
             width: 8px;
             height: 8px;
             border-radius: 50%;
             background: rgba(255,255,255,0.5);
-            cursor: pointer;
             transition: background 0.2s ease, transform 0.2s ease;
         }
 
-        .carousel-dot.active {
+        .carousel-dot.active::after {
             background: rgba(255,255,255,0.95);
             transform: scale(1.2);
         }
@@ -1040,10 +1090,10 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(0,0,0,0.45);
+            background: rgba(14, 26, 40, 0.5);
             color: white;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             padding: 4px 10px;
             border-radius: 12px;
             backdrop-filter: blur(4px);
@@ -1054,8 +1104,8 @@
 
         /* ===== GOZZO BOAT TOUR OPTION CARDS ===== */
         .boat-option {
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
             padding: 14px;
             margin-bottom: 12px;
             background: white;
@@ -1070,230 +1120,248 @@
 
         .boat-option-name {
             font-size: 14px;
-            font-weight: 700;
-            color: #1B2B4B;
+            font-weight: 800;
+            color: var(--ink);
         }
 
         .boat-option-time {
             font-size: 11px;
-            color: #888;
+            color: var(--muted);
             margin-top: 3px;
         }
 
         .boat-option-price {
             font-size: 22px;
             font-weight: 800;
-            color: var(--secondary);
+            color: var(--terracotta);
             line-height: 1;
         }
 
         .boat-option-per {
             font-size: 10px;
-            color: #aaa;
+            color: #a5a094;
             margin-top: 3px;
             text-align: right;
+        }
+
+        @media (max-width: 350px) {
+            .hero-title {
+                font-size: 33px;
+            }
+            .quick-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Splash Screen -->
-    <div class="splash-screen">
-        <div class="splash-logo">Villa Cristina</div>
-        <div class="splash-subtitle">PRAIANO</div>
-    </div>
-
     <div class="app-container">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-content">
-                <div class="greeting">Welcome to</div>
-                <h1 class="villa-name">Villa Cristina</h1>
-                <p class="location">
-                    <span>NO STEPS • AMALFI COAST VIEWS</span>
-                </p>
-                <p class="location-sub">PRAIANO</p>
+
+        <!-- Hero -->
+        <div class="hero">
+            <img class="hero-photo" src="https://i.ibb.co/Dfqvt292/Villa-Cristina-Positano-alessandrafarinelli-com-14.jpg" alt="Villa Cristina, Praiano — Amalfi Coast">
+            <div class="hero-shade"></div>
+            <div class="hero-top">
+                <div class="brand">Villa Cristina</div>
+                <div class="rating-chip">⭐ 9.5 · 132+ reviews</div>
+            </div>
+            <div class="hero-bottom">
+                <div class="eyebrow">Praiano · Amalfi Coast</div>
+                <h1 class="hero-title">Your home<br>on the <em>Amalfi Coast</em></h1>
+                <div class="hero-chips">
+                    <span class="chip">✓ NO STEPS</span>
+                    <span class="chip">180° sea views</span>
+                    <span class="chip">Private parking</span>
+                </div>
+                <div class="hero-cta">
+                    <a href="https://wa.me/393921394070" target="_blank" class="btn btn-wa">💬 WhatsApp us</a>
+                    <button class="btn btn-glass" onclick="openModal('boat-tour')">⛵ Gozzo Boat Tour</button>
+                </div>
             </div>
         </div>
 
-        <!-- Hero Photo Strip -->
-        <div class="hero-strip">
-            <img src="https://i.ibb.co/Dfqvt292/Villa-Cristina-Positano-alessandrafarinelli-com-14.jpg" alt="Villa Cristina" loading="lazy">
-            <div class="hero-strip-overlay"></div>
-            <div class="hero-strip-badge">⭐ 9.5 / 10</div>
-            <div class="hero-strip-text">
-                <h2>Praiano · Amalfi Coast</h2>
-                <p>NO STEPS · 180° sea views · Private parking</p>
-            </div>
-        </div>
+        <!-- Content sheet -->
+        <div class="sheet">
+            <div class="sheet-handle"></div>
 
-        <!-- Awards Badge -->
-        <div class="awards-section">
-            <div class="awards-badge">
-                <div class="award-title">Villa Awarded</div>
-                <div class="awards-grid">
-                    <div class="award-item">
-                        <div class="award-score">9.5/10</div>
-                        <div class="award-platform">Booking.com</div>
+            <!-- Quick actions -->
+            <div class="section reveal">
+                <div class="quick-grid">
+                    <div class="quick-tile" onclick="openModal('wifi')">
+                        <div class="quick-emoji t-sea">📶</div>
+                        <div class="quick-label">WiFi</div>
                     </div>
-                    <div class="award-item">
-                        <div class="award-score">4.86/5</div>
-                        <div class="award-platform">Airbnb</div>
+                    <div class="quick-tile" onclick="openModal('directions')">
+                        <div class="quick-emoji t-gold">📍</div>
+                        <div class="quick-label">Directions</div>
+                    </div>
+                    <div class="quick-tile" onclick="openModal('checkin')">
+                        <div class="quick-emoji t-green">🔑</div>
+                        <div class="quick-label">Check-in</div>
+                    </div>
+                    <div class="quick-tile" onclick="openModal('emergency')">
+                        <div class="quick-emoji t-red">🆘</div>
+                        <div class="quick-label">Emergency</div>
                     </div>
                 </div>
-                <div class="reviews-count">132+ Reviews</div>
             </div>
-        </div>
 
-        <!-- Icon Grid -->
-        <div class="icon-grid">
+            <!-- Book & Extras -->
+            <div class="section reveal">
+                <div class="section-head">
+                    <div class="section-title">Book &amp; Extras</div>
+                    <div class="section-sub">Curated experiences, arranged by your hosts</div>
+                </div>
+
+                <div class="feature-card" onclick="openModal('boat-tour')">
+                    <img src="https://i.ibb.co/jkRLKsp9/23b21ee0-0bb3-4e80-9f66-6cf07e586f43.jpg" alt="Gozzo boat tour on the Amalfi Coast" loading="lazy">
+                    <div class="feature-overlay"></div>
+                    <div class="feature-tag">⛵ Signature experience</div>
+                    <div class="feature-info">
+                        <div>
+                            <div class="feature-name">Gozzo Boat Experience</div>
+                            <div class="feature-sub">from €350 · per boat · all inclusive</div>
+                        </div>
+                        <div class="feature-btn">View &amp; Book</div>
+                    </div>
+                </div>
+
+                <div class="split-grid">
+                    <div class="mini-card" onclick="openModal('transfer')">
+                        <div class="mini-emoji t-gold">🚗</div>
+                        <div class="mini-title">Private Transfer</div>
+                        <div class="mini-sub">Naples, Sorrento &amp; more · door to door</div>
+                    </div>
+                    <div class="mini-card" onclick="openModal('extras')">
+                        <div class="mini-emoji t-terra">✨</div>
+                        <div class="mini-title">More Experiences</div>
+                        <div class="mini-sub">Chef, massage, wine tasting &amp; more</div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Your Villa -->
-            <div class="grid-section-label">Your Villa</div>
-
-            <div class="icon-item" onclick="openModal('welcome')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-navy">🏡</div>
-                    <div class="icon-label">Welcome</div>
+            <div class="section reveal">
+                <div class="section-head">
+                    <div class="section-title">Your Villa</div>
                 </div>
-            </div>
-
-            <div class="icon-item" onclick="openModal('manual')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-navy">📖</div>
-                    <div class="icon-label">Villa Instructions</div>
-                </div>
-            </div>
-
-            <div style="visibility:hidden;"></div>
-
-            <!-- Book & Extras - Separated Section -->
-        </div>
-
-        <div class="book-extras-section">
-            <div class="book-extras-title">Book & Extras</div>
-            <div class="book-extras-grid">
-                <div class="icon-item" onclick="openModal('transfer')">
-                    <div class="icon-content">
-                        <div class="icon-emoji-bg ib-gold">🚗</div>
-                        <div class="icon-label">Private Transfer</div>
+                <div class="row-card">
+                    <div class="row-item" onclick="openModal('welcome')">
+                        <div class="row-icon t-sea">🏡</div>
+                        <div class="row-text">
+                            <div class="row-title">Welcome &amp; Your Hosts</div>
+                            <div class="row-sub">The villa, the location, your contacts</div>
+                        </div>
+                        <div class="row-chev">›</div>
                     </div>
-                </div>
-
-                <div class="icon-item" onclick="openModal('boat-tour')">
-                    <div class="icon-content">
-                        <div class="icon-emoji-bg ib-gold">⛵</div>
-                        <div class="icon-label">Gozzo Boat Tour</div>
-                    </div>
-                </div>
-
-                <div class="icon-item" onclick="openModal('extras')">
-                    <div class="icon-content">
-                        <div class="icon-emoji-bg ib-gold">✨</div>
-                        <div class="icon-label">More Experiences</div>
+                    <div class="row-item" onclick="openModal('manual')">
+                        <div class="row-icon t-sand">📖</div>
+                        <div class="row-text">
+                            <div class="row-title">Villa Instructions</div>
+                            <div class="row-sub">Video tutorials &amp; how-tos</div>
+                        </div>
+                        <div class="row-chev">›</div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Icon Grid continues -->
-        <div class="icon-grid">
-            <div class="grid-section-label">Essential Info</div>
-
-            <div class="icon-item" onclick="openModal('directions')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-teal">📍</div>
-                    <div class="icon-label">Directions</div>
+            <!-- Essential Info -->
+            <div class="section reveal">
+                <div class="section-head">
+                    <div class="section-title">Essential Info</div>
+                </div>
+                <div class="row-card">
+                    <div class="row-item" onclick="openModal('checkin')">
+                        <div class="row-icon t-green">🔑</div>
+                        <div class="row-text">
+                            <div class="row-title">Check-in &amp; Check-out</div>
+                            <div class="row-sub">Times, keys &amp; process</div>
+                        </div>
+                        <div class="row-chev">›</div>
+                    </div>
+                    <div class="row-item" onclick="openModal('wifi')">
+                        <div class="row-icon t-sea">📶</div>
+                        <div class="row-text">
+                            <div class="row-title">WiFi</div>
+                            <div class="row-sub">Network &amp; password</div>
+                        </div>
+                        <div class="row-chev">›</div>
+                    </div>
+                    <div class="row-item" onclick="openModal('rules')">
+                        <div class="row-icon t-sand">📋</div>
+                        <div class="row-text">
+                            <div class="row-title">House Rules</div>
+                            <div class="row-sub">Quiet hours, recycling &amp; more</div>
+                        </div>
+                        <div class="row-chev">›</div>
+                    </div>
+                    <div class="row-item" onclick="openModal('faq')">
+                        <div class="row-icon t-purple">💬</div>
+                        <div class="row-text">
+                            <div class="row-title">FAQ</div>
+                            <div class="row-sub">Answers to common questions</div>
+                        </div>
+                        <div class="row-chev">›</div>
+                    </div>
                 </div>
             </div>
-
-            <div class="icon-item" onclick="openModal('checkin')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-teal">🔑</div>
-                    <div class="icon-label">Check-in/out</div>
-                </div>
-            </div>
-
-            <div class="icon-item" onclick="openModal('wifi')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-blue">📶</div>
-                    <div class="icon-label">WiFi</div>
-                </div>
-            </div>
-
-            <div class="icon-item" onclick="openModal('rules')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-blue">📋</div>
-                    <div class="icon-label">House Rules</div>
-                </div>
-            </div>
-
-            <div class="icon-item" onclick="openModal('faq')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-blue">💬</div>
-                    <div class="icon-label">FAQ</div>
-                </div>
-            </div>
-
-            <div style="visibility:hidden;"></div>
 
             <!-- Explore Amalfi -->
-            <div class="grid-section-label">Explore Amalfi</div>
-
-            <div class="icon-item" onclick="openModal('shopping')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-purple">🛒</div>
-                    <div class="icon-label">Shopping</div>
+            <div class="section reveal">
+                <div class="section-head">
+                    <div class="section-title">Explore Amalfi</div>
+                    <div class="section-sub">Our local tips, tested and loved</div>
+                </div>
+                <div class="tile-grid">
+                    <div class="tile" onclick="openModal('restaurants')">
+                        <div class="tile-emoji t-terra">🍝</div>
+                        <div class="tile-label">Restaurants</div>
+                    </div>
+                    <div class="tile" onclick="openModal('places')">
+                        <div class="tile-emoji t-sea">🏖️</div>
+                        <div class="tile-label">Beaches &amp; Places</div>
+                    </div>
+                    <div class="tile" onclick="openModal('activities')">
+                        <div class="tile-emoji t-green">🚣</div>
+                        <div class="tile-label">Things to Do</div>
+                    </div>
+                    <div class="tile" onclick="openModal('shopping')">
+                        <div class="tile-emoji t-purple">🛍️</div>
+                        <div class="tile-label">Shopping &amp; Services</div>
+                    </div>
+                    <div class="tile tile-wide" onclick="openModal('transport')">
+                        <div class="tile-emoji t-gold">🚌</div>
+                        <div class="tile-label">Getting Around — buses, taxis &amp; boats</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="icon-item" onclick="openModal('restaurants')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-coral">🍕</div>
-                    <div class="icon-label">Restaurants</div>
+            <!-- Awards -->
+            <div class="section reveal">
+                <div class="awards-band">
+                    <div class="award-cell">
+                        <div class="award-score">9.5/10</div>
+                        <div class="award-src">Booking.com</div>
+                    </div>
+                    <div class="award-divider"></div>
+                    <div class="award-cell">
+                        <div class="award-score">4.86/5</div>
+                        <div class="award-src">Airbnb</div>
+                    </div>
+                    <div class="award-divider"></div>
+                    <div class="award-cell">
+                        <div class="award-score">132+</div>
+                        <div class="award-src">Reviews</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="icon-item" onclick="openModal('places')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-coral">🏖️</div>
-                    <div class="icon-label">Places</div>
-                </div>
+            <!-- Footer -->
+            <div class="footer reveal">
+                <div class="footer-monogram">Villa Cristina</div>
+                <a href="https://villacristinapraiano.com">villacristinapraiano.com</a>
+                <div class="footer-small">© 2026 Villa Cristina · Praiano · All rights reserved</div>
             </div>
-
-            <div class="icon-item" onclick="openModal('activities')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-purple">🚢</div>
-                    <div class="icon-label">Activities</div>
-                </div>
-            </div>
-
-            <div class="icon-item" onclick="openModal('transport')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-teal">🚌</div>
-                    <div class="icon-label">Transport</div>
-                </div>
-            </div>
-
-            <div style="visibility:hidden;"></div>
-
-            <!-- Safety -->
-            <div class="grid-section-label">Safety</div>
-
-            <div class="icon-item" onclick="openModal('emergency')">
-                <div class="icon-content">
-                    <div class="icon-emoji-bg ib-red">🆘</div>
-                    <div class="icon-label">Emergency</div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <a href="https://villacristinapraiano.com" style="color: var(--primary); text-decoration: none; font-weight: 500;">
-                villacristinapraiano.com
-            </a><br>
-            <span style="font-size: 12px; color: #999;">© 2024 Villa Cristina - All rights reserved</span>
         </div>
     </div>
 
@@ -1321,8 +1389,8 @@
             welcome: {
                 title: "Welcome to Villa Cristina",
                 content: `
-                    <p style="font-size: 18px; line-height: 1.6; margin-bottom: 20px;">We're delighted to welcome you to our spectacular villa in Praiano, where luxury meets the breathtaking beauty of the Amalfi Coast!</p>
-                    
+                    <p style="font-size: 17px; line-height: 1.6; margin-bottom: 20px;">We're delighted to welcome you to our spectacular villa in Praiano, where luxury meets the breathtaking beauty of the Amalfi Coast!</p>
+
                     <h3>🏡 Your Villa Features</h3>
                     <ul>
                         <li><strong>3 spacious bedrooms</strong> with traditional Vietri tiles & sea views</li>
@@ -1335,9 +1403,9 @@
                         <li><strong>Private gated parking</strong> - NO STEPS from car to villa!</li>
                         <li><strong>Traditional architecture</strong> with modern comfort</li>
                     </ul>
-                    
-                    <div class="info-box" style="background: linear-gradient(135deg, #fff5f5 0%, #ffebeb 100%); border-left-color: #FF006E;">
-                        <h4 style="color: #FF006E; margin-bottom: 10px;">✨ What Makes Villa Cristina Special</h4>
+
+                    <div class="info-box" style="background: #f8eae3; border-left-color: var(--terracotta);">
+                        <h4 style="color: var(--terracotta); margin-bottom: 10px;">✨ What Makes Villa Cristina Special</h4>
                         <ul style="margin: 0;">
                             <li>NO STEPS access - extremely rare on the Amalfi Coast!</li>
                             <li>Authentic Italian style with Vietri ceramics throughout</li>
@@ -1348,7 +1416,7 @@
                             <li>Rated 9.5/10 on Booking.com!</li>
                         </ul>
                     </div>
-                    
+
                     <h3>📍 Perfect Location in Praiano</h3>
                     <p>Your villa is ideally situated in a quiet residential area with:</p>
                     <ul>
@@ -1359,7 +1427,7 @@
                         <li>Bus stop to Positano/Amalfi - 8 min walk</li>
                         <li>Restaurants and cafes - 5-10 min walk</li>
                     </ul>
-                    
+
                     <div class="contact-card">
                         <h4>Your Super Hosts - Grazia & Andrea</h4>
                         <p>📱 Mobile: +39 392 139 4070</p>
@@ -1368,10 +1436,10 @@
                         <p>🌐 Website: <a href="https://villacristinapraiano.com" style="color: white;">villacristinapraiano.com</a></p>
                         <p style="margin-top: 15px; font-size: 14px;">Grazia - Customer Relations Manager<br>We're always here to help make your stay perfect!</p>
                     </div>
-                    
-                    <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-                        <p style="font-size: 16px; color: #666; margin-bottom: 10px;">Experience the authentic Amalfi Coast</p>
-                        <p style="font-size: 24px; font-weight: 700; background: linear-gradient(135deg, #FF006E 0%, #8338EC 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Benvenuti a Casa!</p>
+
+                    <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f5f0e5; border-radius: 14px;">
+                        <p style="font-size: 15px; color: var(--muted); margin-bottom: 8px;">Experience the authentic Amalfi Coast</p>
+                        <p class="serif" style="font-size: 26px; font-weight: 600; font-style: italic; color: var(--terracotta);">Benvenuti a Casa!</p>
                     </div>
                 `
             },
@@ -1382,9 +1450,9 @@
                     <div class="info-box">
                         <p><strong>Standard check-in:</strong> 3:00 PM - 8:00 PM</p>
                         <p><strong>Late check-in:</strong> Available upon request</p>
-                        <p style="margin-top: 10px; font-size: 14px;">We'll meet you at the property to hand over the keys and show you around.</p>
+                        <p style="margin-top: 10px; font-size: 14px;">We'll meet you at La Moressa restaurant to hand over the keys, then show you around the villa.</p>
                     </div>
-                    
+
                     <h3>Check-in Process</h3>
                     <ul>
                         <li>🍽️ We will meet you at La Moressa restaurant</li>
@@ -1394,13 +1462,13 @@
                         <li>📋 Review of important information</li>
                         <li>💡 Local tips and recommendations</li>
                     </ul>
-                    
+
                     <h3>Check-out Time</h3>
                     <div class="info-box">
                         <p><strong>Standard check-out:</strong> By 10:00 AM</p>
                         <p><strong>Late check-out:</strong> Subject to availability (fee may apply)</p>
                     </div>
-                    
+
                     <h3>Check-out Process</h3>
                     <ul>
                         <li>🔐 Leave the keys in the masterlock when you leave</li>
@@ -1423,7 +1491,7 @@
                         <li>👥 Maximum occupancy: 4 guests</li>
                         <li>👟 No shoes inside please</li>
                     </ul>
-                    
+
                     <h3>Using the Property</h3>
                     <ul>
                         <li>Treat our home with care and respect</li>
@@ -1432,7 +1500,7 @@
                         <li>Use provided beach towels for the beach</li>
                         <li>Report any damages immediately</li>
                     </ul>
-                    
+
                     <h3>Waste & Recycling</h3>
                     <div class="info-box">
                         <p><strong>Recycling is mandatory in Praiano:</strong></p>
@@ -1455,7 +1523,7 @@
                         <p style="font-size: 18px; margin: 15px 0;">Network: <strong>VillaCristina_5G</strong></p>
                         <p style="font-size: 18px;">Password: <strong>Amalfi2024!</strong></p>
                     </div>
-                    
+
                     <h3>Connection Info</h3>
                     <ul>
                         <li>High-speed fiber optic (100 Mbps)</li>
@@ -1464,7 +1532,7 @@
                         <li>Netflix & streaming ready</li>
                         <li>Printer available on network</li>
                     </ul>
-                    
+
                     <h3>Troubleshooting</h3>
                     <div class="info-box">
                         <p>If you experience connection issues:</p>
@@ -1485,26 +1553,26 @@
                         84010 Praiano (SA)<br>
                         Amalfi Coast, Italy</p>
                         <p style="margin-top: 10px;">
-                            <a href="https://maps.app.goo.gl/XGJCPEAfzZ78mSPs5" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                            <a href="https://maps.app.goo.gl/XGJCPEAfzZ78mSPs5" target="_blank" style="color: var(--sea); text-decoration: none; font-weight: 700;">
                                 📍 Open in Google Maps
                             </a>
                         </p>
                     </div>
-                    
+
                     <h3>From Naples Airport (NAP)</h3>
                     <ul>
                         <li><strong>By Car:</strong> A3 to Castellammare, then SS163 (90 min)</li>
                         <li><strong>By Bus:</strong> Curreri to Sorrento + SITA bus (2.5 hrs)</li>
-                        <li><strong>Private Transfer:</strong> We can arrange (€130)</li>
+                        <li><strong>Private Transfer:</strong> We can arrange (€250)</li>
                         <li><strong>By Train + Bus:</strong> To Salerno + SITA bus</li>
                     </ul>
-                    
+
                     <h3>From Rome</h3>
                     <ul>
                         <li><strong>By Car:</strong> A1 to Naples, then A3 (3.5 hrs)</li>
                         <li><strong>By Train:</strong> To Salerno (2 hrs) + SITA bus</li>
                     </ul>
-                    
+
                     <h3>Parking</h3>
                     <div class="info-box">
                         <p><strong>Your reserved parking space:</strong></p>
@@ -1522,7 +1590,7 @@
                         <li><strong>Trattoria San Gennaro</strong> - Authentic local cuisine</li>
                         <li><strong>La Strada</strong> - Best pizza in town</li>
                     </ul>
-                    
+
                     <h3>🍝 Positano (10 min drive)</h3>
                     <ul>
                         <li><strong>La Sponda</strong> - Romantic Michelin star dining</li>
@@ -1530,14 +1598,14 @@
                         <li><strong>Chez Black</strong> - Celebrity spotting spot</li>
                         <li><strong>Next2</strong> - Modern Italian fusion</li>
                     </ul>
-                    
+
                     <h3>🦞 Amalfi (15 min drive)</h3>
                     <ul>
                         <li><strong>Marina Grande</strong> - Seafood with harbor views</li>
                         <li><strong>Il Mulino</strong> - Traditional pasta dishes</li>
                         <li><strong>Da Gemma</strong> - Family-run since 1872</li>
                     </ul>
-                    
+
                     <div class="info-box">
                         <p><strong>💡 Pro Tips:</strong></p>
                         <ul style="margin-top: 10px;">
@@ -1554,11 +1622,11 @@
                 content: `
                     <h3>🚌 SITA Bus Service</h3>
                     <div class="info-box">
-                        <p><strong>Nearest stop:</strong> Praiano Chiesa (5 min walk)</p>
+                        <p><strong>Nearest stop:</strong> Praiano Chiesa (8 min walk)</p>
                         <p><strong>Tickets:</strong> €2.50 per ride (buy at tabacchi)</p>
                         <p><strong>Day pass:</strong> €10 (unlimited rides)</p>
                     </div>
-                    
+
                     <h3>Main Routes & Times</h3>
                     <ul>
                         <li><strong>To Positano:</strong> Every 30 min (10 min ride)</li>
@@ -1566,21 +1634,21 @@
                         <li><strong>To Sorrento:</strong> Via Positano (1 hour)</li>
                         <li><strong>To Salerno:</strong> 4 times daily (1.5 hours)</li>
                     </ul>
-                    
+
                     <h3>🚕 Taxi & Private Drivers</h3>
                     <ul>
                         <li><strong>Praiano Taxi:</strong> +39 089 874 365</li>
-                        <li><strong>Gennaro (our driver):</strong> +39 XXX XXX XXXX</li>
-                        <li><strong>Typical fares:</strong> Positano €25, Amalfi €35</li>
+                        <li><strong>Our private transfer:</strong> WhatsApp us — see "Private Transfer" for routes & prices</li>
+                        <li><strong>Typical taxi fares:</strong> Positano €25, Amalfi €35</li>
                     </ul>
-                    
+
                     <h3>🛵 Scooter & Boat Rental</h3>
                     <ul>
                         <li><strong>Positano Rent:</strong> Scooters from €60/day</li>
                         <li><strong>Lucibello Boats:</strong> From €200/day + fuel</li>
                         <li><strong>No license boats:</strong> 40hp available</li>
                     </ul>
-                    
+
                     <div class="info-box">
                         <p><strong>⚠️ Driving Tips:</strong></p>
                         <ul style="margin-top: 10px;">
@@ -1597,12 +1665,12 @@
                 content: `
                     <h3>🏖️ Beaches Near You</h3>
                     <ul>
-                        <li><strong>Marina di Praia</strong> - 10 min walk, sandy beach</li>
-                        <li><strong>Gavitella Beach</strong> - 15 min walk, quieter option</li>
+                        <li><strong>Marina di Praia</strong> - 13 min walk, sandy beach</li>
+                        <li><strong>Gavitella Beach</strong> - 18 min walk, quieter option</li>
                         <li><strong>Furore Fjord</strong> - 10 min drive, stunning!</li>
                         <li><strong>Arienzo Beach</strong> - Positano's hidden gem</li>
                     </ul>
-                    
+
                     <h3>🏛️ Must-See Attractions</h3>
                     <ul>
                         <li><strong>Path of the Gods</strong> - Epic hiking trail (3 hrs)</li>
@@ -1611,7 +1679,7 @@
                         <li><strong>Villa Rufolo</strong> - Ravello's gardens</li>
                         <li><strong>Positano</strong> - The vertical town</li>
                     </ul>
-                    
+
                     <h3>🗓️ Day Trips</h3>
                     <ul>
                         <li><strong>Capri</strong> - Ferry from Amalfi (€25)</li>
@@ -1619,13 +1687,13 @@
                         <li><strong>Sorrento</strong> - Limoncello capital (45 min)</li>
                         <li><strong>Naples</strong> - Pizza pilgrimage (1.5 hrs)</li>
                     </ul>
-                    
+
                     <div class="contact-card">
                         <h4>⛵ Gozzo Boat Experience</h4>
                         <p>See the coast from the sea on a traditional gozzo with local skipper</p>
                         <p style="margin-top: 10px;">Sunset: €350 | Half day: €550 | Full day: €900</p>
                         <p style="margin-top: 5px;">All inclusive: drinks, snacks, snorkelling gear & more</p>
-                        <a onclick="openModal('boat-tour')" style="display:inline-block; margin-top:14px; background:white; color:var(--primary); padding:10px 22px; border-radius:22px; font-size:14px; font-weight:700; cursor:pointer;">📸 View photos & book</a>
+                        <a onclick="openModal('boat-tour')" style="display:inline-block; margin-top:14px; background:white; color:var(--navy); padding:10px 22px; border-radius:22px; font-size:14px; font-weight:700; cursor:pointer;">📸 View photos & book</a>
                     </div>
                 `
             },
@@ -1639,7 +1707,7 @@
                         <li><strong>Netta Supermarket</strong> - Positano (larger selection)</li>
                         <li><strong>Fish market</strong> - Marina di Praia (mornings)</li>
                     </ul>
-                    
+
                     <h3>💊 Pharmacy & Medical</h3>
                     <ul>
                         <li><strong>Farmacia Praiano</strong> - Via Capriglione 120</li>
@@ -1647,7 +1715,7 @@
                         <li><strong>Dentist</strong> - Dr. Romano in Amalfi</li>
                         <li><strong>Hospital</strong> - Castiglione di Ravello</li>
                     </ul>
-                    
+
                     <h3>🎁 Local Products</h3>
                     <ul>
                         <li><strong>Ceramics</strong> - Ceramica Casola (beautiful!)</li>
@@ -1655,7 +1723,7 @@
                         <li><strong>Sandals</strong> - Positano leather sandals</li>
                         <li><strong>Linen clothes</strong> - Positano fashion</li>
                     </ul>
-                    
+
                     <h3>🏧 Banking & Services</h3>
                     <div class="info-box">
                         <p><strong>ATM:</strong> Main square (Banco di Napoli)</p>
@@ -1675,7 +1743,7 @@
                         <li><strong>Snorkeling</strong> - Equipment at beach shops</li>
                         <li><strong>Diving</strong> - PADI center in Positano</li>
                     </ul>
-                    
+
                     <h3>⛵ Boat Experiences</h3>
                     <ul>
                         <li><strong>Private gozzo tour</strong> - Our all-inclusive experience, from €350 per boat (tap "Gozzo Boat Tour" on the home screen!)</li>
@@ -1683,7 +1751,7 @@
                         <li><strong>Capri day tour</strong> - All inclusive (€120 pp)</li>
                         <li><strong>Fishing trip</strong> - With local fishermen (€80 pp)</li>
                     </ul>
-                    
+
                     <h3>🎨 Cultural Experiences</h3>
                     <ul>
                         <li><strong>Cooking class</strong> - Mamma Agata, Ravello</li>
@@ -1691,7 +1759,7 @@
                         <li><strong>Ceramic workshop</strong> - Create your own</li>
                         <li><strong>Lemon tour</strong> - Farm visit + limoncello</li>
                     </ul>
-                    
+
                     <h3>🥾 Active Adventures</h3>
                     <ul>
                         <li><strong>Path of Gods hike</strong> - Start early!</li>
@@ -1699,7 +1767,7 @@
                         <li><strong>E-bike tours</strong> - Easier on the hills</li>
                         <li><strong>Yoga classes</strong> - Beach yoga at sunrise</li>
                     </ul>
-                    
+
                     <div class="contact-card">
                         <h4>Special Experience</h4>
                         <p>We can arrange a private chef dinner on your terrace!</p>
@@ -1711,7 +1779,7 @@
             emergency: {
                 title: "Emergency Contacts",
                 content: `
-                    <div class="contact-card" style="background: linear-gradient(135deg, #FF0000 0%, #FF6B6B 100%);">
+                    <div class="contact-card" style="background: linear-gradient(135deg, #b3261e 0%, #d75248 100%);">
                         <h4>🚨 Emergency Numbers</h4>
                         <p style="font-size: 20px; margin: 15px 0;"><strong>General Emergency: 112</strong></p>
                         <p>Police: 113</p>
@@ -1719,20 +1787,18 @@
                         <p>Fire Department: 115</p>
                         <p>Coast Guard: 1530</p>
                     </div>
-                    
+
                     <h3>🏥 Medical Services</h3>
                     <ul>
                         <li><strong>Tourist Medical Center</strong> - Positano: 089 875 5833</li>
                         <li><strong>Hospital Castiglione</strong> - Ravello: 089 859 111</li>
-                        <li><strong>English-speaking doctor</strong> - Dr. Marina: +39 XXX XXX</li>
                         <li><strong>Pharmacy (24h)</strong> - Amalfi: 089 871 045</li>
                     </ul>
-                    
+
                     <h3>🏠 House Emergencies</h3>
                     <ul>
-                        <li><strong>Host (urgent):</strong> +39 XXX XXX XXXX</li>
-                        <li><strong>Plumber:</strong> Giuseppe +39 XXX XXX XXXX</li>
-                        <li><strong>Electrician:</strong> Mario +39 XXX XXX XXXX</li>
+                        <li><strong>Host (urgent):</strong> <a href="tel:+393921394070" style="color: var(--sea); font-weight: 700;">+39 392 139 4070</a></li>
+                        <li><strong>Any problem in the villa:</strong> call or WhatsApp us first — we'll send the right person right away</li>
                         <li><strong>Gas emergency:</strong> 800 900 999</li>
                     </ul>
                 `
@@ -1742,32 +1808,32 @@
                 content: `
                     <h3>👥 Can I have visitors?</h3>
                     <p>Day visitors are welcome! Overnight guests must be included in the original booking. Please let us know if you're expecting anyone.</p>
-                    
+
                     <h3>❄️ Is there air conditioning?</h3>
                     <p>Yes! Every room has AC with individual controls. Please turn it off when leaving to save energy. Remote controls are mounted on the walls.</p>
-                    
+
                     <h3>🧺 Can I do laundry?</h3>
                     <p>Absolutely! There's a washing machine in the utility room with detergent provided. Drying rack available on the terrace with amazing views!</p>
-                    
+
                     <h3>💧 Is the water safe to drink?</h3>
                     <p>Yes, tap water is perfectly safe and filtered. We also provide complimentary bottled water to welcome you.</p>
-                    
+
                     <h3>🦟 What about mosquitoes?</h3>
                     <p>No worries! All windows have mosquito screens. You'll find repellent spray in bathrooms and citronella candles on the terrace.</p>
-                    
+
                     <h3>🐟 Can I cook fish/seafood?</h3>
-                    <p>Of course! Our kitchen is fully equipped. Just use the exhaust fan and open windows. The fresh fish market at Marina di Praia (10 min walk) is fantastic!</p>
-                    
+                    <p>Of course! Our kitchen is fully equipped. Just use the exhaust fan and open windows. The fresh fish market at Marina di Praia (13 min walk) is fantastic!</p>
+
                     <h3>💻 Is the WiFi good for remote work?</h3>
                     <p>Excellent! 100 Mbps fiber optic connection, perfect for video calls and streaming. There's a dedicated workspace in the second bedroom.</p>
-                    
+
                     <h3>☕ How do I use the coffee machine?</h3>
                     <p>It's a Nespresso machine - super easy! Capsules are in the kitchen drawer. Press once to turn on, wait for lights, press again to brew. Buon caffè!</p>
-                    
+
                     <h3>🕐 Can I request late check-out?</h3>
                     <p>Please contact us the day before. If no one is checking in after you, we can usually arrange late check-out for a small fee (€50).</p>
-                    
-                    <div class="info-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left-color: #4CAF50; margin-top: 30px;">
+
+                    <div class="info-box" style="background: #e6f5ec; border-left-color: #27ae60; margin-top: 30px;">
                         <p style="text-align: center; font-size: 16px; margin: 0;">
                             <strong>💬 More questions?</strong><br>
                             <span style="font-size: 14px;">WhatsApp us anytime - we're here to help!</span>
@@ -1778,7 +1844,7 @@
             'boat-tour': {
                 title: "⛵ Gozzo Boat Experience",
                 content: `
-                    <div class="photo-carousel-wrap" style="height: 220px; border-radius: 14px; margin-bottom: 18px;">
+                    <div class="photo-carousel-wrap" style="height: 220px; border-radius: 16px; margin-bottom: 18px;">
                         <div class="photo-carousel">
                             <img src="https://i.ibb.co/jkRLKsp9/23b21ee0-0bb3-4e80-9f66-6cf07e586f43.jpg" alt="Gozzo boat on the Amalfi Coast" loading="lazy">
                             <img src="https://i.ibb.co/KpyRLjBc/b9372a59-ecea-4ffc-b9fb-3e0d131358d4.jpg" alt="Gozzo boat tour along the coast" loading="lazy">
@@ -1791,7 +1857,7 @@
                         <div class="carousel-dots"></div>
                     </div>
 
-                    <p style="color: #555; font-size: 14px; line-height: 1.7; margin-bottom: 20px;">
+                    <p style="color: #45525f; font-size: 14.5px; line-height: 1.7; margin-bottom: 20px;">
                         Live the Amalfi Coast like a local aboard a traditional <strong>gozzo sorrentino</strong> — the iconic wooden boat of this coastline. Your own private boat, your own local skipper: hidden sea caves, secret swimming coves and views of Positano and Capri you can only get from the water. Fully exclusive — just your group!
                     </p>
 
@@ -1829,8 +1895,8 @@
                         </div>
                     </div>
 
-                    <div style="background:#f0f8ff; border-radius:10px; padding:12px 14px; margin-bottom:20px; font-size:13px; color:#444; line-height:1.6;">
-                        <strong style="color:#1a6fa8;">✅ All included:</strong> drinks & soft drinks, snacks & fruit, towels, shower, snorkelling gear, diving mask, noodles, fuel, local skipper, all taxes
+                    <div style="background:#e7f1f6; border-radius:12px; padding:12px 14px; margin-bottom:20px; font-size:13px; color:#45525f; line-height:1.6;">
+                        <strong style="color:var(--sea);">✅ All included:</strong> drinks & soft drinks, snacks & fruit, towels, shower, snorkelling gear, diving mask, noodles, fuel, local skipper, all taxes
                     </div>
 
                     <h3>🕘 Choose Your Tour</h3>
@@ -1886,7 +1952,7 @@
 
                     <div class="info-box">
                         <p style="font-weight: 600; margin-bottom: 8px;">💡 Good to know</p>
-                        <p style="font-size: 14px; color: #666;">Perfect for couples, families and small groups. Tours depend on sea conditions — if the weather turns, we simply reschedule or refund. Book early in high season!</p>
+                        <p style="font-size: 14px; color: var(--muted);">Perfect for couples, families and small groups. Tours depend on sea conditions — if the weather turns, we simply reschedule or refund. Book early in high season!</p>
                     </div>
 
                     <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20information%20about%20the%20gozzo%20boat%20experience"
@@ -1907,7 +1973,7 @@
                 content: `
                     <img src="https://images.unsplash.com/photo-1544620347460-35ea508edb70?w=800&q=80" alt="Luxury Transfer" class="transfer-hero">
 
-                    <p style="color: #666; font-size: 14px; margin-bottom: 20px; line-height: 1.6;">
+                    <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6;">
                         Arrive or depart in total comfort. Our private transfer takes you to and from Praiano in a spacious 6-seat vehicle — perfect for families, groups, and heavy luggage. No stress, just relax!
                     </p>
 
@@ -1954,8 +2020,8 @@
 
                     <div class="info-box">
                         <p style="font-weight: 600; margin-bottom: 8px;">🔄 Available in both directions</p>
-                        <p style="font-size: 14px; color: #666;">All routes are also available in reverse (Praiano → destination).</p>
-                        <p style="font-size: 14px; color: #666; margin-top: 8px;">Need a custom route? (Rome, Salerno, Pompeii, Bari…) Contact us for a quote!</p>
+                        <p style="font-size: 14px; color: var(--muted);">All routes are also available in reverse (Praiano → destination).</p>
+                        <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">Need a custom route? (Rome, Salerno, Pompeii, Bari…) Contact us for a quote!</p>
                     </div>
 
                     <h3>🚐 Our Vehicle</h3>
@@ -2014,13 +2080,13 @@
             extras: {
                 title: "✨ Extras & Experiences",
                 content: `
-                    <p style="color: #666; font-size: 14px; margin-bottom: 22px; line-height: 1.6;">
+                    <p style="color: var(--muted); font-size: 14px; margin-bottom: 22px; line-height: 1.6;">
                         Make your stay truly unforgettable! Book our exclusive services directly via WhatsApp — we're here for your every wish. ✨
                     </p>
 
                     <!-- Private Chef -->
                     <div class="exp-card">
-                        <img src="https://i.ibb.co/fY8dF46h/Villa-Cristina-Positano-alessandrafarinelli-com-02.jpg" alt="Villa Cristina Terrace" class="exp-card-img">
+                        <img src="https://i.ibb.co/fY8dF46h/Villa-Cristina-Positano-alessandrafarinelli-com-02.jpg" alt="Villa Cristina Terrace" class="exp-card-img" loading="lazy">
                         <div class="exp-card-body">
                             <div class="exp-card-title">👨‍🍳 Private Chef Dinner</div>
                             <div class="exp-card-desc">A real chef cooks for you on the panoramic terrace with sea views. 4-course menu with selected Campanian wines. A unique gastronomic experience on the Amalfi Coast!</div>
@@ -2036,7 +2102,7 @@
 
                     <!-- Massage -->
                     <div class="exp-card">
-                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80" alt="In-Villa Massage" class="exp-card-img">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80" alt="In-Villa Massage" class="exp-card-img" loading="lazy">
                         <div class="exp-card-body">
                             <div class="exp-card-title">💆 In-Villa Massage</div>
                             <div class="exp-card-desc">A professional masseuse comes directly to the villa. Relax on the terrace to the sound of the waves. Choose from relaxing, deep tissue or sports massage.</div>
@@ -2051,7 +2117,7 @@
                     </div>
 
                     <!-- Gozzo Boat Experience -->
-                    <div class="exp-card" style="border-color: #1a6fa8;">
+                    <div class="exp-card" style="border-color: #9fc3d6;">
                         <div class="photo-carousel-wrap" style="height: 160px;">
                             <div class="photo-carousel">
                                 <img src="https://i.ibb.co/jkRLKsp9/23b21ee0-0bb3-4e80-9f66-6cf07e586f43.jpg" alt="Gozzo boat on the Amalfi Coast" loading="lazy">
@@ -2072,14 +2138,14 @@
                                     <div class="exp-price">€350</div>
                                     <span class="exp-price-note">from • per boat • all inclusive</span>
                                 </div>
-                                <a onclick="openModal('boat-tour')" class="book-wa-btn" style="cursor:pointer; background: linear-gradient(135deg, #1a6fa8, #2980b9);">📸 View & Book</a>
+                                <a onclick="openModal('boat-tour')" class="book-wa-btn" style="cursor:pointer; background: linear-gradient(135deg, #2e7d9e, #16324f);">📸 View & Book</a>
                             </div>
                         </div>
                     </div>
 
                     <!-- Photo Session -->
                     <div class="exp-card">
-                        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80" alt="Photo Session" class="exp-card-img">
+                        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80" alt="Photo Session" class="exp-card-img" loading="lazy">
                         <div class="exp-card-body">
                             <div class="exp-card-title">📸 Photo Session</div>
                             <div class="exp-card-desc">A professional photographer captures you on the villa's terraces, in Positano or along the coast. Receive 30+ digitally retouched photos — the most beautiful memory of your holiday!</div>
@@ -2095,7 +2161,7 @@
 
                     <!-- Wine Tasting -->
                     <div class="exp-card">
-                        <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" alt="Wine & Limoncello Tasting" class="exp-card-img">
+                        <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" alt="Wine & Limoncello Tasting" class="exp-card-img" loading="lazy">
                         <div class="exp-card-body">
                             <div class="exp-card-title">🍷 Wine & Limoncello Tasting</div>
                             <div class="exp-card-desc">A local sommelier brings the finest Campanian wines and artisan limoncello to the villa. Guided tasting with a charcuterie board of local specialities on the panoramic terrace.</div>
@@ -2111,7 +2177,7 @@
 
                     <!-- Yoga -->
                     <div class="exp-card">
-                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80" alt="Terrace Yoga" class="exp-card-img">
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80" alt="Terrace Yoga" class="exp-card-img" loading="lazy">
                         <div class="exp-card-body">
                             <div class="exp-card-title">🧘 Terrace Yoga</div>
                             <div class="exp-card-desc">Start your day with a private yoga session on the terrace overlooking the Tyrrhenian Sea. Certified instructor, suitable for all levels. Sunrise or sunset sessions available.</div>
@@ -2126,8 +2192,8 @@
                     </div>
 
                     <!-- E-Scooter -->
-                    <div class="exp-card" style="border-color: #2196F3;">
-                        <div class="exp-card-body" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
+                    <div class="exp-card" style="border-color: #9fc3d6;">
+                        <div class="exp-card-body" style="background: #e7f1f6;">
                             <div class="exp-card-title">🛴 E-Scooter Rental</div>
                             <div class="exp-card-desc">Explore the coast in total freedom with our electric scooters. Top speed 45 km/h, range 35-45 km. Price is for your entire stay — not per day!</div>
                             <div class="exp-card-footer">
@@ -2141,8 +2207,8 @@
                     </div>
 
                     <!-- Welcome Basket -->
-                    <div class="exp-card" style="border-color: #f59e0b;">
-                        <div class="exp-card-body" style="background: linear-gradient(135deg, #fff8e1, #fff3cd);">
+                    <div class="exp-card" style="border-color: #e3cf9d;">
+                        <div class="exp-card-body" style="background: #f7efdc;">
                             <div class="exp-card-title">🧺 Welcome Basket</div>
                             <div class="exp-card-desc">Arrive and find a beautiful basket of local products already in the villa: artisan limoncello, fresh mozzarella, local bread, Vesuvian tomatoes, extra virgin olive oil and typical cheeses.</div>
                             <div class="exp-card-footer">
@@ -2156,8 +2222,8 @@
                     </div>
 
                     <!-- Pre-Arrival Grocery -->
-                    <div class="exp-card" style="border-color: #4CAF50;">
-                        <div class="exp-card-body" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
+                    <div class="exp-card" style="border-color: #b5d8c2;">
+                        <div class="exp-card-body" style="background: #e6f5ec;">
                             <div class="exp-card-title">🛒 Pre-Arrival Grocery Shop</div>
                             <div class="exp-card-desc">Send us your shopping list and everything will already be in the fridge when you arrive! Save precious time and start enjoying your holiday from the very first moment.</div>
                             <div class="exp-card-footer">
@@ -2171,8 +2237,8 @@
                     </div>
 
                     <!-- Baby & Kids Kit -->
-                    <div class="exp-card" style="border-color: #e91e63;">
-                        <div class="exp-card-body" style="background: linear-gradient(135deg, #fce4ec, #f8bbd0);">
+                    <div class="exp-card" style="border-color: #ecc1cc;">
+                        <div class="exp-card-body" style="background: #fbeef1;">
                             <div class="exp-card-title">👶 Baby & Kids Kit</div>
                             <div class="exp-card-desc">Travel camp cot, high chair, baby bath tub, beach umbrella and kids' beach accessories. Everything ready in the villa on arrival — travel light!</div>
                             <div class="exp-card-footer">
@@ -2185,9 +2251,9 @@
                         </div>
                     </div>
 
-                    <div style="text-align: center; margin-top: 25px; padding: 20px; background: linear-gradient(135deg, rgba(255,0,110,0.08), rgba(131,56,236,0.08)); border-radius: 14px; border: 1px solid rgba(131,56,236,0.15);">
-                        <p style="font-size: 14px; color: #888; margin-bottom: 6px;">Have a special request or a different idea?</p>
-                        <p style="font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 14px;">We're here to make your stay perfect ✨</p>
+                    <div style="text-align: center; margin-top: 25px; padding: 20px; background: #f5f0e5; border-radius: 16px; border: 1px solid var(--line);">
+                        <p style="font-size: 14px; color: var(--muted); margin-bottom: 6px;">Have a special request or a different idea?</p>
+                        <p style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 14px;">We're here to make your stay perfect ✨</p>
                         <a href="https://wa.me/393921394070" target="_blank" class="book-wa-btn" style="padding: 13px 28px; font-size: 15px; border-radius: 12px;">
                             💬 Message us on WhatsApp
                         </a>
@@ -2198,94 +2264,105 @@
                 title: "Villa Instructions",
                 content: `
                     <p style="text-align: center; margin-bottom: 20px;">Watch our helpful video tutorials for using the villa's amenities</p>
-                    
+
                     <h3>🗺️ How to Get to the Villa</h3>
                     <div class="info-box">
-                        <p><a href="https://youtu.be/ExDjy_wZ0UQ" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
+                        <p><a href="https://youtu.be/ExDjy_wZ0UQ" target="_blank" style="color: var(--sea); font-weight: 700;">▶️ Watch Video Tutorial</a></p>
                     </div>
-                    
+
                     <h3>💧 Drinking Water</h3>
                     <div class="info-box">
-                        <p><a href="https://youtube.com/shorts/zKp5Ryl3EFY" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
+                        <p><a href="https://youtube.com/shorts/zKp5Ryl3EFY" target="_blank" style="color: var(--sea); font-weight: 700;">▶️ Watch Video Tutorial</a></p>
                     </div>
-                    
+
                     <h3>🔥 Hob Instructions</h3>
                     <div class="info-box">
-                        <p><a href="https://youtube.com/shorts/ZTGUvR-1CJo" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
+                        <p><a href="https://youtube.com/shorts/ZTGUvR-1CJo" target="_blank" style="color: var(--sea); font-weight: 700;">▶️ Watch Video Tutorial</a></p>
                     </div>
-                    
+
                     <h3>🛁 How to Activate Jacuzzi Pool</h3>
                     <div class="info-box">
-                        <p><a href="https://youtu.be/g3QkeIY4SRw" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
+                        <p><a href="https://youtu.be/g3QkeIY4SRw" target="_blank" style="color: var(--sea); font-weight: 700;">▶️ Watch Video Tutorial</a></p>
                     </div>
-                    
+
                     <h3>⚡ How to Turn on the Electricity</h3>
                     <div class="info-box">
-                        <p><a href="https://youtube.com/shorts/g3QkeIY4SRw" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
+                        <p><a href="https://youtube.com/shorts/g3QkeIY4SRw" target="_blank" style="color: var(--sea); font-weight: 700;">▶️ Watch Video Tutorial</a></p>
                     </div>
-                    
+
                     <h3>🔐 How to Use the Safe</h3>
                     <div class="info-box">
                         <p>Instructions coming soon</p>
                     </div>
-                    
+
                     <h3>🛴 How to Rent Electric Scooters</h3>
-                    <div class="info-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left-color: #2196F3;">
+                    <div class="info-box" style="background: #e7f1f6; border-left-color: var(--sea);">
                         <p><strong>Price: €20 per scooter for your entire stay!</strong></p>
                         <ol style="margin-top: 15px; padding-left: 20px;">
                             <li style="margin-bottom: 10px;">Pay via PayPal or cash<br>
-                            <a href="https://paypal.me/villacristinapraiano?country.x=IT&locale.x=it_IT" target="_blank" style="color: #2196F3; font-weight: 600;">💳 Pay with PayPal here</a><br>
+                            <a href="https://paypal.me/villacristinapraiano?country.x=IT&locale.x=it_IT" target="_blank" style="color: var(--sea); font-weight: 700;">💳 Pay with PayPal here</a><br>
                             <span style="font-size: 14px;">(Choose "Friends & Family" as payment method)</span></li>
-                            
+
                             <li style="margin-bottom: 10px;">Unlock the FirePow lock with code: <strong>08099</strong></li>
-                            
+
                             <li style="margin-bottom: 10px;">Charge the scooter after use - chargers are in the box near the monopattino, socket available above the villa</li>
-                            
+
                             <li style="margin-bottom: 10px;">Max speed: 45km/h | Range: 35-45km</li>
-                            
+
                             <li>Bring the padlock if you want to lock the scooter around town</li>
                         </ol>
                     </div>
-                    
+
                     <h3>🛴 Electric Monopattino Manual</h3>
                     <div class="info-box">
                         <p>Full instructions available at the villa</p>
                     </div>
-                    
+
                     <h3>🛏️ How to Open and Close Bunk Bed</h3>
                     <div class="info-box">
-                        <p><a href="https://youtube.com/shorts/PK8nAYvR1UI" target="_blank" style="color: var(--primary); font-weight: 600;">▶️ Watch Video Tutorial</a></p>
-                        <p style="margin-top: 10px; color: #d32f2f;"><strong>⚠️ Attention:</strong> To close the bunk bed, raise the lateral safety handles as shown in the video!</p>
+                        <p><a href="https://youtube.com/shorts/PK8nAYvR1UI" target="_blank" style="color: var(--sea); font-weight: 700;">▶️ Watch Video Tutorial</a></p>
+                        <p style="margin-top: 10px; color: #b3261e;"><strong>⚠️ Attention:</strong> To close the bunk bed, raise the lateral safety handles as shown in the video!</p>
                     </div>
                 `
             }
         };
 
         let savedScrollY = 0;
+        let closeTimer = null;
 
         function openModal(type) {
             const data = modalData[type];
             if (!data) return;
 
+            // Cancel any pending close so a quick reopen can't leave the
+            // modal in a hidden-but-"shown" state.
+            if (closeTimer) {
+                clearTimeout(closeTimer);
+                closeTimer = null;
+            }
+
             const modal = document.getElementById('modal');
             const modalTitle = document.getElementById('modalTitle');
             const modalBody = document.getElementById('modalBody');
-            const wasOpen = modal.classList.contains('show');
 
             modalTitle.textContent = data.title;
             modalBody.innerHTML = data.content;
             document.querySelector('.modal-content').scrollTop = 0;
 
-            if (!wasOpen) {
+            // Only capture the page scroll if the body isn't already locked
+            // (i.e. we're not swapping content or reopening mid-close).
+            if (!document.body.classList.contains('modal-open')) {
                 savedScrollY = window.scrollY || window.pageYOffset;
-                modal.style.display = 'block';
                 document.body.style.top = `-${savedScrollY}px`;
                 document.body.classList.add('modal-open');
             }
 
+            const alreadyShown = modal.classList.contains('show') && modal.style.display === 'block';
+            modal.style.display = 'block';
+
             initCarousels(modalBody);
 
-            if (!wasOpen) {
+            if (!alreadyShown) {
                 setTimeout(() => {
                     modal.classList.add('show');
                 }, 10);
@@ -2295,10 +2372,12 @@
         function closeModal(event) {
             if (!event || event.target.id === 'modal') {
                 const modal = document.getElementById('modal');
+                if (closeTimer) clearTimeout(closeTimer);
                 modal.classList.remove('show');
                 stopCarousels();
 
-                setTimeout(() => {
+                closeTimer = setTimeout(() => {
+                    closeTimer = null;
                     modal.style.display = 'none';
                     document.body.classList.remove('modal-open');
                     document.body.style.top = '';
@@ -2308,14 +2387,21 @@
         }
 
         // Swipe-down-to-close: only when the modal is scrolled to the top,
-        // the gesture is mostly vertical, and it doesn't start on a carousel.
+        // the gesture is single-finger, mostly vertical, and doesn't start
+        // on a carousel. Multi-touch (pinch-zoom) never closes the modal.
         let touchStartY = 0;
         let touchStartX = 0;
         let touchStartScrollTop = 0;
         let touchOnCarousel = false;
+        let multiTouch = false;
         const modalContent = document.querySelector('.modal-content');
 
         modalContent.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 1) {
+                multiTouch = true;
+                return;
+            }
+            multiTouch = false;
             touchStartY = e.changedTouches[0].screenY;
             touchStartX = e.changedTouches[0].screenX;
             touchStartScrollTop = modalContent.scrollTop;
@@ -2323,27 +2409,16 @@
         }, { passive: true });
 
         modalContent.addEventListener('touchend', (e) => {
+            if (multiTouch) {
+                if (e.touches.length === 0) multiTouch = false;
+                return;
+            }
             const deltaY = e.changedTouches[0].screenY - touchStartY;
             const deltaX = Math.abs(e.changedTouches[0].screenX - touchStartX);
             if (!touchOnCarousel && touchStartScrollTop <= 0 && deltaY > 120 && deltaX < 60) {
                 closeModal();
             }
         }, { passive: true });
-
-        // Add smooth scroll behavior
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Remove splash screen after animations
-        setTimeout(() => {
-            document.querySelector('.splash-screen').style.display = 'none';
-        }, 2500);
 
         // Photo carousels (initialized every time a modal is opened, since
         // modal content is injected on demand). Native scroll-snap handles the
@@ -2368,6 +2443,7 @@
                 const counter = wrap.querySelector('.carousel-counter');
                 let current = 0;
                 let userInteracted = false;
+                let animatingTo = null;
                 const dots = [];
 
                 if (dotsBox) {
@@ -2390,8 +2466,9 @@
                     if (counter) counter.textContent = (i + 1) + '/' + slides.length;
                 }
 
-                function goTo(i) {
-                    track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+                function goTo(i, behavior) {
+                    animatingTo = i;
+                    track.scrollTo({ left: i * track.clientWidth, behavior: behavior || 'smooth' });
                     setActive(i);
                 }
 
@@ -2400,18 +2477,42 @@
 
                 track.addEventListener('scroll', () => {
                     const i = Math.round(track.scrollLeft / track.clientWidth);
+                    if (animatingTo !== null) {
+                        if (i === animatingTo) animatingTo = null;
+                        return;
+                    }
                     if (i !== current && i >= 0 && i < slides.length) setActive(i);
                 }, { passive: true });
 
                 track.addEventListener('touchstart', () => {
                     userInteracted = true;
+                    animatingTo = null;
                 }, { passive: true });
 
                 carouselTimers.push(setInterval(() => {
                     if (userInteracted || !document.body.contains(track)) return;
-                    goTo((current + 1) % slides.length);
+                    const next = (current + 1) % slides.length;
+                    // Jump instantly on wrap-around instead of visibly
+                    // rewinding through every slide.
+                    goTo(next, next === 0 ? 'auto' : 'smooth');
                 }, 4000));
             });
+        }
+
+        // Reveal sections as they scroll into view
+        const revealEls = document.querySelectorAll('.reveal');
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            revealEls.forEach((el) => io.observe(el));
+        } else {
+            revealEls.forEach((el) => el.classList.add('visible'));
         }
     </script>
 </body>
