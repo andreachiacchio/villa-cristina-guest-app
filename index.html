@@ -2310,6 +2310,13 @@
                         <a href="https://paypal.me/villacristinapraiano?country.x=IT&locale.x=it_IT" target="_blank" class="book-pp-btn" style="padding: 10px 24px;">
                             💳 Pay deposit via PayPal
                         </a>
+                        <!-- The deposit is not a fixed figure: the gozzo has three
+                             tiers (€350 / €550 / €900). Until there is a set amount
+                             or percentage, the link stays bare and we tell the guest
+                             what the number will be before they are asked to pay. -->
+                        <p style="font-size: 12px; color: var(--muted); margin-top: 8px;">
+                            We confirm the deposit amount on WhatsApp before you pay.
+                        </p>
                     </div>
                 `
             },
@@ -2344,10 +2351,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Late Check-out & Early Check-in — from services-config.js,
-                         shown only when the calendar allows them -->
-                    ${extrasComfortCardsHtml()}
 
                     <!-- Private Chef -->
                     <div class="exp-card">
@@ -2456,7 +2459,7 @@
                         <p><strong>Price: €50 per scooter for your entire stay!</strong></p>
                         <ol style="margin-top: 15px; padding-left: 20px;">
                             <li style="margin-bottom: 10px;">Pay via PayPal or cash<br>
-                            <a href="https://paypal.me/villacristinapraiano?country.x=IT&locale.x=it_IT" target="_blank" style="color: var(--sea); font-weight: 700;">💳 Pay with PayPal here</a><br>
+                            <a href="https://paypal.me/villacristinapraiano/50EUR?country.x=IT&locale.x=it_IT" target="_blank" style="color: var(--sea); font-weight: 700;">💳 Pay €50 with PayPal</a><br>
                             <span style="font-size: 14px;">(Choose "Friends & Family" as payment method)</span></li>
 
                             <li style="margin-bottom: 10px;">Unlock the FirePow lock with code: <strong>08099</strong></li>
@@ -2722,45 +2725,6 @@
             return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
         }
 
-        // Full-width cards injected into the Extras & Experiences modal, in the
-        // same shape as Extra Cleaning and Private Chef. Returns an empty
-        // string when the calendar rules every card out.
-        function extrasComfortCardsHtml() {
-            const cfg = window.SERVICES_CONFIG;
-            if (!cfg || !cfg.extras) return '';
-
-            const availability = cfg.availability || {};
-            const number = cfg.whatsapp;
-            const badgeLabel = cfg.extras.badge;
-
-            return (cfg.extras.services || [])
-                .filter((service) =>
-                    service.enabled !== false &&
-                    (!service.requires || isServiceAvailable(service.requires, availability))
-                )
-                .map((service) => {
-                    const badge = badgeLabel
-                        ? `<div class="exp-badge">${escapeHtml(badgeLabel)}</div>`
-                        : '';
-                    return `
-                    <div class="exp-card">
-                        <div class="exp-card-body">
-                            ${badge}
-                            <div class="exp-card-title">${escapeHtml(service.icon || '')} ${escapeHtml(service.title)}</div>
-                            <div class="exp-card-desc">${escapeHtml(service.desc)}</div>
-                            <div class="exp-card-footer">
-                                <div>
-                                    <div class="exp-price">${escapeHtml(service.price)}</div>
-                                    <span class="exp-price-note">${escapeHtml(service.priceNote || '')}</span>
-                                </div>
-                                <a href="${escapeHtml(serviceWaLink(service, number))}"
-                                   target="_blank" rel="noopener" class="book-wa-btn">💬 Book</a>
-                            </div>
-                        </div>
-                    </div>`;
-                })
-                .join('');
-        }
 
         function serviceCardHtml(service, number) {
             const badge = service.badge
