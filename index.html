@@ -11,6 +11,41 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+    <script>
+        // Broken images are hidden instead of showing a torn-image icon.
+        // Registered in <head> so it also catches photos that fail before the
+        // main script at the end of <body> has run. Uses capture because the
+        // "error" event of an <img> does not bubble.
+        (function () {
+            function hideBrokenImage(img) {
+                if (!img || img.dataset.imgFailed === '1') return;
+                img.dataset.imgFailed = '1';
+                img.style.display = 'none';
+
+                // A carousel whose photos have all failed would otherwise stay
+                // on screen as an empty box with dots, so drop the whole widget.
+                var wrap = img.closest && img.closest('.photo-carousel-wrap');
+                if (wrap && !wrap.querySelector('img:not([data-img-failed])')) {
+                    wrap.style.display = 'none';
+                }
+            }
+
+            document.addEventListener('error', function (e) {
+                var el = e.target;
+                if (el && el.tagName === 'IMG') hideBrokenImage(el);
+            }, true);
+
+            // Safety net for images that already finished failing before this
+            // listener existed, and for those injected into modals later.
+            window.addEventListener('load', function () {
+                document.querySelectorAll('img').forEach(function (img) {
+                    if (img.complete && img.naturalWidth === 0) hideBrokenImage(img);
+                });
+            });
+        })();
+    </script>
+
     <style>
         * {
             margin: 0;
@@ -1144,12 +1179,164 @@
             text-align: right;
         }
 
+        /* Pill badge on an experience card, e.g. "Comfort" */
+        .exp-badge {
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 5px 12px;
+            background: var(--gold);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            border-radius: 20px;
+        }
+
+        /* ===== PREMIUM SERVICES (rendered from services-config.js) ===== */
+        .svc-eyebrow {
+            font-size: 10.5px;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .svc-tabs {
+            display: inline-flex;
+            gap: 4px;
+            padding: 4px;
+            margin-bottom: 14px;
+            background: #efe9df;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+        }
+
+        .svc-tab {
+            font-family: inherit;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--muted);
+            background: transparent;
+            border: 0;
+            padding: 8px 15px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: color 0.15s ease, background 0.15s ease;
+        }
+
+        .svc-tab.active {
+            background: linear-gradient(135deg, var(--gold), #b08d3c);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(201,162,75,0.35);
+        }
+
+        .svc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .svc-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 14px 13px 13px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            box-shadow: 0 2px 10px rgba(29,43,58,0.05);
+        }
+
+        .svc-card.t-sea    { border-color: #cfe1ec; }
+        .svc-card.t-terra  { border-color: #eccbbd; }
+        .svc-card.t-green  { border-color: #b5d8c2; }
+        .svc-card.t-gold   { border-color: #e3cf9d; }
+        .svc-card.t-purple { border-color: #d6cbe9; }
+        .svc-card.t-sand   { border-color: #e0d5bf; }
+
+        .svc-icon {
+            font-size: 22px;
+            line-height: 1;
+            margin-bottom: 9px;
+        }
+
+        .svc-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.25;
+            margin-bottom: 5px;
+        }
+
+        .svc-desc {
+            font-size: 11.5px;
+            line-height: 1.5;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .svc-foot {
+            margin-top: auto;
+        }
+
+        .svc-price {
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--terracotta);
+        }
+
+        .svc-price-note {
+            display: block;
+            font-size: 9.5px;
+            color: #8d8778;
+            margin-top: 4px;
+        }
+
+        .svc-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 11px;
+            padding: 9px 12px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 12px;
+            transition: transform 0.15s ease;
+        }
+
+        .svc-btn:active {
+            transform: scale(0.97);
+        }
+
+        .svc-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            background: linear-gradient(135deg, var(--terracotta), #a4573a);
+            color: #fff;
+            font-size: 8.5px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            border-radius: 20px;
+        }
+
         @media (max-width: 350px) {
             .hero-title {
                 font-size: 33px;
             }
             .quick-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            .svc-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -1235,9 +1422,20 @@
                     <div class="mini-card" onclick="openModal('extras')">
                         <div class="mini-emoji t-terra">✨</div>
                         <div class="mini-title">More Experiences</div>
-                        <div class="mini-sub">Chef, massage, wine tasting &amp; more</div>
+                        <div class="mini-sub">Cleaning, late check-out, chef &amp; more</div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Premium Services — content comes from services-config.js -->
+            <div class="section reveal" id="svcSection" style="display: none;">
+                <div class="section-head">
+                    <div class="svc-eyebrow" id="svcEyebrow"></div>
+                    <div class="section-title" id="svcTitle"></div>
+                    <div class="section-sub" id="svcSub"></div>
+                </div>
+                <div class="svc-tabs" id="svcTabs"></div>
+                <div class="svc-grid" id="svcGrid"></div>
             </div>
 
             <!-- Your Villa -->
@@ -1384,6 +1582,9 @@
         </div>
     </div>
 
+    <!-- Services, prices and availability live here — not in the markup -->
+    <script src="services-config.js"></script>
+
     <script>
         const modalData = {
             welcome: {
@@ -1466,7 +1667,7 @@
                     <h3>Check-out Time</h3>
                     <div class="info-box">
                         <p><strong>Standard check-out:</strong> By 10:00 AM</p>
-                        <p><strong>Late check-out:</strong> Subject to availability (fee may apply)</p>
+                        <p><strong>Late check-out:</strong> Until 4:00 PM for €50, when the calendar allows it — see Extras</p>
                     </div>
 
                     <h3>Check-out Process</h3>
@@ -1482,36 +1683,64 @@
             rules: {
                 title: "House Rules",
                 content: `
-                    <h3>Important Rules</h3>
-                    <ul>
-                        <li>🚭 No smoking inside (terrace is OK)</li>
-                        <li>🐕 Sorry, no pets allowed</li>
-                        <li>🎉 No parties or loud events</li>
-                        <li>🔇 Quiet hours: 10 PM - 8 AM</li>
-                        <li>👥 Maximum occupancy: 4 guests</li>
-                        <li>👟 No shoes inside please</li>
-                    </ul>
+                    <h3>💡 Good to know</h3>
 
-                    <h3>Using the Property</h3>
-                    <ul>
-                        <li>Treat our home with care and respect</li>
-                        <li>Clean up after cooking</li>
-                        <li>Don't move furniture</li>
-                        <li>Use provided beach towels for the beach</li>
-                        <li>Report any damages immediately</li>
-                    </ul>
-
-                    <h3>Waste & Recycling</h3>
                     <div class="info-box">
-                        <p><strong>Recycling is mandatory in Praiano:</strong></p>
+                        <p><strong>💧 Drinking water</strong></p>
+                        <p style="font-size: 14px;">The tap water is filtered and perfectly safe to drink. We also leave bottled water for your arrival.</p>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>❄️ Air conditioning</strong></p>
+                        <p style="font-size: 14px;">Every room has its own unit with wall-mounted remote. <strong>Please keep the windows closed while it's running</strong> — with them open the unit works against the sea air, never cools the room and can freeze up. Switch it off when you go out.</p>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>🅿️ Parking</strong></p>
+                        <p style="font-size: 14px;">Your reserved space is 50m before the villa on the right, under the "Villa Cristina" sign. It's narrow — approach slowly. From the car to the front door there are no steps.</p>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>♻️ Recycling</strong></p>
+                        <p style="font-size: 14px;">Separating waste is mandatory in Praiano, and collection is <strong>by material</strong> — a different material on each day:</p>
                         <ul style="margin-top: 10px;">
-                            <li>🟡 Plastic: Yellow bin</li>
-                            <li>🔵 Paper: Blue bin</li>
-                            <li>🟢 Glass: Green bin</li>
-                            <li>🟤 Organic: Brown bin</li>
-                            <li>⚫ General waste: Black bin</li>
+                            <li>🟡 Plastic &amp; metal</li>
+                            <li>🔵 Paper &amp; cardboard</li>
+                            <li>🟢 Glass</li>
+                            <li>🟤 Organic / food waste</li>
+                            <li>⚫ General waste</li>
                         </ul>
-                        <p style="margin-top: 10px; font-size: 14px;">Collection days: Mon/Wed/Fri at 6 AM</p>
+                        <p style="margin-top: 10px; font-size: 14px;">The rota changes between summer and winter, so rather than guess: <strong>message us and we'll tell you what goes out tonight.</strong> Leave the bags inside and we'll take care of the rest.</p>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>🏖️ Beach towels</strong></p>
+                        <p style="font-size: 14px;">Beach towels are provided — please take those to the beach and the jacuzzi, and leave the bathroom towels in the bathrooms.</p>
+                    </div>
+
+                    <h3>📋 House rules</h3>
+                    <ul>
+                        <li><strong>🚭 No smoking inside</strong> — the terrace is yours for that. Smoke settles into the fabrics and the next guests often arrive the same day.</li>
+                        <li><strong>🎉 No parties or loud events</strong> — Praiano is a village, the houses are close together and sound carries straight across the valley.</li>
+                        <li><strong>🔇 Quiet hours: 10 PM – 8 AM</strong> — our neighbours live here all year round, not just for the season.</li>
+                        <li><strong>👥 Maximum occupancy: 10 guests</strong> — that's what the villa is licensed and insured for, and every guest has to be registered with the local authority.</li>
+                        <li><strong>🐕 No pets</strong> — same as our Booking listing. We're sorry, we know it's a shame.</li>
+                        <li><strong>👟 No shoes inside</strong> — the floors are the original Vietri ceramic and grit from the coastal paths scratches the glaze.</li>
+                        <li><strong>🪑 Please don't move the furniture</strong> — if something isn't working for you, tell us and we'll sort it out.</li>
+                        <li><strong>🔧 Tell us about damage straight away</strong> — accidents happen; what we can't fix is the one we find after you've gone.</li>
+                    </ul>
+
+                    <h3>🧳 Before you leave</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>🕙 Check out by 10:00 AM</strong> — need longer? Late check-out until 4pm is €50 when the calendar allows it, just ask.</li>
+                            <li><strong>🔐 Leave the keys in the masterlock</strong> outside the front door.</li>
+                            <li><strong>🧊 Empty the fridge</strong> of anything fresh — anything sealed you'd like to leave behind is welcome.</li>
+                            <li><strong>🍽️ Load and start the dishwasher</strong> before you go.</li>
+                            <li><strong>♻️ Leave the rubbish bagged and sorted</strong> inside — don't put it out on the street.</li>
+                            <li><strong>🪟 Close the windows and doors</strong> and switch off the air conditioning.</li>
+                            <li><strong>📱 Send us a message</strong> once you're on your way.</li>
+                        </ul>
                     </div>
                 `
             },
@@ -1520,8 +1749,8 @@
                 content: `
                     <div class="contact-card">
                         <h4>WiFi Credentials</h4>
-                        <p style="font-size: 18px; margin: 15px 0;">Network: <strong>VillaCristina_5G</strong></p>
-                        <p style="font-size: 18px;">Password: <strong>Amalfi2024!</strong></p>
+                        <p style="font-size: 18px; margin: 15px 0;">Network: <strong>Villa Cristina wifi</strong></p>
+                        <p style="font-size: 18px;">Password: <strong>Praiano2024</strong></p>
                     </div>
 
                     <h3>Connection Info</h3>
@@ -2079,7 +2308,10 @@
             },
             extras: {
                 title: "✨ Extras & Experiences",
-                content: `
+                // A function, not a string: Late Check-out and Early Check-in
+                // are only rendered when the calendar allows them, so the
+                // content is composed each time the modal opens.
+                content: () => `
                     <p style="color: var(--muted); font-size: 14px; margin-bottom: 22px; line-height: 1.6;">
                         Make your stay truly unforgettable! Book our exclusive services directly via WhatsApp — we're here for your every wish. ✨
                     </p>
@@ -2100,6 +2332,10 @@
                         </div>
                     </div>
 
+                    <!-- Late Check-out & Early Check-in — from services-config.js,
+                         shown only when the calendar allows them -->
+                    ${extrasComfortCardsHtml()}
+
                     <!-- Private Chef -->
                     <div class="exp-card">
                         <img src="https://i.ibb.co/fY8dF46h/Villa-Cristina-Positano-alessandrafarinelli-com-02.jpg" alt="Villa Cristina Terrace" class="exp-card-img" loading="lazy">
@@ -2112,22 +2348,6 @@
                                     <span class="exp-price-note">per person • min. 2 • 48h notice</span>
                                 </div>
                                 <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20to%20book%20the%20private%20chef%20dinner" target="_blank" class="book-wa-btn">💬 Book</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Massage -->
-                    <div class="exp-card">
-                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80" alt="In-Villa Massage" class="exp-card-img" loading="lazy">
-                        <div class="exp-card-body">
-                            <div class="exp-card-title">💆 In-Villa Massage</div>
-                            <div class="exp-card-desc">A professional masseuse comes directly to the villa. Relax on the terrace to the sound of the waves. Choose from relaxing, deep tissue or sports massage.</div>
-                            <div class="exp-card-footer">
-                                <div>
-                                    <div class="exp-price">€90</div>
-                                    <span class="exp-price-note">per person • 60 min • 24h notice</span>
-                                </div>
-                                <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20to%20book%20an%20in-villa%20massage" target="_blank" class="book-wa-btn">💬 Book</a>
                             </div>
                         </div>
                     </div>
@@ -2185,21 +2405,6 @@
                                     <span class="exp-price-note">per basket • order before check-in</span>
                                 </div>
                                 <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20to%20order%20the%20Welcome%20Basket%20for%20my%20arrival" target="_blank" class="book-wa-btn">💬 Order</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pre-Arrival Grocery -->
-                    <div class="exp-card" style="border-color: #b5d8c2;">
-                        <div class="exp-card-body" style="background: #e6f5ec;">
-                            <div class="exp-card-title">🛒 Pre-Arrival Grocery Shop</div>
-                            <div class="exp-card-desc">Send us your shopping list and everything will already be in the fridge when you arrive! Save precious time and start enjoying your holiday from the very first moment.</div>
-                            <div class="exp-card-footer">
-                                <div>
-                                    <div class="exp-price">€20</div>
-                                    <span class="exp-price-note">service fee + cost of groceries</span>
-                                </div>
-                                <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20the%20pre-arrival%20grocery%20service.%20My%20list%3A%20" target="_blank" class="book-wa-btn">💬 Request</a>
                             </div>
                         </div>
                     </div>
@@ -2299,7 +2504,11 @@
             const modalBody = document.getElementById('modalBody');
 
             modalTitle.textContent = data.title;
-            modalBody.innerHTML = data.content;
+            // Content is a plain string for static modals, or a function for
+            // modals whose cards depend on availability.
+            modalBody.innerHTML = typeof data.content === 'function'
+                ? data.content()
+                : data.content;
             document.querySelector('.modal-content').scrollTop = 0;
 
             // Only capture the page scroll if the body isn't already locked
@@ -2451,6 +2660,156 @@
                 }, 4000));
             });
         }
+
+        /* ===== Premium services =====
+           Every service — title, copy, price, badge and availability — comes
+           from services-config.js. Nothing here needs editing to change the
+           offer. */
+
+        function escapeHtml(value) {
+            return String(value == null ? '' : value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        // A service tagged with `requires` is only sold when the calendar
+        // allows it (no arrival or departure clashing that day). For now that
+        // is the manual switch in services-config.js; once Premura is wired up
+        // it answers through window.premuraServiceAvailability and wins.
+        function isServiceAvailable(key, availability) {
+            if (typeof window.premuraServiceAvailability === 'function') {
+                const fromCalendar = window.premuraServiceAvailability(key);
+                if (typeof fromCalendar === 'boolean') return fromCalendar;
+            }
+            return availability[key] === true;
+        }
+
+        function serviceWaLink(service, number) {
+            const text = service.waText ||
+                `Hello! I'd like to request: ${service.title} — ${service.price}. My dates: `;
+            return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+        }
+
+        // Full-width cards injected into the Extras & Experiences modal, in the
+        // same shape as Extra Cleaning and Private Chef. Returns an empty
+        // string when the calendar rules every card out.
+        function extrasComfortCardsHtml() {
+            const cfg = window.SERVICES_CONFIG;
+            if (!cfg || !cfg.extras) return '';
+
+            const availability = cfg.availability || {};
+            const number = cfg.whatsapp;
+            const badgeLabel = cfg.extras.badge;
+
+            return (cfg.extras.services || [])
+                .filter((service) =>
+                    service.enabled !== false &&
+                    (!service.requires || isServiceAvailable(service.requires, availability))
+                )
+                .map((service) => {
+                    const badge = badgeLabel
+                        ? `<div class="exp-badge">${escapeHtml(badgeLabel)}</div>`
+                        : '';
+                    return `
+                    <div class="exp-card">
+                        <div class="exp-card-body">
+                            ${badge}
+                            <div class="exp-card-title">${escapeHtml(service.icon || '')} ${escapeHtml(service.title)}</div>
+                            <div class="exp-card-desc">${escapeHtml(service.desc)}</div>
+                            <div class="exp-card-footer">
+                                <div>
+                                    <div class="exp-price">${escapeHtml(service.price)}</div>
+                                    <span class="exp-price-note">${escapeHtml(service.priceNote || '')}</span>
+                                </div>
+                                <a href="${escapeHtml(serviceWaLink(service, number))}"
+                                   target="_blank" rel="noopener" class="book-wa-btn">💬 Book</a>
+                            </div>
+                        </div>
+                    </div>`;
+                })
+                .join('');
+        }
+
+        function serviceCardHtml(service, number) {
+            const badge = service.badge
+                ? `<span class="svc-badge">${escapeHtml(service.badge)}</span>`
+                : '';
+            const note = service.priceNote
+                ? `<span class="svc-price-note">${escapeHtml(service.priceNote)}</span>`
+                : '';
+
+            return `
+                <div class="svc-card t-${escapeHtml(service.tone || 'sand')}">
+                    ${badge}
+                    <div class="svc-icon">${escapeHtml(service.icon || '✨')}</div>
+                    <div class="svc-title">${escapeHtml(service.title)}</div>
+                    <div class="svc-desc">${escapeHtml(service.desc)}</div>
+                    <div class="svc-foot">
+                        <div class="svc-price">${escapeHtml(service.price)}</div>
+                        ${note}
+                        <a class="svc-btn" href="${escapeHtml(serviceWaLink(service, number))}"
+                           target="_blank" rel="noopener">💬 Request</a>
+                    </div>
+                </div>`;
+        }
+
+        function renderServices() {
+            const cfg = window.SERVICES_CONFIG;
+            const section = document.getElementById('svcSection');
+            if (!cfg || !section) return;
+
+            const availability = cfg.availability || {};
+
+            // Drop hidden services first, then drop any group left empty, so we
+            // never show a tab that opens onto nothing.
+            const groups = (cfg.groups || []).map((group) => ({
+                group,
+                services: (group.services || []).filter((service) =>
+                    service.enabled !== false &&
+                    (!service.requires || isServiceAvailable(service.requires, availability))
+                )
+            })).filter((entry) => entry.services.length > 0);
+
+            if (groups.length === 0) return;
+
+            const head = cfg.section || {};
+            document.getElementById('svcEyebrow').textContent = head.eyebrow || '';
+            document.getElementById('svcTitle').textContent = head.title || '';
+            document.getElementById('svcSub').textContent = head.subtitle || '';
+
+            const tabsBox = document.getElementById('svcTabs');
+            const grid = document.getElementById('svcGrid');
+            const number = cfg.whatsapp;
+
+            function show(index) {
+                grid.innerHTML = groups[index].services
+                    .map((service) => serviceCardHtml(service, number))
+                    .join('');
+                Array.from(tabsBox.children).forEach((tab, i) => {
+                    tab.classList.toggle('active', i === index);
+                });
+            }
+
+            tabsBox.innerHTML = '';
+            groups.forEach((entry, i) => {
+                const tab = document.createElement('button');
+                tab.type = 'button';
+                tab.className = 'svc-tab';
+                tab.textContent = `${entry.group.icon || ''} ${entry.group.label}`.trim();
+                tab.addEventListener('click', () => show(i));
+                tabsBox.appendChild(tab);
+            });
+
+            // A single group needs no switcher.
+            tabsBox.style.display = groups.length > 1 ? '' : 'none';
+
+            show(0);
+            section.style.display = '';
+        }
+
+        renderServices();
 
         // Reveal sections as they scroll into view
         const revealEls = document.querySelectorAll('.reveal');
