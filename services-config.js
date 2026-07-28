@@ -109,43 +109,6 @@ const SERVICES_CONFIG = {
     earlyCheckin: true
   },
 
-  /* --------------------------------------------------------------------------
-     CARDS INSIDE "OTHER EXPERIENCES"
-     --------------------------------------------------------------------------
-     These render as full-width cards in the Extras & Experiences modal, in the
-     same style as Extra Cleaning and Private Chef, and sit right after Extra
-     Cleaning. Both depend on `availability` above: when the flag is false the
-     card is not rendered at all — no greyed-out card, no "ask us".
-     -------------------------------------------------------------------------- */
-  extras: {
-    badge: "Comfort",
-    services: [
-
-      {
-        id: "late-checkout",
-        icon: "🕓",
-        title: "Late Check-out",
-        desc: "Your flight is in the evening but check-out is at 10am? Stay until 4pm and enjoy the terrace, the view and a last swim without rushing.",
-        price: "€50",
-        priceNote: "per stay • subject to availability • until 4pm",
-        requires: "lateCheckout",
-        waText: "Hello! I'd like to book Late Check-out until 4pm (€50). My check-out date: "
-      },
-
-      {
-        id: "early-checkin",
-        icon: "🔑",
-        title: "Early Check-in",
-        desc: "Landed in the morning and your room isn't ready? Come in from 12pm and start your holiday hours earlier.",
-        price: "€50",
-        priceNote: "per stay • subject to availability • from 12pm",
-        requires: "earlyCheckin",
-        waText: "Hello! I'd like to book Early Check-in from 12pm (€50). My arrival date: "
-      }
-
-    ]
-  },
-
   groups: [
 
     /* ======================= GROUP 1 — YOUR COMFORT ======================= */
@@ -155,10 +118,35 @@ const SERVICES_CONFIG = {
       icon: "✨",
       services: [
 
-        /* Late Check-out and Early Check-in are not listed here on purpose:
-           they live in the `extras` block above, as full-width cards inside
-           "Other Experiences". Keeping them in one place only avoids showing
-           the same €50 service twice with two different badges. */
+        /* Late Check-out leads the section: it is the best seller, so it gets
+           the first card and the badge. Both it and Early Check-in carry a
+           `requires` flag — see `availability` above — and simply do not
+           render on days the calendar can't take them. */
+
+        {
+          id: "late-checkout",
+          icon: "🕓",
+          title: "Late Check-out",
+          desc: "Flight in the evening, check-out at 10am? Stay until 4pm.",
+          price: "€50",
+          priceNote: "per stay · subject to availability · until 4pm",
+          badge: "Most requested",
+          tone: "sea",
+          requires: "lateCheckout",
+          waText: "Hello! I'd like to book Late Check-out until 4pm (€50). My check-out date: "
+        },
+
+        {
+          id: "early-checkin",
+          icon: "🔑",
+          title: "Early Check-in",
+          desc: "Landed early and the room isn't ready? Come in from 12pm.",
+          price: "€50",
+          priceNote: "per stay · subject to availability · from 12pm",
+          tone: "purple",
+          requires: "earlyCheckin",
+          waText: "Hello! I'd like to book Early Check-in from 12pm (€50). My arrival date: "
+        },
 
         {
           id: "luggage-storage",
