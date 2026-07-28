@@ -14,11 +14,71 @@
    section is: never write "on request" when a price exists.
    ============================================================================ */
 
+/* Transfer routes are declared before the main object so the "from €…" price
+   on the Explore the Coast card can be derived from them. Change a route price
+   here and both the transfer section and the card follow — they cannot drift
+   apart. */
+const TRANSFER_ROUTES = [
+  {
+    id: "naples-airport",
+    icon: "✈️",
+    name: "Naples Airport",
+    sub: "Capodichino (NAP)",
+    price: 300,
+    durationMin: 90,
+    distanceKm: 60
+  },
+  {
+    id: "naples-station",
+    icon: "🚉",
+    name: "Naples Train Station",
+    sub: "Napoli Centrale / Garibaldi",
+    price: 300,
+    durationMin: 95,
+    distanceKm: 62
+  },
+  {
+    id: "sorrento",
+    icon: "🌊",
+    name: "Sorrento",
+    sub: "Town centre / Sorrento Station",
+    price: 300,
+    durationMin: 60,
+    distanceKm: 35
+  }
+];
+
+const TRANSFER_FROM_PRICE = Math.min(...TRANSFER_ROUTES.map((route) => route.price));
+
 const SERVICES_CONFIG = {
 
   /* WhatsApp number that receives every "Request" tap (international format,
      no + and no spaces). */
   whatsapp: "393921394070",
+
+  /* WiFi credentials — the only place they appear in the whole app. */
+  wifi: {
+    ssid: "Villa Cristina wifi",
+    password: "Praiano2024"
+  },
+
+  /* --------------------------------------------------------------------------
+     PRIVATE TRANSFER
+     --------------------------------------------------------------------------
+     Drives the Private Transfer modal and the "from €…" price on the Explore
+     the Coast card. durationMin and distanceKm are indicative: traffic and
+     season on the SS163 change the real times a lot.
+     -------------------------------------------------------------------------- */
+  transfer: {
+    perVehicleNote: "Price is per vehicle, not per person",
+    routes: TRANSFER_ROUTES,
+    capacity: [
+      { icon: "👥", label: "Up to 6 passengers", note: "price shown above" },
+      { icon: "🚐", label: "Up to 8 — minivan", note: "+€60" }
+    ],
+    roundTrip: { price: 560, insteadOf: 600 },
+    confirmNote: "We confirm within a few hours"
+  },
 
   /* Section heading. The two group names below are in English because the rest
      of the guest app is in English. In Italian they read:
@@ -178,7 +238,7 @@ const SERVICES_CONFIG = {
           icon: "🚗",
           title: "Private Transfer",
           desc: "Door to door from Naples or Sorrento in a 6-seat vehicle.",
-          price: "€250",
+          price: `from €${TRANSFER_FROM_PRICE}`,   // derived from `transfer.routes`
           priceNote: "per vehicle · one way",
           tone: "gold"
         },

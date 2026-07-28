@@ -12,40 +12,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 
-    <script>
-        // Broken images are hidden instead of showing a torn-image icon.
-        // Registered in <head> so it also catches photos that fail before the
-        // main script at the end of <body> has run. Uses capture because the
-        // "error" event of an <img> does not bubble.
-        (function () {
-            function hideBrokenImage(img) {
-                if (!img || img.dataset.imgFailed === '1') return;
-                img.dataset.imgFailed = '1';
-                img.style.display = 'none';
-
-                // A carousel whose photos have all failed would otherwise stay
-                // on screen as an empty box with dots, so drop the whole widget.
-                var wrap = img.closest && img.closest('.photo-carousel-wrap');
-                if (wrap && !wrap.querySelector('img:not([data-img-failed])')) {
-                    wrap.style.display = 'none';
-                }
-            }
-
-            document.addEventListener('error', function (e) {
-                var el = e.target;
-                if (el && el.tagName === 'IMG') hideBrokenImage(el);
-            }, true);
-
-            // Safety net for images that already finished failing before this
-            // listener existed, and for those injected into modals later.
-            window.addEventListener('load', function () {
-                document.querySelectorAll('img').forEach(function (img) {
-                    if (img.complete && img.naturalWidth === 0) hideBrokenImage(img);
-                });
-            });
-        })();
-    </script>
-
     <style>
         * {
             margin: 0;
@@ -1586,6 +1552,160 @@
     <script src="services-config.js"></script>
 
     <script>
+        // ═══════════════════════════════════════════════════════════
+        //  CONFIGURAZIONE SERVIZI
+        //  Tutto — prezzi, durate, distanze, credenziali WiFi — sta in
+        //  services-config.js, caricato qui sopra. Questo file non
+        //  contiene nessun valore: due configurazioni separate vogliono
+        //  dire prezzi che si aggiornano solo da una parte.
+        // ═══════════════════════════════════════════════════════════
+        const WA_NUMBER = SERVICES_CONFIG.whatsapp;
+        const WIFI = SERVICES_CONFIG.wifi;
+
+        // Scheda WiFi: rete, password e pulsanti per copiarle.
+        //
+        // Il pulsante di copia serve più di quanto sembri: una password
+        // letta da uno schermo e ridigitata su un telefono è la prima
+        // causa di "il wifi non funziona" — di solito è una maiuscola
+        // sbagliata.
+        function renderWifiCard() {
+            return `
+                <div class="contact-card">
+                    <h4>WiFi</h4>
+                    <p style="font-size: 13px; opacity: 0.7; margin-bottom: 4px;">Network</p>
+                    <p style="font-size: 20px; font-weight: 700; margin: 0 0 4px;">${WIFI.ssid}</p>
+                    <button type="button" onclick="copyToClipboard('${WIFI.ssid.replace(/'/g, "\\'")}', this)"
+                        style="background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); color: #fff; border-radius: 20px; padding: 7px 16px; font-size: 12.5px; font-weight: 700; cursor: pointer; margin-bottom: 18px;">
+                        Copy network
+                    </button>
+
+                    <p style="font-size: 13px; opacity: 0.7; margin-bottom: 4px;">Password</p>
+                    <p style="font-size: 22px; font-weight: 800; letter-spacing: 0.5px; margin: 0 0 4px;">${WIFI.password}</p>
+                    <button type="button" onclick="copyToClipboard('${WIFI.password.replace(/'/g, "\\'")}', this)"
+                        style="background: #fff; border: none; color: var(--navy); border-radius: 20px; padding: 9px 20px; font-size: 13px; font-weight: 800; cursor: pointer;">
+                        Copy password
+                    </button>
+                </div>
+            `;
+        }
+
+        // Copia negli appunti con conferma visiva sul pulsante stesso.
+        function copyToClipboard(text, btn) {
+            const conferma = () => {
+                const originale = btn.textContent;
+                btn.textContent = '✓ Copied';
+                setTimeout(() => { btn.textContent = originale; }, 1600);
+            };
+
+            if (navigator.clipboard?.writeText) {
+                navigator.clipboard.writeText(text).then(conferma).catch(() => fallback());
+            } else {
+                fallback();
+            }
+
+            // Safari su http o senza permessi: selezione manuale.
+            function fallback() {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); conferma(); } catch { /* niente da fare */ }
+                document.body.removeChild(ta);
+            }
+        }
+
+        // Link WhatsApp con messaggio precompilato.
+        function waLink(text) {
+            return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+        }
+
+        function formatDuration(min) {
+            const h = Math.floor(min / 60);
+            const m = min % 60;
+            if (h === 0) return `${m} min`;
+            return m === 0 ? `${h}h` : `${h}h ${m}min`;
+        }
+
+        // Sezione transfer, generata dalla configurazione.
+        //
+        // Struttura pensata per essere riusata dagli altri servizi
+        // (gozzo, chef): prezzo visibile, cosa include, UN SOLO bottone.
+        // Più bottoni su una schermata piccola fanno esitare invece che
+        // decidere.
+        function renderTransfer() {
+            const t = SERVICES_CONFIG.transfer;
+
+            const routes = t.routes.map((r) => `
+                <div class="route-card">
+                    <div class="route-info">
+                        <div class="route-from-label">From</div>
+                        <div class="route-place">${r.icon} ${r.name}</div>
+                        <div class="route-sub">${r.sub}</div>
+                        <div class="route-sub" style="margin-top:6px; opacity:0.75;">🕒 ${formatDuration(r.durationMin)} · ${r.distanceKm} km</div>
+                    </div>
+                    <div class="route-arrow">→</div>
+                    <div class="route-price-box">
+                        <div class="route-price">€${r.price}</div>
+                        <div class="route-price-dest">→ PRAIANO</div>
+                    </div>
+                </div>
+            `).join('');
+
+            const capacity = t.capacity.map((c) => `
+                <div class="vehicle-feat">
+                    <div class="vehicle-feat-icon">${c.icon}</div>
+                    <div class="vehicle-feat-label">${c.label}</div>
+                    <div class="vehicle-feat-sub">${c.note}</div>
+                </div>
+            `).join('');
+
+            // Il messaggio precompilato elenca le tratte così l'ospite
+            // cancella quelle che non gli servono: un solo bottone, e
+            // arriva comunque un messaggio che dice quale tratta vuole.
+            const messaggio =
+                "Hello! I'd like to request a private transfer.\n\n" +
+                `Route (keep the one you need): ${t.routes.map((r) => r.name).join(' / ')}\n` +
+                'Date:\nTime:\nPassengers:\nRound trip: yes / no';
+
+            return `
+                <div style="background:#f5f0e5; border-radius:12px; padding:12px 14px; margin-bottom:18px; font-size:13.5px; font-weight:700; color:var(--ink); text-align:center;">
+                    ${t.perVehicleNote}
+                </div>
+
+                <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6;">
+                    Arrive or depart in total comfort, door to door. No connections, no queues, no dragging luggage onto a bus — and we track your flight if it's delayed.
+                </p>
+
+                <h3>🛣️ Routes</h3>
+                ${routes}
+
+                <div style="background:#e7f1f6; border-radius:12px; padding:14px; margin:18px 0; text-align:center;">
+                    <div style="font-size:13px; color:var(--muted); margin-bottom:4px;">Round trip (both ways)</div>
+                    <div>
+                        <span style="font-size:26px; font-weight:800; color:var(--sea);">€${t.roundTrip.price}</span>
+                        <span style="font-size:15px; color:#a5a094; text-decoration:line-through; margin-left:8px;">€${t.roundTrip.insteadOf}</span>
+                    </div>
+                </div>
+
+                <h3>🚐 Capacity</h3>
+                <div class="vehicle-grid">${capacity}</div>
+
+                <div class="info-box">
+                    <p style="font-size: 14px; color: var(--muted);">All routes work in both directions. Need somewhere else — Rome, Salerno, Pompeii? Ask us and we'll quote it.</p>
+                </div>
+
+                <a href="${waLink(messaggio)}" target="_blank"
+                   class="book-wa-btn" style="width: 100%; justify-content: center; padding: 16px; font-size: 16px; border-radius: 14px; margin-top: 22px;">
+                    💬 Request transfer
+                </a>
+                <p style="text-align:center; font-size:12.5px; color:var(--muted); margin-top:10px;">
+                    ${t.confirmNote}
+                </p>
+            `;
+        }
+
         const modalData = {
             welcome: {
                 title: "Welcome to Villa Cristina",
@@ -1746,12 +1866,8 @@
             },
             wifi: {
                 title: "WiFi Connection",
-                content: `
-                    <div class="contact-card">
-                        <h4>WiFi Credentials</h4>
-                        <p style="font-size: 18px; margin: 15px 0;">Network: <strong>Villa Cristina wifi</strong></p>
-                        <p style="font-size: 18px;">Password: <strong>Praiano2024</strong></p>
-                    </div>
+                content: () => `
+                    ${renderWifiCard()}
 
                     <h3>Connection Info</h3>
                     <ul>
@@ -1792,7 +1908,7 @@
                     <ul>
                         <li><strong>By Car:</strong> A3 to Castellammare, then SS163 (90 min)</li>
                         <li><strong>By Bus:</strong> Curreri to Sorrento + SITA bus (2.5 hrs)</li>
-                        <li><strong>Private Transfer:</strong> We can arrange (€250)</li>
+                        <li><strong>Private Transfer:</strong> We can arrange it — see "Private Transfer" for prices</li>
                         <li><strong>By Train + Bus:</strong> To Salerno + SITA bus</li>
                     </ul>
 
@@ -2199,112 +2315,9 @@
             },
             transfer: {
                 title: "🚗 Private Transfer",
-                content: `
-                    <img src="https://images.unsplash.com/photo-1544620347460-35ea508edb70?w=800&q=80" alt="Luxury Transfer" class="transfer-hero">
-
-                    <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6;">
-                        Arrive or depart in total comfort. Our private transfer takes you to and from Praiano in a spacious 6-seat vehicle — perfect for families, groups, and heavy luggage. No stress, just relax!
-                    </p>
-
-                    <h3>🛣️ Main Routes</h3>
-
-                    <div class="route-card">
-                        <div class="route-info">
-                            <div class="route-from-label">From</div>
-                            <div class="route-place">✈️ Naples Airport</div>
-                            <div class="route-sub">Naples Capodichino (NAP)</div>
-                        </div>
-                        <div class="route-arrow">→</div>
-                        <div class="route-price-box">
-                            <div class="route-price">€250</div>
-                            <div class="route-price-dest">→ PRAIANO</div>
-                        </div>
-                    </div>
-
-                    <div class="route-card">
-                        <div class="route-info">
-                            <div class="route-from-label">From</div>
-                            <div class="route-place">🚉 Naples Train Station</div>
-                            <div class="route-sub">Napoli Centrale / Garibaldi</div>
-                        </div>
-                        <div class="route-arrow">→</div>
-                        <div class="route-price-box">
-                            <div class="route-price">€250</div>
-                            <div class="route-price-dest">→ PRAIANO</div>
-                        </div>
-                    </div>
-
-                    <div class="route-card">
-                        <div class="route-info">
-                            <div class="route-from-label">From</div>
-                            <div class="route-place">🌊 Sorrento</div>
-                            <div class="route-sub">Town centre / Sorrento Station</div>
-                        </div>
-                        <div class="route-arrow">→</div>
-                        <div class="route-price-box">
-                            <div class="route-price">€250</div>
-                            <div class="route-price-dest">→ PRAIANO</div>
-                        </div>
-                    </div>
-
-                    <div class="info-box">
-                        <p style="font-weight: 600; margin-bottom: 8px;">🔄 Available in both directions</p>
-                        <p style="font-size: 14px; color: var(--muted);">All routes are also available in reverse (Praiano → destination).</p>
-                        <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">Need a custom route? (Rome, Salerno, Pompeii, Bari…) Contact us for a quote!</p>
-                    </div>
-
-                    <h3>🚐 Our Vehicle</h3>
-                    <div class="vehicle-grid">
-                        <div class="vehicle-feat">
-                            <div class="vehicle-feat-icon">👥</div>
-                            <div class="vehicle-feat-label">6 Seats</div>
-                            <div class="vehicle-feat-sub">Spacious & comfortable</div>
-                        </div>
-                        <div class="vehicle-feat">
-                            <div class="vehicle-feat-icon">🧳</div>
-                            <div class="vehicle-feat-label">Large Boot</div>
-                            <div class="vehicle-feat-sub">Plenty of luggage space</div>
-                        </div>
-                        <div class="vehicle-feat">
-                            <div class="vehicle-feat-icon">❄️</div>
-                            <div class="vehicle-feat-label">Air Conditioning</div>
-                            <div class="vehicle-feat-sub">Cool & relaxing ride</div>
-                        </div>
-                        <div class="vehicle-feat">
-                            <div class="vehicle-feat-icon">📍</div>
-                            <div class="vehicle-feat-label">Door to Door</div>
-                            <div class="vehicle-feat-sub">Precise pickup & drop-off</div>
-                        </div>
-                    </div>
-
-                    <h3>💡 Why Choose Us</h3>
-                    <ul>
-                        <li>Fixed price per vehicle — not per person</li>
-                        <li>No connections, no queues, no buses</li>
-                        <li>Punctual and trusted driver</li>
-                        <li>Perfect for families, elderly guests or heavy luggage</li>
-                        <li>Flight monitoring — we track delays!</li>
-                    </ul>
-
-                    <h3>💳 How to Book</h3>
-                    <ul>
-                        <li>WhatsApp us with your date, time and pick-up point</li>
-                        <li>We confirm availability within minutes</li>
-                        <li>Pay cash on the day or send a deposit via PayPal</li>
-                    </ul>
-
-                    <a href="https://wa.me/393921394070?text=Hello!%20I'd%20like%20to%20book%20a%20private%20transfer.%20Date%3A%20%20Pick-up%3A%20%20Destination%3A%20Praiano"
-                       target="_blank"
-                       class="book-wa-btn" style="width: 100%; justify-content: center; padding: 16px; font-size: 16px; border-radius: 14px; margin-top: 20px;">
-                        💬 Book on WhatsApp
-                    </a>
-
-                    <div style="text-align: center; margin-top: 12px;">
-                        <a href="https://paypal.me/villacristinapraiano?country.x=IT&locale.x=it_IT" target="_blank" class="book-pp-btn" style="padding: 10px 24px;">
-                            💳 Pay deposit via PayPal
-                        </a>
-                    </div>
-                `
+                // Contenuto generato da SERVICES_CONFIG.transfer: prezzi,
+                // tempi e distanze stanno in configurazione, non qui.
+                content: () => renderTransfer()
             },
             extras: {
                 title: "✨ Extras & Experiences",
@@ -2504,12 +2517,11 @@
             const modalBody = document.getElementById('modalBody');
 
             modalTitle.textContent = data.title;
-            // Content is a plain string for static modals, or a function for
-            // modals whose cards depend on availability.
-            modalBody.innerHTML = typeof data.content === 'function'
-                ? data.content()
-                : data.content;
+            // content può essere una stringa o una funzione: le sezioni
+            // generate da SERVICES_CONFIG si ricalcolano a ogni apertura.
+            modalBody.innerHTML = typeof data.content === 'function' ? data.content() : data.content;
             document.querySelector('.modal-content').scrollTop = 0;
+            hideBrokenImages(modalBody);
 
             // Only capture the page scroll if the body isn't already locked
             // (i.e. we're not swapping content or reopening mid-close).
@@ -2581,6 +2593,39 @@
                 closeModal();
             }
         }, { passive: true });
+
+        // Immagini che non caricano: si nascondono invece di lasciare il
+        // placeholder rotto con il testo alternativo in bella vista.
+        //
+        // Un link a un servizio esterno può smettere di funzionare in
+        // qualsiasi momento — l'immagine sparisce senza che nessuno se ne
+        // accorga finché non lo segnala un ospite. Nascondere il riquadro
+        // rotto è sempre meglio che mostrarlo: la pagina resta pulita.
+        //
+        // Se l'immagine fa parte di un carosello, si toglie anche il
+        // pallino corrispondente, altrimenti resterebbe una slide vuota.
+        function hideBrokenImages(root) {
+            root.querySelectorAll('img').forEach((img) => {
+                const nascondi = () => {
+                    const wrap = img.closest('.photo-carousel-wrap');
+                    img.style.display = 'none';
+                    // Contenitore che esiste solo per l'immagine.
+                    if (img.classList.contains('transfer-hero') || img.classList.contains('exp-card-img')) {
+                        img.remove();
+                    }
+                    // Carosello rimasto senza foto: via tutto il blocco.
+                    if (wrap && wrap.querySelectorAll('img:not([style*="display: none"])').length === 0) {
+                        wrap.remove();
+                    }
+                };
+
+                img.addEventListener('error', nascondi, { once: true });
+                // Già fallita prima che allacciassimo il listener
+                // (immagine in cache negativa): complete=true ma senza
+                // dimensioni naturali.
+                if (img.complete && img.naturalWidth === 0) nascondi();
+            });
+        }
 
         // Photo carousels (initialized every time a modal is opened, since
         // modal content is injected on demand). Native scroll-snap handles the
@@ -2810,6 +2855,8 @@
         }
 
         renderServices();
+        // Anche le immagini fuori dai modali (hero, card in evidenza).
+        hideBrokenImages(document);
 
         // Reveal sections as they scroll into view
         const revealEls = document.querySelectorAll('.reveal');
