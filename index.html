@@ -1227,15 +1227,15 @@
                 </div>
 
                 <div class="split-grid">
-                    <div class="mini-card" onclick="openModal('transfer')">
-                        <div class="mini-emoji t-gold">🚗</div>
-                        <div class="mini-title">Private Transfer</div>
-                        <div class="mini-sub">Naples, Sorrento &amp; more · door to door</div>
+                    <div class="mini-card" onclick="openModal('explore')">
+                        <div class="mini-emoji t-sea">🧭</div>
+                        <div class="mini-title">Explore the coast</div>
+                        <div class="mini-sub">Boat, transfer, chef, guided walks · from €300</div>
                     </div>
-                    <div class="mini-card" onclick="openModal('extras')">
-                        <div class="mini-emoji t-terra">✨</div>
-                        <div class="mini-title">More Experiences</div>
-                        <div class="mini-sub">Chef, massage, wine tasting &amp; more</div>
+                    <div class="mini-card" onclick="openModal('comfort')">
+                        <div class="mini-emoji t-terra">🛎️</div>
+                        <div class="mini-title">Your comfort</div>
+                        <div class="mini-sub">Late check-out, basket, groceries · from €10</div>
                     </div>
                 </div>
             </div>
@@ -1399,6 +1399,144 @@
             password: 'Praiano2024'
         };
 
+        // ─── Catalogo servizi ────────────────────────────────────
+        //
+        // Ogni voce ha un prezzo visibile: un servizio senza prezzo non
+        // si vende, perché chiedere quanto costa è un attrito che la
+        // maggior parte degli ospiti non supera.
+        //
+        // price: numero (euro) oppure null = "su richiesta".
+        // unit:  cosa si paga (a barca, a persona, a valigia…).
+        // badge: 'popular' mette in evidenza. Da usare con parsimonia:
+        //        se tutto è in evidenza, niente lo è.
+        const CATALOG = {
+            explore: {
+                title: 'Explore the coast',
+                subtitle: 'The Amalfi Coast the way we’d do it',
+                items: [
+                    {
+                        id: 'gozzo-full',
+                        icon: '⛵',
+                        name: 'Gozzo Boat Tour — Full Day',
+                        desc: 'Traditional wooden gozzo with local skipper. Capri, Li Galli, hidden caves and swimming stops. Drinks, snacks and snorkelling gear included.',
+                        price: 900, unit: 'per boat · 7h', badge: 'popular'
+                    },
+                    {
+                        id: 'gozzo-half',
+                        icon: '🌤️',
+                        name: 'Gozzo Boat Tour — Half Day',
+                        desc: 'Half a day along the coast: Positano, Praiano and swimming stops in clear coves. All inclusive.',
+                        price: 550, unit: 'per boat · 4h'
+                    },
+                    {
+                        id: 'gozzo-sunset',
+                        icon: '🌅',
+                        name: 'Gozzo Boat Tour — Sunset',
+                        desc: 'Two hours at golden hour, with the coast lighting up seen from the water.',
+                        price: 350, unit: 'per boat · 2h'
+                    },
+                    {
+                        id: 'transfer',
+                        icon: '🚗',
+                        name: 'Private Transfer',
+                        desc: 'Naples airport, Naples Centrale or Sorrento. Door to door, we track your flight.',
+                        price: 300, unit: 'per vehicle · up to 6 people',
+                        opensModal: 'transfer'
+                    },
+                    {
+                        id: 'chef',
+                        icon: '👨‍🍳',
+                        name: 'Private Chef',
+                        desc: 'A chef cooks for you on the panoramic terrace. Four courses with Campanian wines.',
+                        price: null, unit: 'on request'
+                    },
+                    {
+                        id: 'massage',
+                        icon: '💆',
+                        name: 'In-Villa Massage',
+                        desc: 'A professional masseuse comes to the villa. Relax on the terrace to the sound of the sea.',
+                        price: null, unit: 'on request'
+                    },
+                    {
+                        id: 'path-gods',
+                        icon: '🥾',
+                        name: 'Path of the Gods with a guide',
+                        desc: 'The most famous walk on the coast, with someone who knows where to stop and when to start.',
+                        price: null, unit: 'on request'
+                    },
+                    {
+                        id: 'wine-tasting',
+                        icon: '🍷',
+                        name: 'Wine tasting — Furore or Tramonti',
+                        desc: 'Vineyards clinging to the cliffs. Tasting at a local winery, transfer arranged.',
+                        price: null, unit: 'on request'
+                    }
+                ]
+            },
+            comfort: {
+                title: 'Your comfort',
+                subtitle: 'Small things that make the stay easier',
+                items: [
+                    {
+                        id: 'late-checkout',
+                        icon: '🕓',
+                        name: 'Late check-out until 16:00',
+                        desc: 'Keep the villa until late afternoon. Subject to availability.',
+                        price: 80, unit: 'per stay', badge: 'popular'
+                    },
+                    {
+                        id: 'early-checkin',
+                        icon: '🕑',
+                        name: 'Early check-in from 12:00',
+                        desc: 'Arrive early and start the holiday three hours sooner.',
+                        price: 60, unit: 'per stay'
+                    },
+                    {
+                        id: 'luggage',
+                        icon: '🧳',
+                        name: 'Luggage storage after check-out',
+                        desc: 'Leave your bags with us and enjoy the last day without dragging them around.',
+                        price: 10, unit: 'per suitcase'
+                    },
+                    {
+                        id: 'welcome-basket',
+                        icon: '🧺',
+                        name: 'Welcome basket',
+                        desc: 'Local products waiting in the villa: limoncello, mozzarella, bread, tomatoes, olive oil.',
+                        price: 35, unit: 'per basket'
+                    },
+                    {
+                        id: 'wine-bottle',
+                        icon: '🍾',
+                        name: 'Bottle of local wine',
+                        desc: 'A bottle from the Amalfi Coast, chilled and ready on arrival.',
+                        price: 25, unit: 'per bottle'
+                    },
+                    {
+                        id: 'dessert',
+                        icon: '🍰',
+                        name: 'Traditional dessert',
+                        desc: 'Delizia al limone or a seasonal pastry from the local bakery.',
+                        price: 15, unit: 'per dessert'
+                    },
+                    {
+                        id: 'grocery',
+                        icon: '🛒',
+                        name: 'Pre-arrival grocery shop',
+                        desc: 'Send us your list and find everything in the fridge when you arrive.',
+                        price: 20, unit: 'service fee + groceries'
+                    },
+                    {
+                        id: 'mid-clean',
+                        icon: '🧹',
+                        name: 'Extra cleaning mid-stay',
+                        desc: 'A full clean during your stay, with fresh towels.',
+                        price: 60, unit: 'per cleaning'
+                    }
+                ]
+            }
+        };
+
         const SERVICES_CONFIG = {
             transfer: {
                 perVehicleNote: 'Price is per vehicle, not per person',
@@ -1441,6 +1579,84 @@
                 confirmNote: 'We confirm within a few hours'
             }
         };
+
+        // ─── Gancio Premura (predisposto, non ancora attivo) ──────
+        //
+        // L'app legge ?t=<token> dall'URL. Oggi non fa nulla: se il
+        // token manca — che è il caso normale — l'app funziona identica.
+        // Domani questa sarà l'unica funzione da riempire per avere nome
+        // dell'ospite, date del soggiorno e codici d'accesso da Premura.
+        //
+        // La lettura sta QUI e in nessun altro punto: l'aggancio futuro
+        // non dovrà cercare il token sparso per il file.
+        const GUEST_TOKEN = new URLSearchParams(location.search).get('t');
+
+        // Dati personalizzati dell'ospite. null = app in modalità
+        // generica, che deve restare pienamente utilizzabile.
+        let guestContext = null;
+
+        async function loadGuestContext() {
+            if (!GUEST_TOKEN) return null;
+            // TODO: chiamare l'endpoint Premura con GUEST_TOKEN e
+            // popolare { firstName, checkinAt, checkoutAt, accessCodes }.
+            // Finché non esiste, si resta in modalità generica: meglio
+            // un'app senza nome che una che non si apre.
+            return null;
+        }
+
+        // ─── Catalogo servizi ────────────────────────────────────
+        function formatPrice(item) {
+            return item.price === null ? 'On request' : `€${item.price}`;
+        }
+
+        function renderServiceCard(item) {
+            const badge = item.badge === 'popular'
+                ? '<span style="display:inline-block; background:var(--terracotta); color:#fff; font-size:9.5px; font-weight:800; letter-spacing:1px; text-transform:uppercase; border-radius:20px; padding:4px 10px; margin-bottom:8px;">Most requested</span>'
+                : '';
+
+            // Un servizio con una scheda dedicata apre quella; gli altri
+            // vanno dritti su WhatsApp. In entrambi i casi un solo tocco.
+            const azione = item.opensModal
+                ? `onclick="openModal('${item.opensModal}')"`
+                : `onclick="window.open('${waLink(`Hello! I'd like to request: ${item.name}`)}', '_blank')"`;
+
+            return `
+                <div class="exp-card" style="margin-bottom:14px;">
+                    <div class="exp-card-body">
+                        ${badge}
+                        <div class="exp-card-title">${item.icon} ${item.name}</div>
+                        <div class="exp-card-desc">${item.desc}</div>
+                        <div class="exp-card-footer">
+                            <div>
+                                <div class="exp-price">${formatPrice(item)}</div>
+                                <span class="exp-price-note">${item.unit}</span>
+                            </div>
+                            <button type="button" ${azione} class="book-wa-btn" style="border:none; cursor:pointer; font-family:inherit;">
+                                ${item.opensModal ? 'View' : '💬 Request'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCatalogSection(key) {
+            const sec = CATALOG[key];
+            return `
+                <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6;">
+                    ${sec.subtitle}. Tap Request and we'll reply on WhatsApp — usually within a few hours.
+                </p>
+                ${sec.items.map(renderServiceCard).join('')}
+
+                <div style="text-align: center; margin-top: 22px; padding: 20px; background: #f5f0e5; border-radius: 16px; border: 1px solid var(--line);">
+                    <p style="font-size: 14px; color: var(--muted); margin-bottom: 6px;">Something else in mind?</p>
+                    <p style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 14px;">Just ask — we'll sort it out ✨</p>
+                    <a href="${waLink('Hello! I have a request for our stay:')}" target="_blank" class="book-wa-btn" style="padding: 13px 28px; font-size: 15px; border-radius: 12px;">
+                        💬 Message us
+                    </a>
+                </div>
+            `;
+        }
 
         // Scheda WiFi: rete, password e pulsanti per copiarle.
         //
@@ -2170,6 +2386,14 @@
                 // Contenuto generato da SERVICES_CONFIG.transfer: prezzi,
                 // tempi e distanze stanno in configurazione, non qui.
                 content: () => renderTransfer()
+            },
+            explore: {
+                title: '🧭 Explore the coast',
+                content: () => renderCatalogSection('explore')
+            },
+            comfort: {
+                title: '🛎️ Your comfort',
+                content: () => renderCatalogSection('comfort')
             },
             extras: {
                 title: "✨ Extras & Experiences",
