@@ -80,11 +80,9 @@ const SERVICES_CONFIG = {
     confirmNote: "We confirm within a few hours"
   },
 
-  /* Section heading. The two group names below are in English because the rest
-     of the guest app is in English. In Italian they read:
-       "Your Comfort"      -> "Il tuo comfort"
-       "Explore the Coast" -> "Esplora la costiera"
-     Change the `label` fields to switch them over. */
+  /* Section heading. The whole guest app is in English — the guests are
+     international — so every string a guest can see belongs in English,
+     including the group labels below. */
   section: {
     eyebrow: "Premium Services",
     title: "Make your stay effortless",
@@ -153,7 +151,7 @@ const SERVICES_CONFIG = {
     /* ======================= GROUP 1 — YOUR COMFORT ======================= */
     {
       id: "comfort",
-      label: "Your Comfort",          // "Il tuo comfort"
+      label: "Your Comfort",
       icon: "✨",
       services: [
 
@@ -168,7 +166,7 @@ const SERVICES_CONFIG = {
           title: "Luggage Storage",
           desc: "Leave your bags with us after check-out and enjoy the last day.",
           price: "€10",
-          priceNote: "per suitcase · after check-out",
+          priceNote: "per bag · after check-out",
           tone: "sand"
         },
 
@@ -180,37 +178,11 @@ const SERVICES_CONFIG = {
           price: "€25",
           priceNote: "per bottle · Furore or Tramonti",
           tone: "terra"
-        },
-
-        {
-          id: "lemon-dessert",
-          icon: "🍋",
-          title: "Delizia al Limone",
-          desc: "The coast's classic lemon dessert, or another local sweet.",
-          price: "€15",
-          priceNote: "per order · from the local pasticceria",
-          tone: "gold"
-        },
-
-        {
-          id: "grocery-shop",
-          icon: "🛒",
-          title: "Pre-Arrival Grocery Shop",
-          desc: "Send us your list — the fridge is full the moment you walk in.",
-          price: "€20",
-          priceNote: "service fee + cost of groceries",
-          tone: "green"
-        },
-
-        {
-          id: "in-villa-massage",
-          icon: "💆",
-          title: "In-Villa Massage",
-          desc: "A professional masseuse comes to you — unwind on the terrace.",
-          price: "€90",
-          priceNote: "per person · 60 min · 24h notice",
-          tone: "purple"
         }
+
+        /* Removed on request: Pre-Arrival Grocery Shop, Delizia al Limone and
+           In-Villa Massage. The massage is not to come back — it was dropped
+           from Other Experiences too. */
 
       ]
     },
@@ -218,7 +190,7 @@ const SERVICES_CONFIG = {
     /* ==================== GROUP 2 — EXPLORE THE COAST ==================== */
     {
       id: "explore",
-      label: "Explore the Coast",     // "Esplora la costiera"
+      label: "Explore the Coast",
       icon: "🌊",
       services: [
 
